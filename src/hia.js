@@ -1,4 +1,3 @@
-
 //utils
 //import Papa from 'papaparse';
 import { stateModule as S } from 'stateful-dead';
@@ -23,19 +22,26 @@ publishWindowResize(S);
 
 
 const model = {
- 
+
 };
 
 const views = [];
 
 //var scrollPosition = 0;
 
-function getRuntimeData(){
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(true);
-        }, 1000);
-    });
+function getRuntimeData() {
+    return new Promise((resolveWrapper, rejectWrapper) => {
+        return fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d9dc47f1-2c76-444a-b4e3-b60d29bb3237&q=&sortBy=relevance&sortOrder=asc&page=1&perPage=10&loadAllPages=true&resourceTypes%5B%5D=HIA%20reports')
+            .then(function(response) {
+                var json = response.json();
+                if ( [200,301,304].indexOf(response.status) !== -1 ){
+                    resolveWrapper(json);
+                    return json;
+                } else {
+                    rejectWrapper(response.status);
+                }
+            });
+        });
     /*
     var publicPath = '';
     if ( process.env.NODE_ENV === 'production' && !window.IS_PRERENDERING ){ // production build needs to know the public path of assets
@@ -103,26 +109,27 @@ function getRuntimeData(){
 }
 
 export default class StateDebt extends PCTApp {
-    prerender(){
+    prerender() {
         console.log('prerender');
-        
-        getRuntimeData.call(this).then(() => { // bind StateDebt as context `this` for getRuntimeData so that it can acceess this.el, etc
+
+        getRuntimeData.call(this).then((v) => { 
+            console.log(v);
+            model.data = v.results;
             console.log(model);
-            
             views.forEach(view => {
                 view.container.appendChild(view.el); // different here from CapeTown: views aren't appended to app container; some static content
-                                                     // is present already. views appended to *their* containers
+                // is present already. views appended to *their* containers
             });
             //this.container.classList.add('rendered');
         });
     }
-    init(){
-        console.log('init');
+    init() {
+       /* console.log('init');
         super.init();
         getRuntimeData.call(this).then(() => {
             views.forEach(view => {
-               view.init(this);                    
+                view.init(this);
             });
-        });                                
+        });*/
     }
 }
