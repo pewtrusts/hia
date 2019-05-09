@@ -1,0 +1,15 @@
+[submodule "submodules/PCTApp-js"]
+    path = submodules/PCTApp-js
+    url = git@github.com:pewtrusts/PCTApp-js.git
+    branch = v1.0.1
+[submodule "submodules/UI-js"]
+    path = submodules/UI-js
+    url = git@github.com:pewtrusts/UI-js.git
+[submodule "submodules/UTILS"]
+    path = submodules/UTILS
+    url = git@github.com:pewtrusts/UTILS.git
+    branch = v3
+[submodule "submodules/ROUTR"]
+    path = submodules/ROUTR
+    url = git@github.com:pewtrusts/ROUTR.git
+    branch = v1
