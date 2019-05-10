@@ -1,0 +1,27 @@
+[
+    {
+        "id": "states",
+        "heading": "State and territories",
+        "text": "Where have HIAs been done in the United States?"
+    },
+    {
+        "id": "sectors",
+        "heading": "Sectors",
+        "text": "In what sectors have HIAs been conducted?"
+    },
+    {
+        "id": "drivers",
+        "heading": "Drivers of health",
+        "text": "What drivers of health have been addressed by HIAs?"
+    },
+    {
+        "id": "orgs",
+        "heading": "Organization type",
+        "text": "What kinds of organizations typically conduct HIAs?"
+    },
+    {
+        "id": "funding",
+        "heading": "Funding type",
+        "text": "How are HIAs funded? Who has been funding them?"
+    }
+]

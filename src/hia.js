@@ -1,14 +1,15 @@
 //utils
 //import Papa from 'papaparse';
-import { stateModule as S } from 'stateful-dead';
+//import { stateModule as S } from 'stateful-dead';
 
-import { publishWindowResize } from '@Utils';
+//import { publishWindowResize } from '@Utils';
 
-//data ( CSVs loaded by file-loader for use by Papaparse at build and runtime. that's set in webpack.common.js )
-//import data from './data/data.csv';
+//data 
+import sections from './data/sections.json';
 
 //views
-//import ComparisonView from './views/state-comparison/';
+import MenuView from './views/menu-view/';
+import SectionView from './views/section-view/';
 //import FiftyStateView from './views/fifty-state/';
 
 // app prototype
@@ -18,11 +19,11 @@ import PCTApp from '@App';
 //import sections from './partials/sections.html';
 //import footer from './partials/footer.html';
 
-publishWindowResize(S);
+//publishWindowResize(S);
 
 
 const model = {
-
+    sections
 };
 
 const views = [];
@@ -30,106 +31,63 @@ const views = [];
 //var scrollPosition = 0;
 
 function getRuntimeData() {
+    /*  this fn gets the data from the API set up for the HIA data tool. it's wrapped in another Promise to give easier control over over resolve and reject
+        resolves with the JSON response */
     return new Promise((resolveWrapper, rejectWrapper) => {
         return fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d9dc47f1-2c76-444a-b4e3-b60d29bb3237&q=&sortBy=relevance&sortOrder=asc&page=1&perPage=10&loadAllPages=true&resourceTypes%5B%5D=HIA%20reports')
             .then(function(response) {
                 var json = response.json();
-                if ( [200,301,304].indexOf(response.status) !== -1 ){
+                if ([200, 301, 304].indexOf(response.status) !== -1) {
                     resolveWrapper(json);
                     return json;
                 } else {
                     rejectWrapper(response.status);
                 }
             });
-        });
-    /*
-    var publicPath = '';
-    if ( process.env.NODE_ENV === 'production' && !window.IS_PRERENDERING ){ // production build needs to know the public path of assets
-                                                                             // for dev and preview, assets are a child of root; for build they
-                                                                             // are in some distant path on sitecore
-        publicPath = PUBLICPATH; // TODO: set PUBLICPATH using define plugin in webpack.build.js
-    }
-    return new Promise((resolve, reject) => {
-        var appContainer = this.el;
-        Papa.parse(publicPath + data, {
-            download: true,
-            dynamicTyping: true,
-            header: true,
-            fastMode: true, // no string escapes
-            skipEmptyLines: true,
-            beforeFirstChunk(chunk){ // on prerender, do simple hash of CSV contents and append as attribute of the app container
-                                     // at runtime, do same hash of csv contents and compare to original. if hashes match, app will
-                                     // continue normally. if mismatched, app will rerender all components based on the new data.
-                                     // this allows for `hot` updating of the main data file without rebuilding the dist/ folder.
-                                     // `model.isMismatch` will be set to `true` and the prerendering functions will check that value
-                                     // and respond accordingly
-
-                var dataHash = chunk.hashCode(); // hashCode is helper function from utils, imported and IIFE'd in index.js
-                if ( window.IS_PRERENDERING ){
-                    appContainer.setAttribute('data-data-hash', dataHash);
-                } else if ( process.env.NODE_ENV !== 'development' && dataHash.toString() !== appContainer.getAttribute('data-data-hash') ){
-                    appContainer.setAttribute('data-data-mismatch',true);
-                    console.log('data mismatch');
-                    model.isMismatched = true; // set so that components can access this value 
-                }
-            },
-            complete: response => { // arrow function here to keep `this` context as StateDebt
-                
-                views.length = 0;  // HERE YOU NEED TO NEST BY USING THE THE GROUP THAT THE VALUE MAPS TO
-                var data = response.data;
-                // complete model based on fetched data 
-                model.data = data;
-                model.types.forEach(type => {
-                    if ( type.type !== 'text'){
-                        let dataArray = data.map(d => d[type.field]).filter(d => d !== null); 
-                        type.max = Math.max(...dataArray);
-                        type.min = Math.min(...dataArray);
-                        type.spread = type.max - type.min;
-                        type.crossesZero = type.max * type.min <= 0;
-                    }
-                });
-                model.typesNested = d3.nest().key(d => d.group).entries(model.types);
-                console.log(model);
-                // ....
-               
-                // push views now that model is complete 
-                
-                views.push(
-                    this.createComponent(model, ComparisonView, 'div#comparison-view', {renderToSelector: '#section-comparison .js-inner-content', rerenderOnDataMismatch: true, parent: this}),  
-                    this.createComponent(model, FiftyStateView, 'div#fifty-state-view', {renderToSelector: '#section-states .js-inner-content', rerenderOnDataMismatch: true, parent: this})  
-                );
-                
-                resolve(true);
-            },
-            error: function(error){
-                reject(error);
-            }
-        });
-    });*/
+    });
 }
 
 export default class StateDebt extends PCTApp {
     prerender() {
-        console.log('prerender');
-
         getRuntimeData.call(this).then((v) => { 
-            console.log(v);
             model.data = v.results;
-            console.log(model);
+            /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
+               if it is the same or not. if note the same, views will have to be rerendered. */
+            this.el.setAttribute('data-data-hash', JSON.stringify(v.results).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
+            this.summarizeData();
+            this.pushViews();
             views.forEach(view => {
-                view.container.appendChild(view.el); // different here from CapeTown: views aren't appended to app container; some static content
-                // is present already. views appended to *their* containers
+                view.container.appendChild(view.el); 
             });
-            //this.container.classList.add('rendered');
         });
     }
     init() {
-       /* console.log('init');
         super.init();
-        getRuntimeData.call(this).then(() => {
+        getRuntimeData.call(this).then((v) => {
+            model.data = v.results;
+            console.log(this.el.dataset.dataHash, JSON.stringify(v.results).hashCode());
+            if ( this.el.dataset.dataHash != JSON.stringify(v.results).hashCode() ){
+                this.el.setAttribute('data-data-mismatch', true);
+                model.isMismatched = true;
+            }
+            this.summarizeData();
+            this.pushViews();
             views.forEach(view => {
                 view.init(this);
             });
-        });*/
+            console.log(model);
+        });
+    }
+    pushViews(){
+        views.push(
+            this.createComponent(model, MenuView, 'div#menu-view', {renderToSelector: '#pew-app', parent: this}),
+            this.createComponent(model, SectionView, 'div#section-view', {renderToSelector: '#pew-app', parent: this})
+            //this.createComponent(model, ComparisonView, 'div#comparison-view', {renderToSelector: '#section-comparison .js-inner-content', rerenderOnDataMismatch: true, parent: this}),  
+            //this.createComponent(model, FiftyStateView, 'div#fifty-state-view', {renderToSelector: '#section-states .js-inner-content', rerenderOnDataMismatch: true, parent: this})  
+        );
+    }
+    summarizeData(){
+        /* to do */
+        /* this fn will calculate any summaries necessary for the app such an min and max, average, etc*/
     }
 }
