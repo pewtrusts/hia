@@ -18,7 +18,7 @@ module.exports = env => {
         plugins: [
             new CleanWebpackPlugin([folder.replace(/\//g,'')]),
             new HtmlWebpackPlugin({
-                title: 'A Tool for Better Debt Comparisons',
+                title: 'title title',
                 template: './src/index-dev.html',
             }),
             new CopyWebpackPlugin([{
@@ -48,7 +48,8 @@ module.exports = env => {
                 renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
                     injectProperty: 'IS_PRERENDERING',
                     inject: true,
-                    renderAfterTime: 1000
+                    renderAfterTime: 1000,
+                    //headless: false
                 }),
                 postProcess: function(renderedRoute){
                     renderedRoute.html = pretty(renderedRoute.html);
