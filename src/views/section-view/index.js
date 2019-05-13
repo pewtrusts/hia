@@ -7,6 +7,8 @@ import Element from '@UI/element';
 import MapView from './../map-view/index.js';
 import WaffleView from './../waffle-view/index.js';
 
+import Menu from '@Project/components/menu';
+
 /* SectionView will be the shared scaffolding for all views except MenuView. It will include the top menu, the container for either MapView or BarView,
 and the container for WaffleView */
 
@@ -19,12 +21,14 @@ export default class SectionView extends Element {
         this.name = 'SectionView';
         console.log(this);
         this.children.push(
+            this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'div#map-view'),
             this.createComponent(WaffleView, 'div#waffle-view')
         );
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
+        view.classList.add('section-view');
         /* to do */
         
         /*
@@ -34,7 +38,6 @@ export default class SectionView extends Element {
         ...
 
         */
-       
         return view;
     }
     init(){
@@ -57,5 +60,17 @@ export default class SectionView extends Element {
 
         */
 
+    }
+}
+
+class TopMenu extends Menu {
+    prerender(){
+        var view = super.prerender();
+        this.name = 'TopMenu';
+        if ( this.prerendered && !this.rerender) {
+            return view; // if prerendered and no need to render (no data mismatch)
+        }
+
+        return view;
     }
 }

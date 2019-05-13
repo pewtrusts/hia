@@ -22,7 +22,7 @@ export default class MapView extends Element {
         ...
 
         */
-       
+       view.innerText = this.name;
         return view;
     }
     init(){

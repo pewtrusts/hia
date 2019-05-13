@@ -16,17 +16,23 @@ export default class WaffleView extends Element {
         }
         /* to do */
         
+        // title ie Select a state or territory
+        // dropdown
+        // legend
+        // show all
         /*
         ...
         ...
         ...
 
         */
-       
+       view.innerText = this.name;
         return view;
     }
     init(){
         /* to do*/
+
+        //subscribe to secondary dimension , drilldown, details
     }
     clickHandler(){
         /* to do */
