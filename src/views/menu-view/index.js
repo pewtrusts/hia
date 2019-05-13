@@ -3,6 +3,9 @@ import Element from '@UI/element';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
+/* MenuView will be the first page menu allowing users to select how they want to view the data */
+// WILL BE SHARED. Called once by hia.js ( `this` == App ) for the main menu view and then
+// also by SectionView. MenuClass styles should be minimal; allow calling context to provide the bulk
 export default class MenuView extends Element {
     
     prerender(){
@@ -21,11 +24,12 @@ export default class MenuView extends Element {
         ...
 
         */
-       
-        return view;
+        
+        return view;            
     }
     init(){
-        /* to do*/
+        console.log(this);
+        /* to do*/      
         /* get each section and attache eventlistener to handle click */
     }
     clickHandler(){

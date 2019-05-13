@@ -47,41 +47,43 @@ function getRuntimeData() {
     });
 }
 
-export default class StateDebt extends PCTApp {
+export default class HIA extends PCTApp {
     prerender() {
         getRuntimeData.call(this).then((v) => { 
             model.data = v.results;
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */
+            this.model = model;
             this.el.setAttribute('data-data-hash', JSON.stringify(v.results).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
             this.summarizeData();
             this.pushViews();
-            views.forEach(view => {
+       /*     views.forEach(view => {
                 view.container.appendChild(view.el); 
-            });
+            });*/
         });
     }
     init() {
         super.init();
         getRuntimeData.call(this).then((v) => {
             model.data = v.results;
+            this.model = model;
             console.log(this.el.dataset.dataHash, JSON.stringify(v.results).hashCode());
             if ( this.el.dataset.dataHash != JSON.stringify(v.results).hashCode() ){
                 this.el.setAttribute('data-data-mismatch', true);
-                model.isMismatched = true;
+                this.model.isMismatched = true;
             }
             this.summarizeData();
             this.pushViews();
             views.forEach(view => {
                 view.init(this);
             });
-            console.log(model);
+            console.log(this.model);
         });
     }
     pushViews(){
         views.push(
-            this.createComponent(model, MenuView, 'div#menu-view', {renderToSelector: '#pew-app', parent: this}),
-            this.createComponent(model, SectionView, 'div#section-view', {renderToSelector: '#pew-app', parent: this})
+            this.createComponent(MenuView, 'div#menu-view'),
+            this.createComponent(SectionView, 'div#section-view')
             //this.createComponent(model, ComparisonView, 'div#comparison-view', {renderToSelector: '#section-comparison .js-inner-content', rerenderOnDataMismatch: true, parent: this}),  
             //this.createComponent(model, FiftyStateView, 'div#fifty-state-view', {renderToSelector: '#section-states .js-inner-content', rerenderOnDataMismatch: true, parent: this})  
         );
