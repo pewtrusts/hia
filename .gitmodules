@@ -5,10 +5,11 @@
 [submodule "submodules/UI-js"]
     path = submodules/UI-js
     url = git@github.com:pewtrusts/UI-js.git
+    branch = v3
 [submodule "submodules/UTILS"]
     path = submodules/UTILS
     url = git@github.com:pewtrusts/UTILS.git
-    branch = v3
+    branch = v4
 [submodule "submodules/ROUTR"]
     path = submodules/ROUTR
     url = git@github.com:pewtrusts/ROUTR.git
