@@ -1,8 +1,7 @@
 import Element from '@UI/element';
 import s from './styles.scss';
 import { stateModule as S } from 'stateful-dead';
-//import { GTMPush } from '@Utils';
-
+import { GTMPush } from '@Utils';
 
 
 export default class Menu extends Element {
@@ -14,14 +13,17 @@ export default class Menu extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         
-        var list = document.createElement('ul');
+        var list = document.createElement('nav');
+        list.setAttribute('aria-label', 'In-page');
+        list.setAttribute('aria-controls', 'map-view bar-view waffle-view');
         list.classList.add(s.menuList);
         
         this.model.sections.forEach(section => {
-            var item = document.createElement('li');
+            var item = document.createElement('a');
+            item.href = `#${section.id}`;
             item.innerHTML = `${section.heading} <span>${section.text}</span>`;
             item.setAttribute('data-section', section.id);
-            item.setAttribute('tabindex', 0);
+            //item.setAttribute('tabindex', 0);
             list.appendChild(item);
         });
         
@@ -31,13 +33,15 @@ export default class Menu extends Element {
     init(){
        
         var _this = this;
-        this.el.querySelectorAll('li').forEach(item => {
+        this.el.querySelectorAll('a').forEach(item => {
             console.log(item);
-            item.addEventListener('click', () => {
-                this.clickHandler(this.name);
+            item.addEventListener('click', function(e){
+                e.preventDefault()
+                _this.clickHandler.call(this, _this.name);
             });
             item.addEventListener('keyup', function(e){
                 if (e.keyCode === 13 ){ // enter key
+                    e.preventDefault();
                     _this.clickHandler.call(this, _this.name);
                 }
                 
@@ -46,7 +50,9 @@ export default class Menu extends Element {
         //subscribe to secondary dimension , drilldown, details
     }
     clickHandler(name){
+        console.log(this.dataset);
         console.log('click', name);
-        S.setState('view', this.dataSet.section);
+        GTMPush(`HIA|Navigate|${name}|${this.dataset.section}`);
+        S.setState('view', this.dataset.section);
     }
 }

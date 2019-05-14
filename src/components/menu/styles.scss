@@ -15,7 +15,7 @@
     border-top: 1px solid #fff;
 
     margin-top: 55px;
-    li {
+    a {
         margin: 0;
         font-weight: bold;
         line-height: 125%;
@@ -24,6 +24,10 @@
         &:hover, &:focus {
             background-color: $dark_blue;
         }
+        color: #fff;
+        &:active, &:visited {
+            color:#fff;
+        }
     }
 }
 
@@ -31,7 +35,7 @@
     .menuList {
 
     }
-    li {
+    a {
         font-size: 32px;
         width: 50%;
         padding: 50px 60px 50px 50px;
@@ -48,6 +52,9 @@
             font-weight: normal;
             line-height: 125%;
         }
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 
@@ -55,7 +62,7 @@
     .menuList {
         background-color: $medium_blue;
     }
-    li {
+    a {
         position: relative;
         font-weight: bold;
         width: 165px;
@@ -68,6 +75,8 @@
         span {
             position: absolute;
             opacity: 0;
+            height: 0;
+            overflow: hidden;
         }
     }
 }

@@ -41,6 +41,10 @@ export default class SectionView extends Element {
         return view;
     }
     init(){
+        this.children.forEach(child => {
+            console.log(child);
+            child.init();
+        });
         /* to do*/
         /* get each top menu item and attache eventlistener to handle click
             S.seState().
