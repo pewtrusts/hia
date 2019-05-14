@@ -21,7 +21,7 @@
         line-height: 125%;
         cursor: pointer;
         transition: background-color 0.2s ease-in-out;
-        &:hover, &:focus {
+        &:hover, &:focus, &.active {
             background-color: $dark_blue;
         }
         color: #fff;

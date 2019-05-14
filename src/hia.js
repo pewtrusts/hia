@@ -1,3 +1,4 @@
+/* global process */
 //utils
 //import Papa from 'papaparse';
 //import { stateModule as S } from 'stateful-dead';
@@ -57,27 +58,30 @@ export default class HIA extends PCTApp {
             this.el.setAttribute('data-data-hash', JSON.stringify(v.results).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
             this.summarizeData();
             this.pushViews();
-       /*     views.forEach(view => {
-                view.container.appendChild(view.el); 
-            });*/
+            if ( process.env.NODE_ENV === 'development' ){
+                this.init();
+            }
         });
     }
     init() {
+        console.log('init App!');
+        views.length = 0;
         super.init();
+
         getRuntimeData.call(this).then((v) => {
             model.data = v.results;
             this.model = model;
-            console.log(this.el.dataset.dataHash, JSON.stringify(v.results).hashCode());
             if ( this.el.dataset.dataHash != JSON.stringify(v.results).hashCode() ){
                 this.el.setAttribute('data-data-mismatch', true);
                 this.model.isMismatched = true;
             }
             this.summarizeData();
+
             this.pushViews();
+            console.log(views);
             views.forEach(view => {
                 view.init(this);
             });
-            console.log(this.model);
         });
     }
     pushViews(){

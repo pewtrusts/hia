@@ -3,7 +3,6 @@ import s from './styles.scss';
 import { stateModule as S } from 'stateful-dead';
 import { GTMPush } from '@Utils';
 
-
 export default class Menu extends Element {
     
     prerender(){
@@ -31,28 +30,30 @@ export default class Menu extends Element {
         return view;
     }
     init(){
-       
+        
         var _this = this;
         this.el.querySelectorAll('a').forEach(item => {
             console.log(item);
             item.addEventListener('click', function(e){
-                e.preventDefault()
-                _this.clickHandler.call(this, _this.name);
+                e.preventDefault();
+                _this.clickHandler.call(this, _this);
             });
             item.addEventListener('keyup', function(e){
                 if (e.keyCode === 13 ){ // enter key
                     e.preventDefault();
-                    _this.clickHandler.call(this, _this.name);
+                    _this.clickHandler.call(this, _this);
                 }
                 
             });
         });
-        //subscribe to secondary dimension , drilldown, details
+
+        
     }
-    clickHandler(name){
-        console.log(this.dataset);
-        console.log('click', name);
-        GTMPush(`HIA|Navigate|${name}|${this.dataset.section}`);
+    
+    clickHandler(context){
+        console.log(context);
+        console.log('click', context.name);
+        GTMPush(`HIA|Navigate|${context.name}|${this.dataset.section}`);
         S.setState('view', this.dataset.section);
     }
 }

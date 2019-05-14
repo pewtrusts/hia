@@ -1,5 +1,6 @@
 import Element from '@UI/element';
-//import s from './styles.scss';
+import PS from 'pubsub-setter';
+import s from './styles.scss';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
@@ -19,7 +20,6 @@ export default class SectionView extends Element {
          //container
         var view = super.prerender();
         this.name = 'SectionView';
-        console.log(this);
         this.children.push(
             this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'div#map-view'),
@@ -53,18 +53,6 @@ export default class SectionView extends Element {
             and to change the views
         */
     }
-    clickHandler(){
-        /* to do */
-        /* 
-            —publish event on basis of which section was selected
-            
-            ACTUALLY SHOULD BE ABLE TO SHARE THIS WITH MENUVIEW
-            S.setState();
-            GTMPush()
-
-        */
-
-    }
 }
 
 class TopMenu extends Menu {
@@ -76,5 +64,15 @@ class TopMenu extends Menu {
         }
 
         return view;
+    }
+    init(){
+        super.init();
+        PS.setSubs([['view', this.indicateActiveSection.bind(this)]]);
+    }
+    indicateActiveSection(msg,data){
+        this.el.querySelectorAll('a').forEach(link => {
+            link.classList.remove(s.active);
+        });
+        this.el.querySelector(`a[data-section="${data}"`).classList.add(s.active);
     }
 }
