@@ -88,8 +88,6 @@ export default class HIA extends PCTApp {
         views.push(
             this.createComponent(MenuView, 'div#menu-view'),
             this.createComponent(SectionView, 'div#section-view')
-            //this.createComponent(model, ComparisonView, 'div#comparison-view', {renderToSelector: '#section-comparison .js-inner-content', rerenderOnDataMismatch: true, parent: this}),  
-            //this.createComponent(model, FiftyStateView, 'div#fifty-state-view', {renderToSelector: '#section-states .js-inner-content', rerenderOnDataMismatch: true, parent: this})  
         );
     }
     summarizeData(){

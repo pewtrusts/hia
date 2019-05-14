@@ -1,6 +1,7 @@
 import Element from '@UI/element';
 import s from './styles.scss';
-//import { stateModule as S } from 'stateful-dead';
+import { stateModule as S } from 'stateful-dead';
+import PS from 'pubsub-setter'
 //import { GTMPush } from '@Utils';
 
 import Menu from '@Project/components/menu';
@@ -34,6 +35,8 @@ export default class MenuView extends Element {
         return view;            
     }
     init(){
+
+        PS.setSubs([['isSelected', this.hideSection.bind(this)]]);
         console.log('init');
         this.children.forEach(child => {
             console.log(child);
@@ -42,18 +45,8 @@ export default class MenuView extends Element {
         /* to do*/      
         /* get each section and attache eventlistener to handle click */
     }
-    clickHandler(){
-        /* to do */
-        /* 
-            —publish event on basis of which section was selected
-            —hide menu. it never comes back
-            -showScaffolding and populate based on selection 
-
-            S.setState();
-            GTMPush()
-
-        */
-
+    hideSection(){
+        this.el.style.display = 'none';
     }
 }
 
@@ -66,5 +59,9 @@ class MainMenu extends Menu {
         }
 
         return view;
+    }
+    clickHandler(context){
+        super.clickHandler(context);
+        S.setState('isSelected', true);
     }
 }

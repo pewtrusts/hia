@@ -29,6 +29,7 @@ export default class SectionView extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         view.classList.add('section-view');
+        view.style.display = 'none';
         /* to do */
         
         /*
@@ -41,6 +42,9 @@ export default class SectionView extends Element {
         return view;
     }
     init(){
+        PS.setSubs([['isSelected', () => {
+            this.showSection.call(this); // not using (bind) bs it would somehow hash to the the same as another PubSub
+        }]]);
         this.children.forEach(child => {
             console.log(child);
             child.init();
@@ -52,6 +56,10 @@ export default class SectionView extends Element {
             also PS.setSubs() to indicate active top menu section
             and to change the views
         */
+    }
+    showSection(){
+        this.el.style.display = 'block';
+        return;
     }
 }
 
