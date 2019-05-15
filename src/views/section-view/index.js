@@ -22,8 +22,8 @@ export default class SectionView extends Element {
         this.name = 'SectionView';
         this.children.push(
             this.createComponent(TopMenu, 'div#top-menu'),
-            this.createComponent(MapView, 'div#map-view'),
-            this.createComponent(WaffleView, 'div#waffle-view')
+            this.createComponent(MapView, 'section#map-view'),
+            this.createComponent(WaffleView, 'section#waffle-view')
         );
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
