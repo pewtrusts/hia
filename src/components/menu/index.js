@@ -19,12 +19,19 @@ export default class Menu extends Element {
         
         this.model.sections.forEach(section => {
             var item = document.createElement('a');
+            item.classList.add(s.navLink);
             item.href = `#${section.id}`;
             item.innerHTML = `${section.heading} <span>${section.text}</span>`;
             item.setAttribute('data-section', section.id);
             //item.setAttribute('tabindex', 0);
             list.appendChild(item);
         });
+        if ( this.model.sections.length % 2 === 1 ){
+            let extraItem = document.createElement('div');
+            extraItem.classList.add(s.navLink, s.placeholderMenuItem);
+            extraItem.setAttribute('disabled', 'disabled');
+            list.appendChild(extraItem);
+        }
         
         view.appendChild(list);
         return view;

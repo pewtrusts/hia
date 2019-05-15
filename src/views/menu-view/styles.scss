@@ -3,7 +3,7 @@
 .menuView {
     //display: none; // REMOVE THIS
     background-color: $medium_blue;
-    height: calc(100vh - 220px);
+    //min-height: calc(100vh - 220px);
     h2 {
         color: #fff;
         text-align: center;

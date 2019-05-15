@@ -15,7 +15,7 @@
     border-top: 1px solid #fff;
 
     margin-top: 55px;
-    a {
+    .navLink {
         margin: 0;
         font-weight: bold;
         line-height: 125%;
@@ -33,11 +33,12 @@
 
 :global(.menu-view) {
     .menuList {
+
         @media screen and (max-width: 655px){
             margin-top: 27px;
         }
     }
-    a {
+    .navLink {
         font-size: 32px;
         width: 50%;
         padding: 50px 60px 50px 50px;
@@ -74,20 +75,32 @@
         &:hover {
             text-decoration: none;
         }
+        &.placeholderMenuItem {
+            display: none;
+        }
     }
 }
 
 :global(.section-view){
     .menuList {
+        width: 100%;
+        margin-top: 0;
         background-color: $medium_blue;
+        display: table;
+        @media screen and (max-width: 620px){
+            display: flex;
+        }
     }
-    a {
+    .navLink {
+        display: table-cell;
         position: relative;
         font-weight: bold;
-        width: 165px;
+        width: 20%;
+        max-width: 165px;
         text-align: center;
         border-right: 3px solid #fff;
-        padding: 8px 0;
+        padding: 8px 8px;
+        vertical-align: middle;
         &:first-child {
             //border-left: 3px solid #fff;
         }
@@ -96,6 +109,36 @@
             opacity: 0;
             height: 0;
             overflow: hidden;
+        }
+        &.placeholderMenuItem {
+            display: none;
+            cursor: default;
+            &:hover {
+                background-color: inherit;
+            }
+        }
+        @media screen and (max-width: 620px){
+            display: block;
+            width: 100%;
+            max-width: 50%;
+            border-top: 3px solid #fff;
+            &:nth-child(even){
+                border-right-width: 0; 
+            }
+            &.placeholderMenuItem {
+                display: block;
+
+            }
+
+        }
+        @media screen and (max-width: 370px){
+            max-width: 100%;
+            border-right-width: 0;
+            text-align: left;
+            &.placeholderMenuItem {
+                display: none;
+            }
+
         }
     }
 }
