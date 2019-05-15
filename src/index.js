@@ -4,6 +4,7 @@
 import { StringHelpers, FadeInText } from '@Utils'; // string helpers is an IIFE
 import HIA from './hia.js';
 import './css/styles.scss';
+import './css/modal-styles.scss';
 
 
 const selector = '#pew-app';

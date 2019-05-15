@@ -1,0 +1,25 @@
+@import 'variable.scss';
+
+:global(.explore-module__modal-inner) {
+    height: 100%;
+    margin-top: 0;
+   //overflow-y: scroll; 
+}
+:global(.explore-module--iframe > .container) {
+    max-height: calc(100vh - 120px);
+   overflow-y: scroll;
+}
+@media screen and (max-width: 920px) {
+    :global(.explore-module__sub-item-title) {
+        margin: 10px 0;
+    }
+    :global(.explore-module__close-modal) {
+        top: 10px;
+    }
+}
+@media screen and (max-width: 470px) {
+
+    :global(.explore-module--iframe) {
+       padding: 0 20px !important;
+    }
+}
