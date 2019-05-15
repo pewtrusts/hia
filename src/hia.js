@@ -7,6 +7,7 @@
 
 //data 
 import sections from './data/sections.json';
+import stateAbbreviations from './data/state-abbreviations.json';
 
 //views
 import MenuView from './views/menu-view/';
@@ -24,7 +25,8 @@ import PCTApp from '@App';
 
 
 const model = {
-    sections
+    sections,
+    stateAbbreviations
 };
 
 const views = [];
@@ -93,5 +95,6 @@ export default class HIA extends PCTApp {
     summarizeData(){
         /* to do */
         /* this fn will calculate any summaries necessary for the app such an min and max, average, etc*/
+        console.log(this.model.data);
     }
 }

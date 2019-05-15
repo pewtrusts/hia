@@ -29,7 +29,7 @@ export default class SectionView extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         view.classList.add('section-view');
-        view.style.display = 'none';
+        //view.style.display = 'none';
         /* to do */
         
         /*

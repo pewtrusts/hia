@@ -1,6 +1,9 @@
 import Element from '@UI/element';
-import mapSVG from 'html-loader!./map.min.svg';
+import mapSVG from 'html-loader!./map.svg';
 import s from './styles.scss';
+
+import * as d3 from 'd3-collection';
+import chroma from 'chroma-js';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
@@ -12,10 +15,14 @@ export default class MapView extends Element {
          //container
         var view = super.prerender();
         this.name = 'MapView';
+        
+        this.nestedByState = d3.nest().key(d => d.state).entries(this.model.data);
+        this.getMaxCount();
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         
+
         //title
         var title = document.createElement('h2');
         title.textContent = this.model.sections.find(d => d.id === 'states').text;
@@ -23,8 +30,7 @@ export default class MapView extends Element {
 
 
         //map
-        var mapContainer = document.createElement('div');
-        mapContainer.innerHTML = mapSVG;
+        var mapContainer = this.prerenderMap();
         
 
         view.appendChild(title);
@@ -32,6 +38,34 @@ export default class MapView extends Element {
 
        //view.innerText = this.name;
         return view;
+    }
+    prerenderMap(){
+        var mapContainer = document.createElement('div');
+        mapContainer.innerHTML = mapSVG;
+        
+        this.colorScale = chroma.scale(['#296EC3', '#5AC7BE']).domain([1, Math.log(this.maxCount)]);
+
+
+        this.nestedByState.forEach(d => {
+            var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
+            var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+            console.log(this.model.stateAbbreviations, d, stateGroup);
+            if ( d.key !== "null") {
+                if ( stateGroup ){
+                    stateGroup.querySelector('.state__path').style.fill = this.colorScale(Math.log(d.values.length));
+                }
+                if ( stateBox ){
+                    stateBox.style.fill = this.colorScale(Math.log(d.values.length));
+                }
+                
+            }
+        });
+
+        return mapContainer;
+    }
+    getMaxCount(){
+        console.log(this.nestedByState.map(d => d.values.length));
+        this.maxCount = Math.max(...this.nestedByState.map(d => d.values.length));
     }
     init(){
         /* to do*/
