@@ -9,6 +9,7 @@ import tippy from 'tippy.js';
 //import { GTMPush } from '@Utils';
 
 const gradient = ['#5AC7BE', '#296EC3'];
+//const gradient = ['#2c75ce', '#09132a'];
 const legendTitle = 'Number of health impact assessments';
 
 export default class MapView extends Element {
@@ -89,10 +90,11 @@ export default class MapView extends Element {
         legendWrapper.classList.add(s.legendWrapper);
 
 
-        var gradient = document.createElement('div');
-        gradient.classList.add(s.gradient);
+        var grad = document.createElement('div');
+        grad.style.background = `linear-gradient(to right, ${gradient.join(',')}`;
+        grad.classList.add(s.gradient);
         
-        legendWrapper.appendChild(gradient);
+        legendWrapper.appendChild(grad);
 
         [1, Math.floor(this.maxLegend / 10), this.maxLegend].forEach((tick, i) => {
             var label = document.createElement('div');
