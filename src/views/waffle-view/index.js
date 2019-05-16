@@ -12,10 +12,12 @@ export default class WaffleView extends Element {
          //container
         var view = super.prerender();
         this.name = 'WaffleView';
-        this.dropdown = this.createComponent(DropDown, 'div#dropdown', {renderToSelector: '.js-dropdown-container'}); //async. dropdown will be appended to  renderToSleector node
-                                                                                                                      //only after `this` (waffle view) is read. this is handled in
-                                                                                                                      // the createComponent method and Element 
-        this.children.push(this.drodown);
+        //async. dropdown will be appended to  renderToSleector node
+        //only after `this` (waffle view) is read. this is handled in
+        // the createComponent method and Element 
+        this.children.push(
+            this.createComponent(DropDown, 'div#dropdown')
+        );
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }

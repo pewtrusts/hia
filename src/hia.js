@@ -61,7 +61,7 @@ export default class HIA extends PCTApp {
             this.summarizeData();
             this.pushViews();
             if ( process.env.NODE_ENV === 'development' ){
-                this.init();
+                //this.init();
             }
         });
     }
