@@ -14,13 +14,14 @@ const menuTitle = 'Explore Health Impact Assessments';
 export default class MenuView extends Element {
     
     prerender(){
+        PS.logSubs();
          //container
         var view = super.prerender();
         this.name = 'MenuView';
         this.menu = this.createComponent(MainMenu, 'div#menu-main');
-        this.children.push(
+        this.addChildren([
             this.menu
-        );
+        ]);
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }

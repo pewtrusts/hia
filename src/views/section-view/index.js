@@ -20,11 +20,11 @@ export default class SectionView extends Element {
          //container
         var view = super.prerender();
         this.name = 'SectionView';
-        this.children.push(
+        this.addChildren([
             this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'section#map-view'),
             this.createComponent(WaffleView, 'section#waffle-view')
-        );
+        ]);
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
@@ -75,7 +75,10 @@ class TopMenu extends Menu {
     }
     init(){
         super.init();
-        PS.setSubs([['view', this.indicateActiveSection.bind(this)]]);
+        console.log('init section view');
+        PS.setSubs([['view', () => {
+             this.indicateActiveSection.call(this);
+        }]]);
     }
     indicateActiveSection(msg,data){
         this.el.querySelectorAll('a').forEach(link => {

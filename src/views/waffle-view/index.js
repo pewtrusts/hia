@@ -15,9 +15,9 @@ export default class WaffleView extends Element {
         //async. dropdown will be appended to  renderToSleector node
         //only after `this` (waffle view) is read. this is handled in
         // the createComponent method and Element 
-        this.children.push(
+        this.addChildren([
             this.createComponent(DropDown, 'div#dropdown')
-        );
+        ]);
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }

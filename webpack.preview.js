@@ -48,7 +48,8 @@ module.exports = env => {
                 renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
                     injectProperty: 'IS_PRERENDERING',
                     inject: true,
-                    renderAfterTime: 5000,
+                    //renderAfterTime: 5000,
+                    renderAfterDocumentEvent: 'all-views-ready',
                     headless: false
                 }),
                 postProcess: function(renderedRoute){

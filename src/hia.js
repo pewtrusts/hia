@@ -29,10 +29,6 @@ const model = {
     stateAbbreviations
 };
 
-const views = [];
-
-//var scrollPosition = 0;
-
 function getRuntimeData() {
     /*  this fn gets the data from the API set up for the HIA data tool. it's wrapped in another Promise to give easier control over over resolve and reject
         resolves with the JSON response */
@@ -60,14 +56,19 @@ export default class HIA extends PCTApp {
             this.el.setAttribute('data-data-hash', JSON.stringify(v.results).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
             this.summarizeData();
             this.pushViews();
-            if ( process.env.NODE_ENV === 'development' ){
-                //this.init();
-            }
+            Promise.all(this.views.map(view => view.isReady)).then(() => {
+                if ( process.env.NODE_ENV === 'development' ){
+                    this.init();
+                } else { //App.prerender is call only if env = development or window isPrerendering so here window is prerendering
+                    document.dispatchEvent(new Event('all-views-ready'));
+                }
+            });
         });
     }
     init() {
         console.log('init App!');
-        views.length = 0;
+        this.views.length = 0;
+        console.log(this.views);
         super.init();
 
         getRuntimeData.call(this).then((v) => {
@@ -80,14 +81,13 @@ export default class HIA extends PCTApp {
             this.summarizeData();
 
             this.pushViews();
-            console.log(views);
-            views.forEach(view => {
+            this.views.forEach(view => {
                 view.init(this);
             });
         });
     }
     pushViews(){
-        views.push(
+        this.views.push(
             this.createComponent(MenuView, 'div#menu-view'),
             this.createComponent(SectionView, 'div#section-view')
         );
