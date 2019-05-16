@@ -4,3 +4,23 @@
    font-size: 28px;
    margin: 25px 0;
 }
+
+:global(.tippy-tooltip) {
+    border-radius: 0;
+    border: 1px solid #000;
+    color: #000;
+}
+:global(.tippy-backdrop){
+     background-color: rgba(255,255,255,0.90);
+}
+:global(.tippy-content){ 
+    text-align: left;
+    padding: 3px; 
+    }
+:global(g.state.is-not-null):hover path, :global(g.state-boxes g.is-not-null):hover rect {
+    fill: $coral !important;
+}
+:global(g.state-boxes g.is-not-null):hover rect {
+    stroke: $coral !important;
+    
+}

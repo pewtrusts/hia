@@ -4,6 +4,7 @@ import s from './styles.scss';
 
 import * as d3 from 'd3-collection';
 import chroma from 'chroma-js';
+import tippy from 'tippy.js';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
@@ -42,6 +43,7 @@ export default class MapView extends Element {
     }
     prerenderMap(){
         var mapContainer = document.createElement('div');
+        mapContainer.classList.add('js-map-container');
         mapContainer.innerHTML = mapSVG;
         
         this.colorScale = chroma.scale(['#5AC7BE', '#296EC3']).domain([1, Math.log(this.maxCount)]);
@@ -53,17 +55,21 @@ export default class MapView extends Element {
             console.log(this.model.stateAbbreviations, d, stateGroup);
             if ( d.key !== "null") {
                 if ( stateGroup ){
+                    stateGroup.classList.add('is-not-null');
                     let label = stateGroup.querySelector('.state__label');
-                    stateGroup.querySelector('.state__path').style.fill = this.colorScale(Math.log(d.values.length));
+                    let path  = stateGroup.querySelector('.state__path');
+                    path.style.fill = this.colorScale(Math.log(d.values.length));
                     if (label){
                         label.style.fontWeight = 'bold';
                         label.style.fill = '#fff';
                     }
                 }
                 if ( stateBox ){
-                    stateBox.style.fill = this.colorScale(Math.log(d.values.length));
-                    stateBox.style.stroke = this.colorScale(Math.log(d.values.length));
-                    stateBox.parentNode.querySelector('.state-box__label').style.fill = '#fff';
+                    stateBox.classList.add('is-not-null');
+                    let rect = stateBox.querySelector('rect');
+                    rect.style.fill = this.colorScale(Math.log(d.values.length));
+                    rect.style.stroke = this.colorScale(Math.log(d.values.length));
+                    stateBox.querySelector('.state-box__label').style.fill = '#fff';
                 }
                 
             }
@@ -76,7 +82,28 @@ export default class MapView extends Element {
         this.maxCount = Math.max(...this.nestedByState.map(d => d.values.length));
     }
     init(){
-        /* to do*/
+        this.setTippys();
+    }
+    setTippys(){
+        function setTippy(node,d){
+            tippy(node, {
+                content: `<strong>${d.values.length} HIAs</strong><br />Click for details`,
+                followCursor: true
+            });
+        }
+        var mapContainer = document.querySelector('.js-map-container');
+        this.nestedByState.forEach(d => {
+            var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
+            var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+            if ( d.key !== "null") {
+                if ( stateGroup ){
+                    setTippy(stateGroup, d);
+                }
+                if ( stateBox ){
+                    setTippy(stateBox, d);
+                }
+            }
+        });   
     }
     clickHandler(){
         /* to do */

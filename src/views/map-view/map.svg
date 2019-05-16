@@ -8,7 +8,7 @@
     }
     .state__path, .state-box__background {
         cursor: pointer;
-        transition: fill 0.25s ease 0s;
+        transition: fill 0.25s ease-in-out 0s, stroke 0.25s ease-in-out 0s;
         fill: url(#diagonalHatch);
         stroke: #fff;
         stroke-width: 1px;
@@ -188,38 +188,38 @@
         </g>
     </g>
     <g class="state-boxes" transform="translate(645, 85)">
-        <g transform="translate(0, 0)">
-            <rect class="state-box__background state-box-VT"></rect><text class="state-box__label" x="20" y="15">VT</text>
+        <g class="state-box-VT" transform="translate(0, 0)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">VT</text>
         </g>
-        <g transform="translate(0, 27)">
-            <rect class="state-box__background state-box-NH"></rect><text class="state-box__label" x="20" y="15">NH</text>
+        <g class="state-box-NH" transform="translate(0, 27)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">NH</text>
         </g>
-        <g transform="translate(0, 54)">
-            <rect class="state-box__background state-box-MA"></rect><text class="state-box__label" x="20" y="15">MA</text>
+        <g class="state-box-MA" transform="translate(0, 54)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">MA</text>
         </g>
-        <g transform="translate(0, 81)">
-            <rect class="state-box__background state-box-RI"></rect><text class="state-box__label" x="20" y="15">RI</text>
+        <g class="state-box-RI" transform="translate(0, 81)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">RI</text>
         </g>
-        <g transform="translate(0, 108)">
-            <rect class="state-box__background state-box-CT"></rect><text class="state-box__label" x="20" y="15">CT</text>
+        <g class="state-box-CT" transform="translate(0, 108)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">CT</text>
         </g>
-        <g transform="translate(0, 135)">
-            <rect class="state-box__background state-box-NJ"></rect><text class="state-box__label" x="20" y="15">NJ</text>
+        <g class="state-box-NJ" transform="translate(0, 135)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">NJ</text>
         </g>
-        <g transform="translate(0, 162)">
-            <rect class="state-box__background state-box-DE"></rect><text class="state-box__label" x="20" y="15">DE</text>
+        <g class="state-box-DE" transform="translate(0, 162)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">DE</text>
         </g>
-        <g transform="translate(0, 189)">
-            <rect class="state-box__background state-box-MD"></rect><text class="state-box__label" x="20" y="15">MD</text>
+        <g class="state-box-MD" transform="translate(0, 189)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">MD</text>
         </g>
-        <g transform="translate(0, 216)">
-            <rect class="state-box__background state-box-DC"></rect><text class="state-box__label" x="20" y="15">DC</text>
+        <g class="state-box-DC" transform="translate(0, 216)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">DC</text>
         </g>
-        <g transform="translate(0, 243)">
-            <rect class="state-box__background state-box-PR"></rect><text class="state-box__label" x="20" y="15">PR</text>
+        <g class="state-box-PR" transform="translate(0, 243)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">PR</text>
         </g>
-        <g transform="translate(0, 270)">
-            <rect class="state-box__background state-box-PW"></rect><text class="state-box__label" x="20" y="15">PW</text>
+        <g class="state-box-PW" transform="translate(0, 270)">
+            <rect class="state-box__background"></rect><text class="state-box__label" x="20" y="15">PW</text>
         </g>
     </g>
 </svg>
