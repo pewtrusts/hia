@@ -5,8 +5,8 @@ import s from './styles.scss';
 import * as d3 from 'd3-collection';
 import chroma from 'chroma-js';
 import tippy from 'tippy.js';
-//import { stateModule as S } from 'stateful-dead';
-//import { GTMPush } from '@Utils';
+import { stateModule as S } from 'stateful-dead';
+import { GTMPush } from '@Utils';
 
 const gradient = ['#5AC7BE', '#296EC3'];
 //const gradient = ['#2c75ce', '#09132a'];
@@ -116,7 +116,31 @@ export default class MapView extends Element {
         this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount(); 
     }
     init(){
+        var _this = this;
         this.setTippys();
+
+        this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
+        this.nestedByState.forEach(d => {
+            var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
+            var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+            if ( d.key !== "null") {
+                if ( stateGroup ){
+                    stateGroup.addEventListener('click', function(){
+                        _this.stateClickHandler.call(this, d);
+                    });
+                }
+                if ( stateBox ){
+                    stateBox.addEventListener('click', function(){
+                        _this.stateClickHandler.call(this, d);
+                    });
+                }
+            }
+        }); 
+
+    }
+    stateClickHandler(d){
+        S.setState('state', d.key);
+        GTMPush(`HIA|Select|State|${d.key}`);
     }
     setTippys(){
         function setTippy(node,d){
@@ -125,10 +149,10 @@ export default class MapView extends Element {
                 followCursor: true
             });
         }
-        var mapContainer = document.querySelector('.js-map-container');
+        this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
         this.nestedByState.forEach(d => {
-            var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
-            var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+            var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
+            var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {
                 if ( stateGroup ){
                     setTippy(stateGroup, d);
