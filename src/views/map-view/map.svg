@@ -1,7 +1,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 689 402">
    <style>
     .state .state__label {
-        fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; cursor: pointer;
+        fill: black; font-size: 12px; text-anchor: middle; dominant-baseline: middle; cursor: pointer;
     }
     .state__label.invert {
         fill: black; font-size: 12px; text-anchor: middle; dominant-baseline: middle; cursor: pointer;
@@ -9,22 +9,29 @@
     .state__path, .state-box__background {
         cursor: pointer;
         transition: fill 0.25s ease 0s;
-        fill: #767676;
+        fill: url(#diagonalHatch);
         stroke: #fff;
         stroke-width: 1px;
     }
     .state-box__background {
         width: 40px;
         height: 22px;
-        fill: #767676;
-        stroke: transparent;
+        fill: url(#diagonalHatch);
+        stroke: #ccc;
         stroke-width: 1px;
 
     }
     .state-boxes text {
-        fill: #fff; text-anchor: middle; font-size: 12px; cursor: pointer;
+        fill: #000; text-anchor: middle; font-size: 12px; cursor: pointer;
     }
    </style>
+   <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="8" height="8">
+     <rect width="8" height="8" fill="#fff"></rect>
+     <path d="M-1,1 l4,-4
+              M0,8 l8,-8
+              M7,9 l4,-4" 
+           style="stroke:#ccc; stroke-width:2" />
+   </pattern>
     <g class="states">
         <g class="state state-AL">
             <path class="state__path" d="M469.539581155115,307.43638535113575L458.3337592977518,308.84547414207526L436.7456916701916,310.8736750684903L436.9753779232502,313.4694986369897L439.87343865043954,315.3498047407599L439.0396248346941,321.28751765744227L435.8824832556217,321.8038010938718L433.35110320059516,318.93362956770966L433.62272227508436,316.7720870622848L431.3287395971389,316.5698617008617L431.2493355006898,321.08965416402873L427.5805227691946,320.91428485408267L426.9880514688757,313.5190167454715L425.2109923930087,302.5631223002806L424.8529112009691,292.4328950124649L425.364062129561,287.705513414585L425.1746631754037,274.4436791719054L425.8591772146341,261.492664650008L425.65890070186924,253.86178424466812L424.6781143724146,252.4290033119513L455.4651381802454,249.6298844825282L459.01850251888993,262.09487938090086L462.8776314997724,276.8224408019717L465.45998366452403,283.8630309126188L466.93475700409806,285.0475180323113L468.3400061189456,289.42661148181895L466.71778986836273,290.89016909947173L466.5818705572519,297.5152686570608L467.56245674082925,298.19829753985L467.92229866182436,305.23796372429615Z"></path><text class="state__label" x="444.0257271064124" y="283.6736965790596" dx="0" dy="0">AL</text>
