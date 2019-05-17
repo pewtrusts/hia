@@ -19,9 +19,9 @@ export default class MapView extends Element {
         var view = super.prerender();
         this.name = 'MapView';
         
-        this.nestedByState = d3.nest().key(d => d.state).entries(this.model.data);
-        this.valuesArray = this.nestedByState.map(d => d.values.length);
-        console.log(this.nestedByState);
+        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.state).entries(this.model.data);
+        this.valuesArray = this.model.nestedByState.map(d => d.values.length);
+        console.log(this.model.nestedByState);
         this.getMaxCount();
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
@@ -53,7 +53,7 @@ export default class MapView extends Element {
         this.colorScale = chroma.scale(gradient).domain([1, Math.log(this.maxLegend)]);
 
 
-        this.nestedByState.forEach(d => {
+        this.model.nestedByState.forEach(d => {
             var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             console.log(this.model.stateAbbreviations, d, stateGroup);
@@ -111,7 +111,6 @@ export default class MapView extends Element {
         /* future proofing the legend. as of now, legend goes from 1 to 100 on log scale. highest count is 83. in future it's
             possible the max is more than 100; in that case the legend's max will be the max count
         */
-        console.log(this.nestedByState.map(d => d.values.length));
         this.maxCount = Math.max(...this.valuesArray);
         this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount(); 
     }
@@ -121,7 +120,7 @@ export default class MapView extends Element {
         this.setTippys();
 
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
-        this.nestedByState.forEach(d => {
+        this.model.nestedByState.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {
@@ -151,7 +150,7 @@ export default class MapView extends Element {
             });
         }
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
-        this.nestedByState.forEach(d => {
+        this.model.nestedByState.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {

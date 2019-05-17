@@ -50,6 +50,7 @@ export default class HIA extends PCTApp {
     prerender() {
         getRuntimeData.call(this).then((v) => { 
             model.data = v.results;
+            model.facets = v.facets;
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */
             this.model = model;
@@ -73,6 +74,7 @@ export default class HIA extends PCTApp {
 
         getRuntimeData.call(this).then((v) => {
             model.data = v.results;
+            model.facets = v.facets;
             this.model = model;
             if ( this.el.dataset.dataHash != JSON.stringify(v.results).hashCode() ){
                 this.el.setAttribute('data-data-mismatch', true);
@@ -86,6 +88,7 @@ export default class HIA extends PCTApp {
                view.init(this);
             });
         });
+        console.log(model);
     }
     pushViews(){
         this.views.push(
