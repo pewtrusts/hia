@@ -13,7 +13,9 @@ const App = new HIA(selector, { // extends PCTApp-js. PCTApp-js's constructor me
 });
 console.log(process.env.NODE_ENV);
 if ( process.env.NODE_ENV === 'development' || window.IS_PRERENDERING ){ // process development means using WebPack dev server. window is prerendering means in
-	App.prerender();
+	console.log('init app prerender');
+    App.prerender();
 } else {
     App.init();
+    console.log('init app init');
 }

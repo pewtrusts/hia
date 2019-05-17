@@ -42,13 +42,15 @@ export default class SectionView extends Element {
         return view;
     }
     init(){
-        PS.setSubs([['isSelected', () => {
-            this.showSection.call(this); // not using (bind) bs it would somehow hash to the the same as another PubSub
-        }]]);
-        this.children.forEach(child => {
+        console.log('init section-view');
+        var showSectionBind = this.showSection.bind(this)
+        PS.setSubs([
+            ['isSelected', showSectionBind]
+        ]);
+        /*this.children.forEach(child => {
             console.log(child);
             child.init();
-        });
+        });*
         /* to do*/
         /* get each top menu item and attache eventlistener to handle click
             S.seState().
@@ -75,10 +77,10 @@ class TopMenu extends Menu {
     }
     init(){
         super.init();
-        console.log('init section view');
-        PS.setSubs([['view', () => {
-             this.indicateActiveSection.call(this);
-        }]]);
+        console.log('init topmenu-view');
+        PS.setSubs([
+            ['view', this.indicateActiveSection.bind(this)]
+        ]);
     }
     indicateActiveSection(msg,data){
         this.el.querySelectorAll('a').forEach(link => {

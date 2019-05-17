@@ -116,6 +116,7 @@ export default class MapView extends Element {
         this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount(); 
     }
     init(){
+        console.log('init map-view');
         var _this = this;
         this.setTippys();
 

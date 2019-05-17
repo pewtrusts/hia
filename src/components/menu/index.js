@@ -37,7 +37,7 @@ export default class Menu extends Element {
         return view;
     }
     init(){
-        
+        console.log('init menu');
         var _this = this;
         this.el.querySelectorAll('a').forEach(item => {
             console.log(item);
@@ -58,6 +58,7 @@ export default class Menu extends Element {
     }
     
     clickHandler(context){
+        console.log('menu click', this, context);
         console.log(context);
         console.log('click', context.name);
         GTMPush(`HIA|Navigate|${context.name}|${this.dataset.section}`);

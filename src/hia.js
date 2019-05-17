@@ -82,7 +82,8 @@ export default class HIA extends PCTApp {
 
             this.pushViews();
             this.views.forEach(view => {
-                view.init(this);
+               console.log('about to init:', view);
+               view.init(this);
             });
         });
     }

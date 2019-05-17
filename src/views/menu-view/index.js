@@ -36,13 +36,13 @@ export default class MenuView extends Element {
         return view;            
     }
     init(){
+        console.log('init menu-view');
 
         PS.setSubs([['isSelected', this.hideSection.bind(this)]]);
-        console.log('init');
-        this.children.forEach(child => {
+        /*this.children.forEach(child => {
             console.log(child);
             child.init();
-        });
+        });*/
         /* to do*/      
         /* get each section and attache eventlistener to handle click */
     }
