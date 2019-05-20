@@ -64,21 +64,6 @@ function getRuntimeData() {
             }
         });
     });
-    /*  this fn gets the data from the API set up for the HIA data tool. it's wrapped in another Promise to give easier control over over resolve and reject
-        resolves with the JSON response */
-    /*return new Promise((resolveWrapper, rejectWrapper) => {
-        return fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d9dc47f1-2c76-444a-b4e3-b60d29bb3237&q=&sortBy=relevance&sortOrder=asc&page=1&perPage=10&loadAllPages=true&resourceTypes%5B%5D=HIA%20reports')
-            .then(function(response) {
-                var json = response.json();
-                if ([200, 301, 304].indexOf(response.status) !== -1) {
-                    resolveWrapper(json);
-                    return json;
-                } else {
-                    rejectWrapper(response.status);
-                }
-            });
-    });*/
-
 }
 
 export default class HIA extends PCTApp {
@@ -133,5 +118,18 @@ export default class HIA extends PCTApp {
         /* to do */
         /* this fn will calculate any summaries necessary for the app such an min and max, average, etc*/
         console.log(this.model.data);
+    }
+    cleanKey(key) {
+        console.log(key);
+        if ( key === undefined ){
+            return 'null';
+        }
+        key = typeof key === 'string' ? key : key[0];
+        if ( key === '' ){
+            return 'none';
+        }
+        key = key.toLowerCase().replace('-','').doCamelCase();
+        console.log(key);
+        return key;
     }
 }

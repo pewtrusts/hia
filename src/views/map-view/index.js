@@ -19,7 +19,7 @@ export default class MapView extends Element {
         var view = super.prerender();
         this.name = 'MapView';
         console.log(this.model.data);
-        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.stateOrTerritory).entries(this.model.data);
+        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.stateOrTerritory).entries(this.model.data).sort((a,b) => a.values.length >= b.values.length ? -1 : 1);
         this.valuesArray = this.model.nestedByState.map(d => d.values.length);
         console.log(this.model.nestedByState);
         this.getMaxCount();
@@ -56,7 +56,6 @@ export default class MapView extends Element {
         this.model.nestedByState.forEach(d => {
             var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
-            console.log(this.model.stateAbbreviations, d, stateGroup);
             if ( d.key !== null) {
                 if ( stateGroup ){
                     stateGroup.classList.add('is-not-null');

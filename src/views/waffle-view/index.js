@@ -18,7 +18,12 @@ export default class WaffleView extends Element {
         // the createComponent method and Element 
         this.addChildren([
             this.createComponent(DropDown, 'div#dropdown', {renderToSelector: '.js-dropdown-container'}),
-            this.createComponent(Waffle, 'div#waffle', {renderToSelector: '.js-waffle-container'})
+            this.createComponent(Waffle, 'div#waffle', {
+                renderToSelector: '.js-waffle-container',
+                data: {
+                    primary: 'stateOrTerritory'
+                }
+            })
         ]);
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)

@@ -1,0 +1,88 @@
+@import '@Project/css/variable.scss';
+
+.groupDivHeading {
+    font-weight: 400;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+.itemsContainer {
+
+    display: flex;
+    flex-wrap: wrap-reverse;
+    position: relative;
+
+
+
+
+}
+
+.legendItem {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    position: relative;
+    top: 3px;
+}
+
+.item {
+    border: 1px solid #fff !important;
+    width: 28px;
+    height: 28px;
+    background-color: #f0f0f0;
+    position: relative;
+
+    &.grantee::before {
+        content: ' ';
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 2.5px;
+        background-color: #fff;
+        position: absolute;
+        left: calc(50% - 3px);
+        top: calc(50% - 2px);
+
+
+    }
+    &.legend {
+        float:left;
+        background-color: #fff;
+        position: relative;
+        
+    }
+    &.legend::before {
+        border: 1px solid #000;
+        border-radius: 6px;
+    }
+    &:hover {
+        border-color: #000;
+    }
+    &.governmentAgency, &.local {
+        background-color: #296EC3;
+        border: 1px solid #296EC3;
+    }
+    &.nonprofitOrganization, &.state {
+        background-color: #888888;
+        border: 1px solid #888888;
+    }
+    &.educationalInstitution, &.county {
+        background-color: #5AC7BE;
+        border: 1px solid #5AC7BE;
+    }
+    &.undetermined {
+        background-color: #B0B0B0;
+        border: 1px solid #B0B0B0;
+    }
+    &.collaborative, &.regional {
+        background-color: #FF7F49;
+        border: 1px solid #FF7F49;
+    }
+    &.forprofitOrganization, &.federal {
+        background-color: #E67CAE;
+        border: 1px solid #E67CAE;
+    }
+    &.none {
+      
+    }
+}
