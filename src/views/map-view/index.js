@@ -18,8 +18,8 @@ export default class MapView extends Element {
          //container
         var view = super.prerender();
         this.name = 'MapView';
-        
-        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.state).entries(this.model.data);
+        console.log(this.model.data);
+        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.stateOrTerritory).entries(this.model.data);
         this.valuesArray = this.model.nestedByState.map(d => d.values.length);
         console.log(this.model.nestedByState);
         this.getMaxCount();
@@ -57,7 +57,7 @@ export default class MapView extends Element {
             var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             console.log(this.model.stateAbbreviations, d, stateGroup);
-            if ( d.key !== "null") {
+            if ( d.key !== null) {
                 if ( stateGroup ){
                     stateGroup.classList.add('is-not-null');
                     let label = stateGroup.querySelector('.state__label');
@@ -112,7 +112,7 @@ export default class MapView extends Element {
             possible the max is more than 100; in that case the legend's max will be the max count
         */
         this.maxCount = Math.max(...this.valuesArray);
-        this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount(); 
+        this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount; 
     }
     init(){
         console.log('init map-view');

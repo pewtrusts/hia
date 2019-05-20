@@ -1,6 +1,6 @@
 /* global process */
 //utils
-//import Papa from 'papaparse';
+import Papa from 'papaparse';
 //import { stateModule as S } from 'stateful-dead';
 
 //import { publishWindowResize } from '@Utils';
@@ -23,16 +23,50 @@ import PCTApp from '@App';
 
 //publishWindowResize(S);
 
+// some of the data has multiple values in a field. some of these need to be separated out so they can be
+// visualized separately. identify those fields here
+const fieldsThatNeedToBeArrays = ['decisionMakingLevels','driversOfHealth','organizationTypes','sectors'];
 
 const model = {
     sections,
     stateAbbreviations
 };
 
+function cleanHeaderRow(match){
+    var headers = match.split(',');
+    return headers.map(function(each){
+        return each.replace('/Geographic Scope', '').replace('/', ' or ').replace('HIA ', '').replace('-', ' ').doCamelCase();
+    }).join(',');
+}
+
 function getRuntimeData() {
+    return new Promise((resolveWrapper, rejectWrapper) => {
+        Papa.parse('http://www.pewtrusts.org/api/hipmapapi/getdownload?resourceTypes=HIA%20reports&sortBy=relevance&sortOrder=asc&loadAllPages=true&pageId={d9dc47f1-2c76-444a-b4e3-b60d29bb3237}', {
+            beforeFirstChunk: function(chunk){
+                var newChunk = chunk.replace(/.*/, function(match){
+                    return cleanHeaderRow(match);
+                });
+                return newChunk;
+            },
+            complete: function(results){
+                resolveWrapper(results.data);
+            },
+            download: true,
+            error: function(error, file){
+                rejectWrapper({error,file});
+            },
+            header: true,
+            transform: function(value, headerName){
+                if (fieldsThatNeedToBeArrays.indexOf(headerName) !== -1){
+                    return value.split(',');
+                }
+                return value;
+            }
+        });
+    });
     /*  this fn gets the data from the API set up for the HIA data tool. it's wrapped in another Promise to give easier control over over resolve and reject
         resolves with the JSON response */
-    return new Promise((resolveWrapper, rejectWrapper) => {
+    /*return new Promise((resolveWrapper, rejectWrapper) => {
         return fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d9dc47f1-2c76-444a-b4e3-b60d29bb3237&q=&sortBy=relevance&sortOrder=asc&page=1&perPage=10&loadAllPages=true&resourceTypes%5B%5D=HIA%20reports')
             .then(function(response) {
                 var json = response.json();
@@ -43,18 +77,18 @@ function getRuntimeData() {
                     rejectWrapper(response.status);
                 }
             });
-    });
+    });*/
+
 }
 
 export default class HIA extends PCTApp {
     prerender() {
         getRuntimeData.call(this).then((v) => { 
-            model.data = v.results;
-            model.facets = v.facets;
+            model.data = v;
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */
             this.model = model;
-            this.el.setAttribute('data-data-hash', JSON.stringify(v.results).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
+            this.el.setAttribute('data-data-hash', JSON.stringify(v).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
             this.summarizeData();
             this.pushViews();
             Promise.all(this.views.map(view => view.isReady)).then(() => {
@@ -73,10 +107,9 @@ export default class HIA extends PCTApp {
         super.init();
 
         getRuntimeData.call(this).then((v) => {
-            model.data = v.results;
-            model.facets = v.facets;
+            model.data = v;
             this.model = model;
-            if ( this.el.dataset.dataHash != JSON.stringify(v.results).hashCode() ){
+            if ( this.el.dataset.dataHash != JSON.stringify(v).hashCode() ){
                 this.el.setAttribute('data-data-mismatch', true);
                 this.model.isMismatched = true;
             }
