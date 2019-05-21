@@ -117,8 +117,8 @@ export default class MapView extends Element {
         console.log('init map-view');
 
         PS.setSubs([
-            ['hoverPrimary', this.highlightState.bind(this)],
-            ['unHoverPrimary', this.highlightState.bind(this)]
+            ['hoverPrimaryGroup', this.highlightState.bind(this)],
+            ['unHoverPrimaryGroup', this.highlightState.bind(this)]
         ]);
 
 
@@ -135,10 +135,10 @@ export default class MapView extends Element {
                         _this.stateClickHandler.call(this, d);
                     });
                     stateGroup.addEventListener('mouseenter', function(){
-                        S.setState('hoverPrimary', d.key, {forceChange: true});
+                        S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
                     });
                     stateGroup.addEventListener('mouseleave', function(){
-                        S.setState('unHoverPrimary', d.key, {forceChange: true});
+                        S.setState('unHoverPrimaryGroup', d.key, {forceChange: true});
                     });
                 }
                 if ( stateBox ){
@@ -146,10 +146,10 @@ export default class MapView extends Element {
                         _this.stateClickHandler.call(this, d);
                     });
                     stateBox.addEventListener('mouseenter', function(){
-                        S.setState('hoverPrimary', d.key, {forceChange: true});
+                        S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
                     });
                     stateBox.addEventListener('mouseleave', function(){
-                        S.setState('unHoverPrimary', d.key, {forceChange: true});
+                        S.setState('unHoverPrimaryGroup', d.key, {forceChange: true});
                     });
                 }
             }
@@ -160,7 +160,7 @@ export default class MapView extends Element {
         var stateCode = this.model.stateAbbreviations[data];
         var path = document.querySelector('.state-' + stateCode);
         var box = document.querySelector('.state-box-' + stateCode);
-        if ( msg === 'hoverPrimary' ){
+        if ( msg === 'hoverPrimaryGroup' ){
             if ( path ){
                 path.classList.add(s.hover);
             }
@@ -168,7 +168,7 @@ export default class MapView extends Element {
                 box.classList.add(s.hover);
             }
         }
-        if ( msg === 'unHoverPrimary' ){
+        if ( msg === 'unHoverPrimaryGroup' ){
             if ( path ){
                 path.classList.remove(s.hover);
             }
@@ -178,7 +178,7 @@ export default class MapView extends Element {
         }
     }
     stateClickHandler(d){
-        S.setState('state', d.key);
+        S.setState('selectPrimaryGroup', d.key);
         GTMPush(`HIA|Select|State|${d.key}`);
     }
     setTippys(){

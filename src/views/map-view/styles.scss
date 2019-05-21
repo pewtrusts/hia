@@ -44,6 +44,12 @@
     padding: 3px;
 }
 
+:global(g.state.is-not-null):focus,
+:global(g.state-boxes g.is-not-null):focus {
+    outline-width: 0;
+}
+
+
 :global(g.state.is-not-null):hover path,
 :global(g.state-boxes g.is-not-null):hover rect,
 :global(g.state.is-not-null).hover path,

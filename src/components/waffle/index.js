@@ -74,8 +74,9 @@ export default class Waffle extends Element {
     init() {
         console.log('init waffle');
         PS.setSubs([
-            ['hoverPrimary', this.highlightGroup.bind(this)],
-            ['unHoverPrimary', this.highlightGroup.bind(this)]
+            ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
+            ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
+            ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
         ]);
 
         function announceMouseEnter() {
@@ -83,7 +84,7 @@ export default class Waffle extends Element {
                 
                 this._tippy.show();
             }
-            S.setState('hoverPrimary', this.dataset.group, { forceChange: true });
+            S.setState('hoverPrimaryGroup', this.dataset.group, { forceChange: true });
         }
 
         function announceMouseLeave() {
@@ -91,16 +92,28 @@ export default class Waffle extends Element {
                 //this._tippy.destroy();
                 this._tippy.hide();
             }
-            S.setState('unHoverPrimary', this.dataset.group, { forceChange: true });
+            S.setState('unHoverPrimaryGroup', this.dataset.group, { forceChange: true });
         }
         document.querySelectorAll('.' + s.groupDiv).forEach(group => {
             this.setTippys(group);
             group.addEventListener('mouseenter', announceMouseEnter);
             group.addEventListener('mouseleave', announceMouseLeave);
+            group.addEventListener('click', this.clickHandler);
         });
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
+    }
+    showGroupDetails(msg, data){
+        var currentDetails = document.querySelector('.' + s.showDetails);
+        if ( currentDetails ){
+            currentDetails.classList.remove(s.showDetails);
+        }
+        var selector = `.${s.groupDiv}[data-group="${data}"`;
+        var node = document.querySelector(selector);
+        if (node) {
+            node.classList.add(s.showDetails)
+        }
     }
     setTippys(group) {
         tippy(group, {
@@ -113,16 +126,16 @@ export default class Waffle extends Element {
         var selector = `.${s.groupDiv}[data-group="${data}"`;
         var node = document.querySelector(selector);
         if (node) {
-            if (msg === 'hoverPrimary') {
+            if (msg === 'hoverPrimaryGroup') {
                 node.classList.add(s.isHighlighted);
             }
-            if (msg === 'unHoverPrimary') {
+            if (msg === 'unHoverPrimaryGroup') {
                 node.classList.remove(s.isHighlighted);
             }
         }
     }
     clickHandler() {
-        /* to do */
+        S.setState('selectPrimaryGroup', this.dataset.group);
 
     }
 }
