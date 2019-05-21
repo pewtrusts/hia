@@ -15,7 +15,7 @@ export default class Waffle extends Element {
         this.name = 'Waffle';
         this.dataMap = {
             stateOrTerritory: {
-                data: this.model.nestedByState,
+                data: this.model.nestBy.stateOrTerritory,
                 secondary: 'organizationTypes'
             }
         }

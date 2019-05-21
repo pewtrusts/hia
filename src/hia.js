@@ -1,6 +1,8 @@
 /* global process */
 //utils
 import Papa from 'papaparse';
+import * as d3 from 'd3-collection';
+import _ from 'lodash';
 //import { stateModule as S } from 'stateful-dead';
 
 //import { publishWindowResize } from '@Utils';
@@ -26,10 +28,11 @@ import PCTApp from '@App';
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
 const fieldsThatNeedToBeArrays = ['decisionMakingLevels','driversOfHealth','organizationTypes','sectors'];
-
+const otherFieldsToBeVisualized = ['stateOrTerritory']
 const model = {
     sections,
-    stateAbbreviations
+    stateAbbreviations,
+    nestBy: {}
 };
 
 function cleanHeaderRow(match){
@@ -56,6 +59,7 @@ function getRuntimeData() {
                 rejectWrapper({error,file});
             },
             header: true,
+            skipEmptyLines: true,
             transform: function(value, headerName){
                 if (fieldsThatNeedToBeArrays.indexOf(headerName) !== -1){
                     return value.split(',');
@@ -74,7 +78,7 @@ export default class HIA extends PCTApp {
                if it is the same or not. if note the same, views will have to be rerendered. */
             this.model = model;
             this.el.setAttribute('data-data-hash', JSON.stringify(v).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
-            this.summarizeData();
+            this.nestData();
             this.pushViews();
             Promise.all(this.views.map(view => view.isReady)).then(() => {
                 if ( process.env.NODE_ENV === 'development' ){
@@ -98,7 +102,7 @@ export default class HIA extends PCTApp {
                 this.el.setAttribute('data-data-mismatch', true);
                 this.model.isMismatched = true;
             }
-            this.summarizeData();
+            this.nestData();
 
             this.pushViews();
             this.views.forEach(view => {
@@ -114,10 +118,26 @@ export default class HIA extends PCTApp {
             this.createComponent(SectionView, 'div#section-view')
         );
     }
-    summarizeData(){
-        /* to do */
-        /* this fn will calculate any summaries necessary for the app such an min and max, average, etc*/
+    nestData(){
+        function nestData(field, entries){
+            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => a.values.length >= b.values.length ? -1 : 1);
+        }
         console.log(this.model.data);
+        otherFieldsToBeVisualized.forEach(field => {
+            this.model.nestBy[field] = nestData(field, this.model.data);
+        });
+        fieldsThatNeedToBeArrays.forEach(field => {
+            var array = [];
+            this.model.data.forEach(d => {
+                console.log(d);
+                d[field].forEach(value => {
+                    var _d = _.cloneDeep(d);
+                    _d[field] = value;
+                    array.push(_d);
+                });
+            });
+            this.model.nestBy[field] = nestData(field, array);
+        });
     }
     cleanKey(key) {
         console.log(key);

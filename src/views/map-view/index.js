@@ -2,7 +2,7 @@ import Element from '@UI/element';
 import mapSVG from 'html-loader!./map.svg';
 import s from './styles.scss';
 
-import * as d3 from 'd3-collection';
+
 import chroma from 'chroma-js';
 import tippy from 'tippy.js';
 import { stateModule as S } from 'stateful-dead';
@@ -19,9 +19,8 @@ export default class MapView extends Element {
         var view = super.prerender();
         this.name = 'MapView';
         console.log(this.model.data);
-        this.model.nestedByState = this.model.nestedByState || d3.nest().key(d => d.stateOrTerritory).entries(this.model.data).sort((a,b) => a.values.length >= b.values.length ? -1 : 1);
-        this.valuesArray = this.model.nestedByState.map(d => d.values.length);
-        console.log(this.model.nestedByState);
+        this.valuesArray = this.model.nestBy.stateOrTerritory.map(d => d.values.length);
+        console.log(this.model.nestBy.stateOrTerritory);
         this.getMaxCount();
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
@@ -53,7 +52,7 @@ export default class MapView extends Element {
         this.colorScale = chroma.scale(gradient).domain([1, Math.log(this.maxLegend)]);
 
 
-        this.model.nestedByState.forEach(d => {
+        this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== null) {
@@ -119,7 +118,7 @@ export default class MapView extends Element {
         this.setTippys();
 
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
-        this.model.nestedByState.forEach(d => {
+        this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {
@@ -149,7 +148,7 @@ export default class MapView extends Element {
             });
         }
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
-        this.model.nestedByState.forEach(d => {
+        this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {
