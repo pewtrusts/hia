@@ -56,7 +56,8 @@ export default class Waffle extends Element {
                 var cleanSecondary = this.app.cleanKey(value[secondary]);
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[cleanSecondary], s[value.fundingSource]);
-                console.log(value[secondary]);
+                itemDiv.dataset.title = value.title;
+                this.setItemTippy(itemDiv);
                 //itemDiv.dataset.tippyContent = value.Title;
                 //tippy(itemDiv);
                 itemsContainer.appendChild(itemDiv);
@@ -78,8 +79,16 @@ export default class Waffle extends Element {
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
         ]);
-
+        function itemMouseenter(){
+            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
+                this._tippy.show();
+            }
+        }
+        function itemMouseleave(){
+            this._tippy.hide();
+        }
         function announceMouseEnter() {
+            // TO DO: base this logic on state rather than on DOM
             if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAllDetails)) {
                 
                 this._tippy.show();
@@ -99,6 +108,10 @@ export default class Waffle extends Element {
             group.addEventListener('mouseenter', announceMouseEnter);
             group.addEventListener('mouseleave', announceMouseLeave);
             group.addEventListener('click', this.clickHandler);
+        });
+        document.querySelectorAll('.' + s.itemDiv).forEach(item => {
+            item.addEventListener('mouseenter', itemMouseenter);
+            item.addEventListener('mouseleave', itemMouseleave);
         });
         /* to do*/
 
@@ -120,6 +133,12 @@ export default class Waffle extends Element {
             content: `<strong>${group.dataset.count} HIA${+group.dataset.count > 1 ? 's' : ''}</strong><br />Click for details`,
             trigger: 'manual',
             offset: '0, -100'
+        });
+    }
+    setItemTippy(item){
+        tippy(item, {
+            content: `<strong>${item.dataset.title}</strong><br />Click for details`,
+            trigger: 'manual'
         });
     }
     highlightGroup(msg, data) {

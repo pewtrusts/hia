@@ -2,6 +2,7 @@ import Element from '@UI/element';
 import s from './styles.scss';
 import DropDown from '@Project/components/dropdown';
 import Waffle from '@Project/components/waffle';
+import PS from 'pubsub-setter';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
@@ -63,9 +64,17 @@ export default class WaffleView extends Element {
     }
     init(){
         console.log('init waffle-view');
+        PS.setSubs([
+            ['selectPrimaryGroup', this.showLegend.bind(this)]
+        ]);
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
+    }
+    showLegend(msg,data){
+        if ( data ) {
+            document.querySelector('.' + s.instructHeading).classList.add(s.hide);
+        }
     }
     clickHandler(){
         /* to do */

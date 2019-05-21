@@ -53,14 +53,21 @@
     background-color: $dark_blue;
     position: relative;
     transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
     .isHighlighted & {
         background-color: $coral;
     }
+    &:focus {
+        outline-width: 0
+    }
+
 
 }
 
 .showDetails .item, .showAllDetails .item {
-
+    &:hover {
+        border: 2px solid $coral !important;
+    }
     &.grantee::before {
         content: ' ';
         display: block;
