@@ -57,7 +57,6 @@ export default class Waffle extends Element {
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[cleanSecondary], s[value.fundingSource]);
                 itemDiv.dataset.title = value.title;
-                this.setItemTippy(itemDiv);
                 //itemDiv.dataset.tippyContent = value.Title;
                 //tippy(itemDiv);
                 itemsContainer.appendChild(itemDiv);
@@ -110,6 +109,7 @@ export default class Waffle extends Element {
             group.addEventListener('click', this.clickHandler);
         });
         document.querySelectorAll('.' + s.itemDiv).forEach(item => {
+            this.setItemTippy(item);
             item.addEventListener('mouseenter', itemMouseenter);
             item.addEventListener('mouseleave', itemMouseleave);
         });
