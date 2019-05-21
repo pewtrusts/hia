@@ -5,6 +5,7 @@ import s from './styles.scss';
 
 import chroma from 'chroma-js';
 import tippy from 'tippy.js';
+import PS from 'pubsub-setter';
 import { stateModule as S } from 'stateful-dead';
 import { GTMPush } from '@Utils';
 
@@ -114,6 +115,13 @@ export default class MapView extends Element {
     }
     init(){
         console.log('init map-view');
+
+        PS.setSubs([
+            ['hoverPrimary', this.highlightState.bind(this)],
+            ['unHoverPrimary', this.highlightState.bind(this)]
+        ]);
+
+
         var _this = this;
         this.setTippys();
 
@@ -126,15 +134,48 @@ export default class MapView extends Element {
                     stateGroup.addEventListener('click', function(){
                         _this.stateClickHandler.call(this, d);
                     });
+                    stateGroup.addEventListener('mouseenter', function(){
+                        S.setState('hoverPrimary', d.key, {forceChange: true});
+                    });
+                    stateGroup.addEventListener('mouseleave', function(){
+                        S.setState('unHoverPrimary', d.key, {forceChange: true});
+                    });
                 }
                 if ( stateBox ){
                     stateBox.addEventListener('click', function(){
                         _this.stateClickHandler.call(this, d);
                     });
+                    stateBox.addEventListener('mouseenter', function(){
+                        S.setState('hoverPrimary', d.key, {forceChange: true});
+                    });
+                    stateBox.addEventListener('mouseleave', function(){
+                        S.setState('unHoverPrimary', d.key, {forceChange: true});
+                    });
                 }
             }
         }); 
 
+    }
+    highlightState(msg,data){
+        var stateCode = this.model.stateAbbreviations[data];
+        var path = document.querySelector('.state-' + stateCode);
+        var box = document.querySelector('.state-box-' + stateCode);
+        if ( msg === 'hoverPrimary' ){
+            if ( path ){
+                path.classList.add(s.hover);
+            }
+            if ( box ){
+                box.classList.add(s.hover);
+            }
+        }
+        if ( msg === 'unHoverPrimary' ){
+            if ( path ){
+                path.classList.remove(s.hover);
+            }
+            if ( box ){
+                box.classList.remove(s.hover);
+            }
+        }
     }
     stateClickHandler(d){
         S.setState('state', d.key);

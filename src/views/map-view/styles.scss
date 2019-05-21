@@ -1,24 +1,28 @@
 @import '@Project/css/variable.scss';
 
 .mapTitle {
-   font-size: 28px;
-   margin: 25px 0;
+    font-size: 28px;
+    margin: 25px 0;
 }
+
 .legendContainer {
     padding: 10px;
 }
+
 .legendWrapper {
     position: relative;
     width: 230px;
     height: 36px;
     margin-top: 5px;
-    
+
 }
+
 .tick {
     position: absolute;
     bottom: 0;
     transform: translateX(-50%);
 }
+
 .gradient {
     width: 100%;
     height: 12px;
@@ -30,17 +34,24 @@
     border: 1px solid #000;
     color: #000;
 }
-:global(.tippy-backdrop){
-     background-color: rgba(255,255,255,0.90);
+
+:global(.tippy-backdrop) {
+    background-color: rgba(255, 255, 255, 0.90);
 }
-:global(.tippy-content){ 
+
+:global(.tippy-content) {
     text-align: left;
-    padding: 3px; 
-    }
-:global(g.state.is-not-null):hover path, :global(g.state-boxes g.is-not-null):hover rect {
+    padding: 3px;
+}
+
+:global(g.state.is-not-null):hover path,
+:global(g.state-boxes g.is-not-null):hover rect,
+:global(g.state.is-not-null).hover path,
+:global(g.state-boxes g.is-not-null).hover rect, {
     fill: $coral !important;
 }
-:global(g.state-boxes g.is-not-null):hover rect {
+
+:global(g.state-boxes g.is-not-null):hover rect, :global(g.state-boxes g.is-not-null).hover rect {
     stroke: $coral !important;
-    
+
 }

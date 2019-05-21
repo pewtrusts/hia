@@ -1,6 +1,7 @@
 import Element from '@UI/element';
 import s from './styles.scss';
-//import { stateModule as S } from 'stateful-dead';
+import { stateModule as S } from 'stateful-dead';
+import PS from 'pubsub-setter';
 //import { GTMPush } from '@Utils';
 
 
@@ -35,6 +36,7 @@ export default class Waffle extends Element {
         }
         nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
+            groupDiv.dataset.group = group.key;
             groupDiv.classList.add(s.groupDiv);
             groupDiv.insertAdjacentHTML('afterbegin', `<h2 class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'} &ndash; <span class="${s.itemCount}">${group.values.length}</span></h2>`);
 
@@ -69,9 +71,37 @@ export default class Waffle extends Element {
     }
     init() {
         console.log('init waffle');
+        PS.setSubs([
+            ['hoverPrimary', this.highlightGroup.bind(this)],
+            ['unHoverPrimary', this.highlightGroup.bind(this)]
+        ]);
+        function announceMouseEnter(){
+            console.log('mouseenter');
+            S.setState('hoverPrimary', this.dataset.group, {forceChange: true});
+        }
+        function announceMouseLeave(){
+            console.log('mouseleave');
+            S.setState('unHoverPrimary', this.dataset.group, {forceChange: true});
+        }
+        document.querySelectorAll('.' + s.groupDiv).forEach(group => {
+            group.addEventListener('mouseenter', announceMouseEnter);
+            group.addEventListener('mouseleave', announceMouseLeave);
+        });
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
+    }
+    highlightGroup(msg,data){
+        var selector = `.${s.groupDiv}[data-group="${data}"`;
+        var node = document.querySelector(selector);
+        if ( node && msg === 'hoverPrimary'){
+            node.classList.add(s.isHighlighted);
+        }
+        if ( node && msg === 'unHoverPrimary'){
+            node.classList.remove(s.isHighlighted);
+        }
+
+
     }
     clickHandler() {
         /* to do */

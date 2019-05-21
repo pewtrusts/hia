@@ -15,6 +15,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    &.isHighlighted h2 {
+        font-weight: bold;
+    }
 }
 
 .groupDivHeading {
@@ -46,8 +49,16 @@
     border: 1px solid #fff !important;
     width: 28px;
     height: 28px;
-    background-color: #f0f0f0;
+    background-color: $medium_blue;
     position: relative;
+    transition: background-color 0.2s ease-in-out;
+    .isHighlighted & {
+        background-color: $coral;
+    }
+
+}
+
+.showDetails .item, .showAllDetails .item {
 
     &.grantee::before {
         content: ' ';
