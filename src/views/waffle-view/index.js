@@ -2,6 +2,7 @@ import Element from '@UI/element';
 import s from './styles.scss';
 import DropDown from '@Project/components/dropdown';
 import Waffle from '@Project/components/waffle';
+import Legend from '@Project/components/legend';
 import PS from 'pubsub-setter';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
@@ -22,7 +23,14 @@ export default class WaffleView extends Element {
             this.createComponent(Waffle, 'div#waffle', {
                 renderToSelector: '.js-waffle-container',
                 data: {
-                    primary: 'stateOrTerritory'
+                    primary: 'stateOrTerritory',
+                }
+            }),
+            this.createComponent(Legend, 'div#legend', {
+                renderToSelector: '.js-legend-container',
+                data: {
+                    primary: 'stateOrTerritory',
+                    secondary: 'organizationTypes'
                 }
             })
         ]);
@@ -58,6 +66,12 @@ export default class WaffleView extends Element {
         //waffle container
         var waffleContainer = document.createElement('div');
         waffleContainer.classList.add('js-waffle-container');
+        
+            //legend container
+        var legendContainer = document.createElement('div');
+        legendContainer.classList.add('js-legend-container');
+        waffleContainer.appendChild(legendContainer);
+        
         view.appendChild(waffleContainer);
 
         return view;
@@ -65,13 +79,13 @@ export default class WaffleView extends Element {
     init(){
         console.log('init waffle-view');
         PS.setSubs([
-            ['selectPrimaryGroup', this.showLegend.bind(this)]
+            ['selectPrimaryGroup', this.hideHeading.bind(this)]
         ]);
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
     }
-    showLegend(msg,data){
+    hideHeading(msg,data){
         if ( data ) {
             document.querySelector('.' + s.instructHeading).classList.add(s.hide);
         }
