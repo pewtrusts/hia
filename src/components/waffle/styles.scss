@@ -1,5 +1,22 @@
 @import '@Project/css/variable.scss';
 
+.waffleContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 25px;
+    //    font-size: 14px;
+    //    width: 915px;
+}
+
+
+.groupDiv {
+    padding: 10px 10px 10px 0;
+    // background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 .groupDivHeading {
     font-weight: 400;
     margin-bottom: 2px;
@@ -45,44 +62,57 @@
 
 
     }
+
     &.legend {
-        float:left;
+        float: left;
         background-color: #fff;
         position: relative;
-        
+
     }
+
     &.legend::before {
         border: 1px solid #000;
         border-radius: 6px;
     }
+
     &:hover {
         border-color: #000;
     }
-    &.governmentAgency, &.local {
+
+    &.governmentAgency,
+    &.local {
         background-color: #296EC3;
         border: 1px solid #296EC3;
     }
-    &.nonprofitOrganization, &.state {
+
+    &.nonprofitOrganization,
+    &.state {
         background-color: #888888;
         border: 1px solid #888888;
     }
-    &.educationalInstitution, &.county {
+
+    &.educationalInstitution,
+    &.county {
         background-color: #5AC7BE;
         border: 1px solid #5AC7BE;
     }
+
     &.undetermined {
         background-color: #B0B0B0;
         border: 1px solid #B0B0B0;
     }
-    &.collaborative, &.regional {
+
+    &.collaborative,
+    &.regional {
         background-color: #FF7F49;
         border: 1px solid #FF7F49;
     }
-    &.forprofitOrganization, &.federal {
+
+    &.forprofitOrganization,
+    &.federal {
         background-color: #E67CAE;
         border: 1px solid #E67CAE;
     }
-    &.none {
-      
-    }
+
+    &.none {}
 }

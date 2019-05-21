@@ -7,6 +7,7 @@ import s from './styles.scss';
 const keys = new Set();
 
 
+
 export default class Waffle extends Element {
 
     prerender() {
@@ -27,20 +28,25 @@ export default class Waffle extends Element {
 
         //container
         var waffleContainer = document.createElement('div');
-        
+        waffleContainer.classList.add(s.waffleContainer);
+
+
         //groups
+        function returnMatchingValuesLength(ab) {
+            return this.model.nestBy[secondary].find(d => d.key === ab[secondary][0]).values.length;
+        }
         nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
             groupDiv.classList.add(s.groupDiv);
             groupDiv.insertAdjacentHTML('afterbegin', `<h2 class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'} &ndash; <span class="${s.itemCount}">${group.values.length}</span></h2>`);
-            
+
 
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
             itemsContainer.style.width = Math.ceil(Math.sqrt(group.values.length)) * 28 + 'px';
-            
-            // line above sets width of each so that each is as close to a square as possible
 
+            // line above sets width of each so that each is as close to a square as possible
+            group.values.sort((a, b) => returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
             group.values.forEach((value) => {
                 //items
                 var itemDiv = document.createElement('div');
@@ -54,11 +60,11 @@ export default class Waffle extends Element {
                 itemsContainer.appendChild(itemDiv);
             });
             groupDiv.appendChild(itemsContainer);
-            
+
             waffleContainer.appendChild(groupDiv);
 
         });
-        
+
         view.appendChild(waffleContainer);
         console.log(keys);
         return view;
@@ -73,4 +79,4 @@ export default class Waffle extends Element {
         /* to do */
 
     }
-} 
+}
