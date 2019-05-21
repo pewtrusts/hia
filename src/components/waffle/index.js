@@ -2,6 +2,7 @@ import Element from '@UI/element';
 import s from './styles.scss';
 import { stateModule as S } from 'stateful-dead';
 import PS from 'pubsub-setter';
+import tippy from 'tippy.js';
 //import { GTMPush } from '@Utils';
 
 
@@ -37,6 +38,7 @@ export default class Waffle extends Element {
         nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
             groupDiv.dataset.group = group.key;
+            groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv);
             groupDiv.insertAdjacentHTML('afterbegin', `<h2 class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'} &ndash; <span class="${s.itemCount}">${group.values.length}</span></h2>`);
 
@@ -75,15 +77,24 @@ export default class Waffle extends Element {
             ['hoverPrimary', this.highlightGroup.bind(this)],
             ['unHoverPrimary', this.highlightGroup.bind(this)]
         ]);
-        function announceMouseEnter(){
-            console.log('mouseenter');
-            S.setState('hoverPrimary', this.dataset.group, {forceChange: true});
+
+        function announceMouseEnter() {
+            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAllDetails)) {
+                
+                this._tippy.show();
+            }
+            S.setState('hoverPrimary', this.dataset.group, { forceChange: true });
         }
-        function announceMouseLeave(){
-            console.log('mouseleave');
-            S.setState('unHoverPrimary', this.dataset.group, {forceChange: true});
+
+        function announceMouseLeave() {
+            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAllDetails)) {
+                //this._tippy.destroy();
+                this._tippy.hide();
+            }
+            S.setState('unHoverPrimary', this.dataset.group, { forceChange: true });
         }
         document.querySelectorAll('.' + s.groupDiv).forEach(group => {
+            this.setTippys(group);
             group.addEventListener('mouseenter', announceMouseEnter);
             group.addEventListener('mouseleave', announceMouseLeave);
         });
@@ -91,17 +102,24 @@ export default class Waffle extends Element {
 
         //subscribe to secondary dimension , drilldown, details
     }
-    highlightGroup(msg,data){
+    setTippys(group) {
+        tippy(group, {
+            content: `<strong>${group.dataset.count} HIA${+group.dataset.count > 1 ? 's' : ''}</strong><br />Click for details`,
+            trigger: 'manual',
+            offset: '0, -100'
+        });
+    }
+    highlightGroup(msg, data) {
         var selector = `.${s.groupDiv}[data-group="${data}"`;
         var node = document.querySelector(selector);
-        if ( node && msg === 'hoverPrimary'){
-            node.classList.add(s.isHighlighted);
+        if (node) {
+            if (msg === 'hoverPrimary') {
+                node.classList.add(s.isHighlighted);
+            }
+            if (msg === 'unHoverPrimary') {
+                node.classList.remove(s.isHighlighted);
+            }
         }
-        if ( node && msg === 'unHoverPrimary'){
-            node.classList.remove(s.isHighlighted);
-        }
-
-
     }
     clickHandler() {
         /* to do */
