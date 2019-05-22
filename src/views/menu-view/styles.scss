@@ -1,6 +1,6 @@
 @import '@Project/css/variable.scss';
 
-.menuView {
+:global(#pew-app) .menuView {
     //display: none; // REMOVE THIS
     background-color: $medium_blue;
 
