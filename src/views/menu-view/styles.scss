@@ -1,8 +1,9 @@
 @import '@Project/css/variable.scss';
 
 .menuView {
-    display: none; // REMOVE THIS
+    //display: none; // REMOVE THIS
     background-color: $medium_blue;
+
     //min-height: calc(100vh - 220px);
     h2 {
         color: #fff;

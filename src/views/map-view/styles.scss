@@ -3,6 +3,7 @@
 .mapTitle {
     font-size: 28px;
     margin: 25px 0;
+
 }
 
 .legendContainer {
@@ -36,7 +37,7 @@
 }
 
 :global(.tippy-backdrop) {
-    background-color: rgba(255, 255, 255, 0.90);
+    background-color: #fff;
 }
 
 :global(.tippy-content) {

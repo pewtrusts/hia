@@ -1,2 +1,9 @@
 @import 'variable.scss';
 
+:global(#pew-app){
+
+    h2 {
+        padding: 0 2px;
+    }
+}
+
