@@ -3,7 +3,8 @@
 import Papa from 'papaparse';
 import * as d3 from 'd3-collection';
 import _ from 'lodash';
-//import { stateModule as S } from 'stateful-dead';
+import { stateModule as S } from 'stateful-dead';
+import PS from 'pubsub-setter';
 
 //import { publishWindowResize } from '@Utils';
 
@@ -94,7 +95,10 @@ export default class HIA extends PCTApp {
         this.views.length = 0;
         console.log(this.views);
         super.init();
-
+        this.bodyEventListenerBind = this.bodyEventListenerHandler.bind(this);
+        PS.setSubs([
+            ['selectPrimaryGroup', this.bodyEventListenerBind]
+        ]);
         getRuntimeData.call(this).then((v) => {
             model.data = v;
             this.model = model;
@@ -151,5 +155,15 @@ export default class HIA extends PCTApp {
         key = key.toLowerCase().replace('-','').doCamelCase();
         console.log(key);
         return key;
+    }
+    bodyEventListenerHandler(msg, data){
+        if ( data === null ){
+            document.body.removeEventListener('click', this.bodyClickClear);
+        } else {
+            document.body.addEventListener('click', this.bodyClickClear, true);
+        }
+    }
+    bodyClickClear(){
+        S.setState('selectPrimaryGroup', null);
     }
 }
