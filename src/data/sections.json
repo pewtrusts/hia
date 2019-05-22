@@ -3,30 +3,35 @@
         "id": "states",
         "heading": "State and territories",
         "text": "Where have HIAs been done in the United States?",
-        "instruct": "Select a state or territory to drill down"
+        "instruct": "Select a state or territory to drill down",
+        "key": "stateOrTerritory"
     },
     {
         "id": "sectors",
         "heading": "Sectors",
         "text": "In what sectors have HIAs been conducted?",
-        "instruct": "Select a sector to drill down"
+        "instruct": "Select a sector to drill down",
+        "key": "sectors"
     },
     {
         "id": "drivers",
         "heading": "Drivers of health",
         "text": "What drivers of health have been addressed by HIAs?",
-        "instruct": "Select a driver to drill down"
+        "instruct": "Select a driver to drill down",
+        "key": "driversOfHealth"
     },
     {
         "id": "orgs",
         "heading": "Organization type",
         "text": "What kinds of organizations typically conduct HIAs?",
-        "instruct": "Select an organization type to drill down"
+        "instruct": "Select an organization type to drill down",
+        "key": "organizationTypes"
     },
     {
         "id": "funding",
         "heading": "Funding type",
         "text": "How are HIAs funded? Who has been funding them?",
-        "instruct": "Select a funding type to drill down"
+        "instruct": "Select a funding type to drill down",
+        "key": "fundingSource"
     }
 ]

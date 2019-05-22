@@ -15,10 +15,27 @@ export default class Legend extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        console.log(this);
+        view.classList.add(s.legend);
+        this.returnUpdatedItems(this.data.secondary).forEach(item => {
+            view.appendChild(item);
+        });
+        return view;
+    }
+    init(){
+        PS.setSubs([
+            ['selectPrimaryGroup', this.toggleLegend.bind(this)]
+        ]);
+        /* to do*/
 
-        // following should be in an update function
-        this.model.nestBy[this.data.secondary].forEach(value => {
+        //subscribe to secondary dimension , drilldown, details
+    }
+    returnUpdatedItems(secondaryDimension){
+        var items = [];
+        var label = document.createElement('div');
+        label.classList.add(s.legendLabel);
+        label.textContent = this.model.sections.find(s => s.key === secondaryDimension).heading + ': ';
+        items.push(label);
+        this.model.nestBy[secondaryDimension].forEach(value => {
             var legendGroup = document.createElement('div');
             legendGroup.classList.add(s.legendGroup);
 
@@ -31,41 +48,21 @@ export default class Legend extends Element {
             legendGroup.appendChild(legendItem);
             legendGroup.appendChild(label);
 
-            view.appendChild(legendGroup);
-            
+            items.push(legendGroup);
 
         });
-        /* to do */
-        
-        // title ie Select a state or territory
-        // dropdown
-        // legend
-        // show all
-        /*
-        ...
-        ...
-        ...
+        return items;
 
-        */
-      
-        view.classList.add(s.legend);
-        return view;
-    }
-    init(){
-        PS.setSubs([
-            ['selectPrimaryGroup', this.showLegend.bind(this)]
-        ]);
-        /* to do*/
-
-        //subscribe to secondary dimension , drilldown, details
     }
     clickHandler(){
         /* to do */
 
     }
-    showLegend(msg,data){
+    toggleLegend(msg,data){
         if ( data ){
             this.el.classList.add(s.showLegend);
+        } else {
+            this.el.classList.remove(s.showLegend);
         }
     }
 }

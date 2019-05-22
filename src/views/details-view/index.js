@@ -22,7 +22,7 @@ export default class DetailsView extends Element {
         view.classList.add(s.detailsView);
 
 
-        
+
 
         //content container
         var container = document.createElement('div');
@@ -47,8 +47,10 @@ export default class DetailsView extends Element {
     init(){
         console.log('init details');
         PS.setSubs([
-            ['selectHIA', this.showDetailsHandler.bind(this)]
+            ['selectHIA', this.showDetailsHandler.bind(this)],
+            ['selectHIA', this.update.bind(this)]
         ]);
+        this.el.addEventListener('click', this.clickHandler)
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
@@ -60,8 +62,35 @@ export default class DetailsView extends Element {
             this.isOpen = false;
         }
     }
-    clickHandler(){
-        /* to do */
+    clickHandler(e){
+        e.stopPropagation();
+        
+    }
+    update(msg, data){
+        if ( !data ){
+            return;
+        }
+        var d = this.model.data.find(function(d){
+            return d.id === data;
+        });
+        var date = !isNaN(parseInt(d.publicationDate)) ? parseInt(d.publicationDate) : d.publicationDate;
+        var template = `<h2 class="${s.detailsHeading}">${d.title}</h2>
+                        <p><b>Date:</b> ${date}</p>
+                        <p>${d.description}</p>
+                        <div class="${s.columnsWrapper}">
+                            
+                                <p><b>Source:</b> ${d.authorOrSource}</p>
+                                <p><b>Location:</b> ${d.stateOrTerritory}</p>
+                            
+                            
+                                <p><b>Status:</b> ${d.status}</p>
+                                <p><b>Language:</b> TK UNAVAILABLE IN CSV</p>
+                            
+                        </div>
+
+
+        `;
+        document.querySelector('.js-details-container').innerHTML = template;
 
     }
 }

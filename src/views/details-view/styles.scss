@@ -1,23 +1,37 @@
 @import '@Project/css/variable.scss';
 
 .detailsView {
-    min-height: 500px; // remove
+    
     width: 100%;
-    position: absolute;
+    position: fixed;
+    left: 0;
     bottom: 0;
     background-color: $medium_blue;
     padding: 30px 90px 25px;
     transition: transform 0.2s ease-in-out;
-    transform: translateY(100%);
+    transform: translateY(calc(100% + 50px));
     z-index: 1;
+    color: #fff;
+    max-height: 100vh;
+    overflow-y: scroll;
     &.isOpen {
         transform: translateY(0);
     }
+    b {
+        font-weight: 900;
+    }
 }
-
+.columnsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    p {
+        width: 312px;
+        padding-right: 20px;
+    }
+}
 .container {
     width: 100%;
-    max-width: 490px;
+    max-width: 625px;
 }
 
 .closeButton {
@@ -54,7 +68,7 @@
 
 .closeButton {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
 
     width: 23px;

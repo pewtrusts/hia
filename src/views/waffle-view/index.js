@@ -79,15 +79,18 @@ export default class WaffleView extends Element {
     init(){
         console.log('init waffle-view');
         PS.setSubs([
-            ['selectPrimaryGroup', this.hideHeading.bind(this)]
+            ['selectPrimaryGroup', this.toggleHeading.bind(this)]
         ]);
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
     }
-    hideHeading(msg,data){
+    toggleHeading(msg,data){
+        var heading = document.querySelector('.' + s.instructHeading);
         if ( data ) {
-            document.querySelector('.' + s.instructHeading).classList.add(s.hide);
+            heading.classList.add(s.hide);
+        } else {
+            heading.classList.remove(s.hide);
         }
     }
     clickHandler(){
