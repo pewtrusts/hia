@@ -33,5 +33,12 @@
         "text": "How are HIAs funded? Who has been funding them?",
         "instruct": "Select a funding type to drill down",
         "key": "fundingSource"
+    },
+    {
+        "id": "methods",
+        "heading": "Research methods",
+        "text": "How has research on HIAs been conducted (COPY NOT REVIEWED)?",
+        "instruct": "Select a research method to drill down",
+        "key": "researchMethod"
     }
 ]

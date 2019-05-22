@@ -30,7 +30,7 @@ import PCTApp from '@App';
 
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
-const fieldsThatNeedToBeArrays = ['decisionMakingLevels','driversOfHealth','organizationTypes','sectors'];
+const fieldsThatNeedToBeArrays = ['decisionMakingLevels','driversOfHealth','organizationTypes','sectors','researchMethods'];
 const otherFieldsToBeVisualized = ['stateOrTerritory']
 const model = {
     sections,

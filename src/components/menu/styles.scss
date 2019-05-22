@@ -86,13 +86,10 @@
         width: 100%;
         margin-top: 0;
         background-color: $medium_blue;
-        display: table;
-        @media screen and (max-width: 620px){
-            display: flex;
-        }
+        display: flex;
     }
     .navLink {
-        display: table-cell;
+       // display: table-cell;
         position: relative;
         font-weight: bold;
         width: 20%;
@@ -117,7 +114,7 @@
                 background-color: inherit;
             }
         }
-        @media screen and (max-width: 620px){
+        @media screen and (max-width: 1070px){
             display: block;
             width: 100%;
             max-width: 50%;
