@@ -58,6 +58,7 @@ export default class Waffle extends Element {
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[cleanSecondary], s[value.fundingSource]);
                 itemDiv.dataset.title = value.title;
+                itemDiv.dataset.id = value.id;
                 //itemDiv.dataset.tippyContent = value.Title;
                 //tippy(itemDiv);
                 itemsContainer.appendChild(itemDiv);
@@ -79,6 +80,11 @@ export default class Waffle extends Element {
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
         ]);
+        function itemClickHandler(){
+            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
+                S.setState('selectHIA', +this.dataset.id);
+            }
+        }
         function itemMouseenter(){
             if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
                 this._tippy.show();
@@ -113,6 +119,7 @@ export default class Waffle extends Element {
             this.setItemTippy(item);
             item.addEventListener('mouseenter', itemMouseenter);
             item.addEventListener('mouseleave', itemMouseleave);
+            item.addEventListener('click', itemClickHandler);
         });
         /* to do*/
 
@@ -154,7 +161,9 @@ export default class Waffle extends Element {
             }
         }
     }
-    clickHandler() {
+    clickHandler(e) {
+        e.stopPropagation();
+        console.log('click group');
         S.setState('selectPrimaryGroup', this.dataset.group);
 
     }

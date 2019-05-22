@@ -28,7 +28,7 @@ export default class SectionView extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        view.classList.add('section-view');
+        view.classList.add('section-view', s.sectionView);
         //view.style.display = 'none';
         /* to do */
         
@@ -45,7 +45,8 @@ export default class SectionView extends Element {
         console.log('init section-view');
         var showSectionBind = this.showSection.bind(this)
         PS.setSubs([
-            ['isSelected', showSectionBind]
+            ['isSelected', showSectionBind],
+            ['selectHIA', this.blurSection.bind(this)]
         ]);
         /*this.children.forEach(child => {
             console.log(child);
@@ -58,6 +59,13 @@ export default class SectionView extends Element {
             also PS.setSubs() to indicate active top menu section
             and to change the views
         */
+    }
+    blurSection(msg,data){
+        if ( data ){
+            this.el.classList.add(s.isBlurred);
+        } else {
+            this.el.classList.remove(s.isBlurred);
+        }
     }
     showSection(){
         this.el.style.display = 'block';

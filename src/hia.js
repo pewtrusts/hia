@@ -15,6 +15,8 @@ import stateAbbreviations from './data/state-abbreviations.json';
 //views
 import MenuView from './views/menu-view/';
 import SectionView from './views/section-view/';
+import DetailsView from './views/details-view/';
+import MaskView from './views/mask-view/';
 //import FiftyStateView from './views/fifty-state/';
 
 // app prototype
@@ -35,7 +37,11 @@ const model = {
     stateAbbreviations,
     nestBy: {}
 };
-
+function addIDs(data){
+    data.forEach(function(d,i){
+        d.id = i;
+    });
+}
 function cleanHeaderRow(match){
     var headers = match.split(',');
     return headers.map(function(each){
@@ -53,6 +59,7 @@ function getRuntimeData() {
                 return newChunk;
             },
             complete: function(results){
+                addIDs(results.data);
                 resolveWrapper(results.data);
             },
             download: true,
@@ -73,7 +80,8 @@ function getRuntimeData() {
 
 export default class HIA extends PCTApp {
     prerender() {
-        getRuntimeData.call(this).then((v) => { 
+        getRuntimeData.call(this).then((v) => {
+            
             model.data = v;
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */
@@ -97,7 +105,8 @@ export default class HIA extends PCTApp {
         super.init();
         this.bodyEventListenerBind = this.bodyEventListenerHandler.bind(this);
         PS.setSubs([
-            ['selectPrimaryGroup', this.bodyEventListenerBind]
+            ['selectPrimaryGroup', this.bodyEventListenerBind],
+           // ['selectHIA', this.bodyEventListenerBind]
         ]);
         getRuntimeData.call(this).then((v) => {
             model.data = v;
@@ -119,7 +128,9 @@ export default class HIA extends PCTApp {
     pushViews(){
         this.views.push(
             this.createComponent(MenuView, 'div#menu-view'),
-            this.createComponent(SectionView, 'div#section-view')
+            this.createComponent(SectionView, 'div#section-view'),
+            this.createComponent(DetailsView, 'div#details-view'),
+            this.createComponent(MaskView, 'div#mask-view')
         );
     }
     nestData(){
@@ -156,14 +167,16 @@ export default class HIA extends PCTApp {
         console.log(key);
         return key;
     }
-    bodyEventListenerHandler(msg, data){
-        if ( data === null ){
-            document.body.removeEventListener('click', this.bodyClickClear);
-        } else {
-            document.body.addEventListener('click', this.bodyClickClear, true);
-        }
+    bodyEventListenerHandler(msg,data){
+        var handler = this.bodyClickClear;
+            if ( data !== null ){
+                document.body.addEventListener('click', handler);
+            } else {
+                document.body.removeEventListener('click', handler);
+            }
     }
     bodyClickClear(){
+        console.log('bodyclick');
         S.setState('selectPrimaryGroup', null);
     }
 }

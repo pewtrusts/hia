@@ -1,5 +1,12 @@
 @import '@Project/css/variable.scss';
 
+.sectionView {
+    transition: filter 0.2s ease-in-out;
+}
 .active {
     background-color: $dark_blue;
+}
+
+.isBlurred {
+    filter: blur(4px) saturate(40%);
 }

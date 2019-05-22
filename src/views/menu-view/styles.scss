@@ -1,7 +1,7 @@
 @import '@Project/css/variable.scss';
 
 :global(#pew-app) .menuView {
-    //display: none; // REMOVE THIS
+    display: none; // REMOVE THIS
     background-color: $medium_blue;
 
     //min-height: calc(100vh - 220px);

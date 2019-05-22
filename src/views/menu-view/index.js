@@ -1,7 +1,7 @@
 import Element from '@UI/element';
 import s from './styles.scss';
 import { stateModule as S } from 'stateful-dead';
-import PS from 'pubsub-setter'
+import PS from 'pubsub-setter';
 //import { GTMPush } from '@Utils';
 
 import Menu from '@Project/components/menu';
@@ -14,7 +14,6 @@ const menuTitle = 'Explore Health Impact Assessments';
 export default class MenuView extends Element {
     
     prerender(){
-        PS.logSubs();
          //container
         var view = super.prerender();
         this.name = 'MenuView';

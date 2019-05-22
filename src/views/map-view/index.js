@@ -131,8 +131,8 @@ export default class MapView extends Element {
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
             if ( d.key !== "null") {
                 if ( stateGroup ){
-                    stateGroup.addEventListener('click', function(){
-                        _this.stateClickHandler.call(this, d);
+                    stateGroup.addEventListener('click', function(e){
+                        _this.stateClickHandler.call(this, d, e);
                     });
                     stateGroup.addEventListener('mouseenter', function(){
                         S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
@@ -142,8 +142,8 @@ export default class MapView extends Element {
                     });
                 }
                 if ( stateBox ){
-                    stateBox.addEventListener('click', function(){
-                        _this.stateClickHandler.call(this, d);
+                    stateBox.addEventListener('click', function(e){
+                        _this.stateClickHandler.call(this, d, e);
                     });
                     stateBox.addEventListener('mouseenter', function(){
                         S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
@@ -177,7 +177,8 @@ export default class MapView extends Element {
             }
         }
     }
-    stateClickHandler(d){
+    stateClickHandler(d,e){
+        e.stopPropagation();
         S.setState('selectPrimaryGroup', d.key);
         GTMPush(`HIA|Select|State|${d.key}`);
     }
