@@ -16,7 +16,7 @@ module.exports = env => { // module.exports is function now to pass in env varia
         module: {
             rules: [{
                 test: /\.scss$/,
-                //exclude: /exclude/,
+                exclude: /css\/styles\.scss$/,
                 use: [{
                         loader: 'style-loader'
                     }, {
@@ -48,17 +48,34 @@ module.exports = env => { // module.exports is function now to pass in env varia
                 ]
             },
             {
-                test: /\.css$/,
+                test: /css\/styles\.scss$/,
                 //exclude: /exclude/,
                 use: [{
                         loader: 'style-loader'
                     }, {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
-                            localIdentName: '[local]', // in dev mode hash not necessary to brak caches but incuding path
+                            modules: false,
+                            sourceMap: true,
+                            importLoaders: 1
                         }
-                    }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true,
+                            ident: 'postcss',
+                            plugins: (loader) => [
+                                require('postcss-inline-svg')(),
+                                require('postcss-assets')()
+                            ]
+                        }
+                    }, { 
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }, // any scss files to be excluded from renaming the classes
                 ]
             }]
         },
