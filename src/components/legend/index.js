@@ -16,7 +16,7 @@ export default class Legend extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         view.classList.add(s.legend);
-        this.returnUpdatedItems(this.data.secondary).forEach(item => {
+        this.returnUpdatedItems(this.model.fields.find(f => f.key === this.data.primary).secondaryDimensions[0]).forEach(item => {
             view.appendChild(item);
         });
         return view;
@@ -42,7 +42,7 @@ export default class Legend extends Element {
             var legendItem = document.createElement('div');
             legendItem.classList.add(s.legendItem, 'secondary-' + i);
             var label = document.createElement('span');
-            label.textContent = value.key;
+            label.textContent = value.key || 'Not specified';
 
             legendGroup.appendChild(legendItem);
             legendGroup.appendChild(label);

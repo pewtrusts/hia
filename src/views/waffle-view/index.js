@@ -7,7 +7,7 @@ import PS from 'pubsub-setter';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
-
+const initialPrimary = 'stateOrTerritory';
 
 export default class WaffleView extends Element {
     
@@ -23,14 +23,13 @@ export default class WaffleView extends Element {
             this.createComponent(Waffle, 'div#waffle', {
                 renderToSelector: '.js-waffle-container',
                 data: {
-                    primary: 'stateOrTerritory',
+                    primary: initialPrimary,
                 }
             }),
             this.createComponent(Legend, 'div#legend', {
                 renderToSelector: '.js-legend-container',
                 data: {
-                    primary: 'stateOrTerritory',
-                    secondary: 'decisionMakingLevels'
+                    primary: initialPrimary,
                 }
             })
         ]);
@@ -52,7 +51,7 @@ export default class WaffleView extends Element {
         */
 
         // heading
-        var instruct = this.model.fields.find(d => d.key === 'stateOrTerritory').instruct;
+        var instruct = this.model.fields.find(d => d.key === initialPrimary).instruct;
         var heading = document.createElement('h2');
         heading.textContent = instruct;
         heading.classList.add(s.instructHeading);
