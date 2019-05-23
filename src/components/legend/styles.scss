@@ -22,47 +22,6 @@
     margin-right: 4px;
     position: relative;
     top: 3px;
-
-    &.governmentAgency,
-    &.local {
-        background-color: #296EC3;
-        border: 1px solid #296EC3;
-    }
-
-    &.nonprofitOrganization,
-    &.state {
-        background-color: #888888;
-        border: 1px solid #888888;
-    }
-
-    &.educationalInstitution,
-    &.county {
-        background-color: #5AC7BE;
-        border: 1px solid #5AC7BE;
-    }
-
-    &.undetermined {
-        background-color: #B0B0B0;
-        border: 1px solid #B0B0B0;
-    }
-
-    &.collaborative,
-    &.regional {
-        background-color: #FF7F49;
-        border: 1px solid #FF7F49;
-    }
-
-    &.forprofitOrganization,
-    &.federal {
-        background-color: #E67CAE;
-        border: 1px solid #E67CAE;
-    }
-
-    &:global(.none){
-        background-color: $light_gray;
-        border: 1px solid $light_gray;
-
-    }
 }
 .legendLabel {
     width: 100%;

@@ -40,7 +40,7 @@ export default class Legend extends Element {
             legendGroup.classList.add(s.legendGroup);
 
             var legendItem = document.createElement('div');
-            legendItem.classList.add(s.legendItem, 'secondary-' + i);
+            legendItem.classList.add(s.legendItem, this.app.cleanKey(value.key), 'secondary-' + i);
             var label = document.createElement('span');
             label.textContent = value.key || 'Not specified';
 
