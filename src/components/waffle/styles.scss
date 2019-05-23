@@ -98,39 +98,46 @@
         border-color: #000;
     }
 
-    &.governmentAgency,
-    &.local {
-        background-color: #296EC3;
-        border: 1px solid #296EC3;
+    &:global(.secondary-0) {
+        background-color: $medium_blue;
+        border: 1px solid $medium_blue;
     }
 
-    &.nonprofitOrganization,
-    &.state {
-        background-color: #888888;
-        border: 1px solid #888888;
+    &:global(.secondary-1) {
+        background-color: $medium_gray;
+        border: 1px solid $medium_gray;
     }
 
-    &.educationalInstitution,
-    &.county {
-        background-color: #5AC7BE;
-        border: 1px solid #5AC7BE;
+    &:global(.secondary-2) {
+        background-color: $teal;
+        border: 1px solid $teal;
     }
 
     &.undetermined {
-        background-color: #B0B0B0;
-        border: 1px solid #B0B0B0;
+        background-color: #E1E1E1;
+        border: 1px solid #E1E1E1;
     }
 
-    &.collaborative,
-    &.regional {
-        background-color: #FF7F49;
-        border: 1px solid #FF7F49;
+    &:global(.secondary-3) {
+        background-color: $coral;
+        border: 1px solid $coral;
     }
 
-    &.forprofitOrganization,
-    &.federal {
-        background-color: #E67CAE;
-        border: 1px solid #E67CAE;
+    &:global(.secondary-4) {
+        background-color: $red;
+        border: 1px solid $red;
+    }
+    &:global(.secondary-5) {
+        background-color: $green;
+        border: 1px solid $green;
+    }
+    &:global(.secondary-6) {
+        background-color: $light_blue;
+        border: 1px solid $light_blue;
+    }
+    &:global(.secondary-6) {
+        background-color: $light_red;
+        border: 1px solid $light_red;
     }
 
     &:global(.none){

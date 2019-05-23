@@ -50,10 +50,12 @@ export default class Waffle extends Element {
             group.values.forEach((value) => {
                 //items
                 var itemDiv = document.createElement('div');
-                console.log(value[secondary]);
                 var cleanSecondary = this.app.cleanKey(value[secondary]);
+                var nested = this.model.nestBy[secondary];
+                var matchingString = typeof value[secondary] === 'string' ? value[secondary] : value[secondary][0];
+                var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
                 itemDiv.classList.add(s.item);
-                itemDiv.classList.add(cleanSecondary, s[cleanSecondary], s[value.fundingSource]);
+                itemDiv.classList.add(cleanSecondary, 'secondary-' + indexOfSecondaryValue, s[value.fundingSource]);
                 itemDiv.dataset.title = value.title;
                 itemDiv.dataset.id = value.id;
                 //itemDiv.dataset.tippyContent = value.Title;
