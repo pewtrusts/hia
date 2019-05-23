@@ -30,7 +30,7 @@ export default class WaffleView extends Element {
                 renderToSelector: '.js-legend-container',
                 data: {
                     primary: 'stateOrTerritory',
-                    secondary: 'organizationTypes'
+                    secondary: 'decisionMakingLevels'
                 }
             })
         ]);
@@ -52,7 +52,7 @@ export default class WaffleView extends Element {
         */
 
         // heading
-        var instruct = this.model.sections.find(d => d.id === 'states').instruct;
+        var instruct = this.model.sections.find(d => d.key === 'stateOrTerritory').instruct;
         var heading = document.createElement('h2');
         heading.textContent = instruct;
         heading.classList.add(s.instructHeading);

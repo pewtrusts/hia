@@ -17,15 +17,12 @@ export default class Waffle extends Element {
         //container
         var view = super.prerender();
         this.name = 'Waffle';
-        this.primarySecondaryMap = {
-            stateOrTerritory: 'organizationTypes',
-            organizationTypes: 'driversOfHealth'
-        }
+        
         if (this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         var nestedData = this.model.nestBy[this.data.primary];
-        var secondary = this.primarySecondaryMap[this.data.primary];
+        var secondary = this.model.sections.find(s => s.key === this.data.primary).secondaryDimensions[0];
 
         //container
         var waffleContainer = document.createElement('div');

@@ -1,44 +1,72 @@
 [
     {
-        "id": "states",
         "heading": "State and territories",
         "text": "Where have HIAs been done in the United States?",
         "instruct": "Select a state or territory to drill down",
-        "key": "stateOrTerritory"
+        "key": "stateOrTerritory",
+        "secondaryDimensions": [
+            "decisionMakingLevels",
+            "organizationTypes",
+            "communityTypes",
+            "fundingSource"
+        ]
     },
     {
-        "id": "sectors",
         "heading": "Sectors",
         "text": "In what sectors have HIAs been conducted?",
         "instruct": "Select a sector to drill down",
-        "key": "sectors"
+        "key": "sectors",
+        "secondaryDimensions": [
+            "decisionMakingLevels",
+            "organizationTypes",
+            "communityTypes",
+            "fundingSource"
+        ]
     },
     {
-        "id": "drivers",
         "heading": "Drivers of health",
         "text": "What drivers of health have been addressed by HIAs?",
         "instruct": "Select a driver to drill down",
-        "key": "driversOfHealth"
+        "key": "driversOfHealth",
+        "secondaryDimensions": [
+            "decisionMakingLevels",
+            "organizationTypes",
+            "communityTypes",
+            "fundingSource"
+        ]
     },
     {
-        "id": "orgs",
-        "heading": "Organization type",
-        "text": "What kinds of organizations typically conduct HIAs?",
-        "instruct": "Select an organization type to drill down",
-        "key": "organizationTypes"
+        "heading": "Affected populations",
+        "text": "Which populations are affected by the projects being assessed (COPY NOT REVIEWED)?",
+        "instruct": "Select a population type to drill down",
+        "key": "affectedPopulations",
+        "secondaryDimensions": [
+            "researchMethods",
+            "decisionMakingLevels",
+            "organizationTypes",
+            "communityTypes",
+            "fundingSource"
+        ]
     },
     {
-        "id": "funding",
-        "heading": "Funding type",
-        "text": "How are HIAs funded? Who has been funding them?",
-        "instruct": "Select a funding type to drill down",
-        "key": "fundingSource"
-    },
-    {
-        "id": "methods",
         "heading": "Research methods",
         "text": "How has research on HIAs been conducted (COPY NOT REVIEWED)?",
         "instruct": "Select a research method to drill down",
-        "key": "researchMethod"
+        "key": "researchMethods",
+        "secondaryDimensions": [
+            "decisionMakingLevels",
+            "organizationTypes",
+            "communityTypes"
+        ]
+    },
+    {
+        "heading": "Decision-making levels",
+        "text": "At what level are decisions about the projects being made (COPY NOT REVIEWED)?",
+        "instruct": "Select a decision-making level to drill down",
+        "key": "decisionMakingLevels",
+        "secondaryDimensions": [
+            "organizationTypes",
+            "communityTypes"
+        ]
     }
 ]

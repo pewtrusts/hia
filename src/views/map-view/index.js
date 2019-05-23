@@ -30,7 +30,7 @@ export default class MapView extends Element {
 
         //title
         var title = document.createElement('h2');
-        title.textContent = this.model.sections.find(d => d.id === 'states').text;
+        title.textContent = this.model.sections.find(d => d.key === 'stateOrTerritory').text;
         title.classList.add(s.mapTitle);
 
 
