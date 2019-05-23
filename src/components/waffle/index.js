@@ -114,7 +114,7 @@ export default class Waffle extends Element {
             group.addEventListener('mouseleave', announceMouseLeave);
             group.addEventListener('click', this.clickHandler);
         });
-        document.querySelectorAll('.' + s.itemDiv).forEach(item => {
+        document.querySelectorAll('.' + s.item).forEach(item => {
             this.setItemTippy(item);
             item.addEventListener('mouseenter', itemMouseenter);
             item.addEventListener('mouseleave', itemMouseleave);
