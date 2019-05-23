@@ -35,13 +35,12 @@ export default class Legend extends Element {
         label.classList.add(s.legendLabel);
         label.textContent = this.model.fields.find(s => s.key === secondaryDimension).heading + ': ';
         items.push(label);
-        this.model.nestBy[secondaryDimension].forEach(value => {
+        this.model.nestBy[secondaryDimension].forEach((value, i) => {
             var legendGroup = document.createElement('div');
             legendGroup.classList.add(s.legendGroup);
 
             var legendItem = document.createElement('div');
-            legendItem.classList.add(s.legendItem, s[this.app.cleanKey(value.key)]);
-
+            legendItem.classList.add(s.legendItem, 'secondary-' + i);
             var label = document.createElement('span');
             label.textContent = value.key;
 

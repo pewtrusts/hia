@@ -1,9 +1,47 @@
 @import 'variable.scss';
 
-:global(#pew-app){
+/* this is for global styles. selectors are not rewritten. module = false in dev config */
+
+#pew-app {
 
     h2 {
         padding: 0 2px;
     }
 }
 
+.secondary-0 {
+    background-color: $medium_blue;
+    border: 1px solid $medium_blue;
+}
+.secondary-1 {
+    background-color: $medium_gray;
+    border: 1px solid $medium_gray;
+}
+.secondary-2 {
+    background-color: $teal;
+    border: 1px solid $teal;
+}
+.secondary-3 {
+    background-color: $coral;
+    border: 1px solid $coral;
+}
+.secondary-4 {
+    background-color: $red;
+    border: 1px solid $red;
+}
+.secondary-5 {
+    background-color: $green;
+    border: 1px solid $green;
+}
+.secondary-6 {
+    background-color: $light_blue;
+    border: 1px solid $light_blue;
+}
+.secondary-6 {
+    background-color: $light_red;
+    border: 1px solid $light_red;
+}
+.none {
+    background-color: $light_gray;
+    border: 1px solid $light_gray;
+}

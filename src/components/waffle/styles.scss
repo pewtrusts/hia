@@ -10,6 +10,7 @@
 
 
 .groupDiv {
+    position: relative;
     padding: 10px 10px 10px 0;
     // background-color: #fff;
     display: flex;
@@ -17,6 +18,17 @@
     justify-content: flex-end;
     &:focus {
         outline-width: 0;
+    }
+    &.isHighlighted::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: calc(100% - 10px);
+        height: 10px;
+        left: 0;
+        bottom: 0;
+        background-color: $coral;
+
     }
     
 }
@@ -50,99 +62,21 @@
     border: 1px solid #fff !important;
     width: 28px;
     height: 28px;
-    background-color: $dark_blue;
+    background-color: #000;
     position: relative;
     transition: background-color 0.2s ease-in-out;
     cursor: pointer;
-    .isHighlighted & {
-        background-color: $coral;
-    }
     &:focus {
         outline-width: 0
     }
 
 
 }
-
 .showDetails .item, .showAllDetails .item {
     &:hover {
         border: 2px solid $coral !important;
     }
-    &.grantee::before {
-        content: ' ';
-        display: block;
-        width: 5px;
-        height: 5px;
-        border-radius: 2.5px;
-        background-color: #fff;
-        position: absolute;
-        left: calc(50% - 3px);
-        top: calc(50% - 2px);
-
-
-    }
-
-    &.legend {
-        float: left;
-        background-color: #fff;
-        position: relative;
-
-    }
-
-    &.legend::before {
-        border: 1px solid #000;
-        border-radius: 6px;
-    }
-
-    &:hover {
-        border-color: #000;
-    }
-
-    &:global(.secondary-0) {
-        background-color: $medium_blue;
-        border: 1px solid $medium_blue;
-    }
-
-    &:global(.secondary-1) {
-        background-color: $medium_gray;
-        border: 1px solid $medium_gray;
-    }
-
-    &:global(.secondary-2) {
-        background-color: $teal;
-        border: 1px solid $teal;
-    }
-
-    &.undetermined {
-        background-color: #E1E1E1;
-        border: 1px solid #E1E1E1;
-    }
-
-    &:global(.secondary-3) {
-        background-color: $coral;
-        border: 1px solid $coral;
-    }
-
-    &:global(.secondary-4) {
-        background-color: $red;
-        border: 1px solid $red;
-    }
-    &:global(.secondary-5) {
-        background-color: $green;
-        border: 1px solid $green;
-    }
-    &:global(.secondary-6) {
-        background-color: $light_blue;
-        border: 1px solid $light_blue;
-    }
-    &:global(.secondary-6) {
-        background-color: $light_red;
-        border: 1px solid $light_red;
-    }
-
-    &:global(.none){
-        background-color: $light_gray;
-        border: 1px solid $light_gray;
-
-    }
+}
+.waffleContainer:not(.showAllDetails) .groupDiv:not(.showDetails) .item {
+    background-color: $dark_blue;
 }
