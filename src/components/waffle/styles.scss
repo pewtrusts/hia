@@ -3,7 +3,7 @@
 .waffleContainer {
     display: flex;
     flex-wrap: wrap;
-    
+
     //    font-size: 14px;
     //    width: 915px;
 }
@@ -16,9 +16,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+
     &:focus {
         outline-width: 0;
     }
+
     &.isHighlighted::after {
         content: '';
         display: block;
@@ -30,7 +32,7 @@
         background-color: $coral;
 
     }
-    
+
 }
 
 .groupDivHeading {
@@ -66,17 +68,34 @@
     position: relative;
     transition: background-color 0.2s ease-in-out;
     cursor: pointer;
+
     &:focus {
         outline-width: 0
     }
 
-
+    &.completed::after {
+        content: ' ';
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 2.5px;
+        background-color: #fff;
+        position: absolute;
+        left: calc(50% - 3px);
+        top: calc(50% - 2px);
+    }
 }
-.showDetails .item, .showAllDetails .item {
+
+.showDetails .item,
+.showAllDetails .item {
     &:hover {
         border: 2px solid $coral !important;
     }
 }
+
 .waffleContainer:not(.showAllDetails) .groupDiv:not(.showDetails) .item {
     background-color: $dark_blue;
+    &.completed::after {
+        background-color: $dark_blue;
+    }
 }

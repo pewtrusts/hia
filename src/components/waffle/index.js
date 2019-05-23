@@ -55,7 +55,7 @@ export default class Waffle extends Element {
                 var matchingString = typeof value[secondary] === 'string' ? value[secondary] : value[secondary][0];
                 var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
                 itemDiv.classList.add(s.item);
-                itemDiv.classList.add(cleanSecondary, 'secondary-' + indexOfSecondaryValue);
+                itemDiv.classList.add(cleanSecondary, s[this.app.cleanKey(value.status)],'secondary-' + indexOfSecondaryValue);
                 itemDiv.dataset.title = value.title;
                 itemDiv.dataset.id = value.id;
                 //itemDiv.dataset.tippyContent = value.Title;

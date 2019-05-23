@@ -31,10 +31,14 @@ export default class Legend extends Element {
     }
     returnUpdatedItems(secondaryDimension){
         var items = [];
+        
+        //label
         var label = document.createElement('div');
         label.classList.add(s.legendLabel);
         label.textContent = this.model.fields.find(s => s.key === secondaryDimension).heading + ': ';
         items.push(label);
+        
+        //dynamic items
         this.model.nestBy[secondaryDimension].forEach((value, i) => {
             var legendGroup = document.createElement('div');
             legendGroup.classList.add(s.legendGroup);
@@ -50,6 +54,13 @@ export default class Legend extends Element {
             items.push(legendGroup);
 
         });
+
+        //boolean item
+        var boolItem = document.createElement('div');
+        boolItem.classList.add(s.boolItem);
+        boolItem.textContent = '= Completed';
+        items.push(boolItem);
+
         return items;
 
     }

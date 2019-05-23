@@ -4,6 +4,7 @@
     border-top: 1px solid $dark_gray;
 }
 .instructHeading {
+    position: absolute;
     font-size: 28px;
     margin: 25px 0;
     &.hide {
