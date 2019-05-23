@@ -52,7 +52,7 @@ export default class WaffleView extends Element {
         */
 
         // heading
-        var instruct = this.model.sections.find(d => d.key === 'stateOrTerritory').instruct;
+        var instruct = this.model.fields.find(d => d.key === 'stateOrTerritory').instruct;
         var heading = document.createElement('h2');
         heading.textContent = instruct;
         heading.classList.add(s.instructHeading);

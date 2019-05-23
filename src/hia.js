@@ -9,7 +9,7 @@ import PS from 'pubsub-setter';
 //import { publishWindowResize } from '@Utils';
 
 //data 
-import sections from './data/sections.json';
+import fields from './data/metadata.json';
 import stateAbbreviations from './data/state-abbreviations.json';
 
 //views
@@ -30,10 +30,9 @@ import PCTApp from '@App';
 
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
-const fieldsThatNeedToBeArrays = ['decisionMakingLevels','driversOfHealth','organizationTypes','sectors','researchMethods'];
-const otherFieldsToBeVisualized = ['stateOrTerritory']
+
 const model = {
-    sections,
+    fields,
     stateAbbreviations,
     nestBy: {}
 };
@@ -69,7 +68,8 @@ function getRuntimeData() {
             header: true,
             skipEmptyLines: true,
             transform: function(value, headerName){
-                if (fieldsThatNeedToBeArrays.indexOf(headerName) !== -1){
+                let match = model.fields.find(s => s.key === headerName);
+                if ( match && match.splitToArray ){
                     return value.split(',');
                 }
                 return value;
@@ -134,6 +134,8 @@ export default class HIA extends PCTApp {
         );
     }
     nestData(){
+        var fieldsThatNeedToBeArrays = this.model.fields.filter(s => s.splitToArray === true).map(each => each.key);
+        var otherFieldsToBeVisualized = this.model.fields.filter(s => s.splitToArray !== true).map(each => each.key);
         function nestData(field, entries){
             return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => a.values.length >= b.values.length ? -1 : 1);
         }

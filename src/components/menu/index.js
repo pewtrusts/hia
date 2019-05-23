@@ -16,8 +16,8 @@ export default class Menu extends Element {
         list.setAttribute('aria-label', 'In-page');
         list.setAttribute('aria-controls', 'map-view bar-view waffle-view');
         list.classList.add(s.menuList);
-        
-        this.model.sections.forEach(section => {
+        this.sections = this.model.fields.filter(f => !f.isSecondaryOnly);
+        this.sections.forEach(section => {
             var item = document.createElement('a');
             item.classList.add(s.navLink);
             item.href = `#${section.id}`;
@@ -26,7 +26,7 @@ export default class Menu extends Element {
             //item.setAttribute('tabindex', 0);
             list.appendChild(item);
         });
-        if ( this.model.sections.length % 2 === 1 ){
+        if ( this.sections.length % 2 === 1 ){
             let extraItem = document.createElement('div');
             extraItem.classList.add(s.navLink, s.placeholderMenuItem);
             extraItem.setAttribute('disabled', 'disabled');

@@ -1,9 +1,9 @@
 [
     {
-        "heading": "State and territories",
+        "key": "stateOrTerritory",
+        "heading": "States and territories",
         "text": "Where have HIAs been done in the United States?",
         "instruct": "Select a state or territory to drill down",
-        "key": "stateOrTerritory",
         "secondaryDimensions": [
             "decisionMakingLevels",
             "organizationTypes",
@@ -12,10 +12,11 @@
         ]
     },
     {
+        "key": "sectors",
         "heading": "Sectors",
         "text": "In what sectors have HIAs been conducted?",
         "instruct": "Select a sector to drill down",
-        "key": "sectors",
+        "splitToArray": true,
         "secondaryDimensions": [
             "decisionMakingLevels",
             "organizationTypes",
@@ -24,10 +25,11 @@
         ]
     },
     {
+        "key": "driversOfHealth",
         "heading": "Drivers of health",
         "text": "What drivers of health have been addressed by HIAs?",
         "instruct": "Select a driver to drill down",
-        "key": "driversOfHealth",
+        "splitToArray": true,
         "secondaryDimensions": [
             "decisionMakingLevels",
             "organizationTypes",
@@ -36,10 +38,11 @@
         ]
     },
     {
+        "key": "affectedPopulations",
         "heading": "Affected populations",
         "text": "Which populations are affected by the projects being assessed (COPY NOT REVIEWED)?",
         "instruct": "Select a population type to drill down",
-        "key": "affectedPopulations",
+        "splitToArray": true,
         "secondaryDimensions": [
             "researchMethods",
             "decisionMakingLevels",
@@ -49,10 +52,11 @@
         ]
     },
     {
+        "key": "researchMethods",
         "heading": "Research methods",
         "text": "How has research on HIAs been conducted (COPY NOT REVIEWED)?",
         "instruct": "Select a research method to drill down",
-        "key": "researchMethods",
+        "splitToArray": true,
         "secondaryDimensions": [
             "decisionMakingLevels",
             "organizationTypes",
@@ -60,13 +64,41 @@
         ]
     },
     {
+        "key": "decisionMakingLevels",
         "heading": "Decision-making levels",
         "text": "At what level are decisions about the projects being made (COPY NOT REVIEWED)?",
         "instruct": "Select a decision-making level to drill down",
-        "key": "decisionMakingLevels",
+        "splitToArray": true,
         "secondaryDimensions": [
             "organizationTypes",
             "communityTypes"
         ]
+    },
+    {
+        "key": "organizationTypes",
+        "heading": "Organization types",
+        "text": "",
+        "instruct": "",
+        "splitToArray": true,
+        "secondaryDimensions": [],
+        "isSecondaryOnly": true
+    },
+    {
+        "key": "communityTypes",
+        "heading": "Community types",
+        "text": "",
+        "instruct": "",
+        "splitToArray": true,
+        "secondaryDimensions": [],
+        "isSecondaryOnly": true
+    },
+    {
+        "key": "fundingSource",
+        "heading": "Funding source",
+        "text": "",
+        "instruct": "",
+        "splitToArray": true,
+        "secondaryDimensions": [],
+        "isSecondaryOnly": true
     }
 ]
