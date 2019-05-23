@@ -24,6 +24,12 @@ export default class Waffle extends Element {
         var nestedData = this.model.nestBy[this.data.primary];
         var secondary = this.model.fields.find(s => s.key === this.data.primary).secondaryDimensions[0];
 
+            //showAllDetails
+        var showAllDetails = document.createElement('button');
+        showAllDetails.classList.add(s.showAllDetails);
+        showAllDetails.textContent = this.updateShowAllDetails(this.data.primary);
+        view.appendChild(showAllDetails);
+
         //container
         var waffleContainer = document.createElement('div');
         waffleContainer.classList.add(s.waffleContainer);
@@ -78,7 +84,21 @@ export default class Waffle extends Element {
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
+            ['showAllDetails', this.toggleShowAll.bind(this)],
         ]);
+        function showAllDetailsHandler(e){
+            e.stopPropagation()
+            if ( this.dataset.isOn === 'true' ){
+                S.setState('showAllDetails', false);
+                this.innerText = this.innerText.replace('Hide','Show');
+                this.dataset.isOn = false;
+            } else {
+                S.setState('showAllDetails', true);
+                this.innerText = this.innerText.replace('Show','Hide');
+                this.dataset.isOn = true;
+            }
+
+        }
         function itemClickHandler(){
             if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
                 S.setState('selectHIA', +this.dataset.id);
@@ -120,11 +140,23 @@ export default class Waffle extends Element {
             item.addEventListener('mouseleave', itemMouseleave);
             item.addEventListener('click', itemClickHandler);
         });
-        /* to do*/
+        document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler)
+    }
+    toggleShowAll(msg,data){
+        if ( data ){
+            document.querySelector('.' + s.waffleContainer).classList.add(s.showAll);
+        } else {
+            document.querySelector('.' + s.waffleContainer).classList.remove(s.showAll);
+        }
 
-        //subscribe to secondary dimension , drilldown, details
+    }
+    updateShowAllDetails(primaryDimension){
+        var name = this.model.fields.find(f => f.key === primaryDimension).heading;
+        return `Show details for all ${name.toLowerCase()}`;
     }
     showGroupDetails(msg, data){
+
+        //handle the waffle group
         var currentDetails = document.querySelector('.' + s.showDetails);
         if ( currentDetails ){
             currentDetails.classList.remove(s.showDetails);
@@ -133,6 +165,13 @@ export default class Waffle extends Element {
         var node = document.querySelector(selector);
         if (node) {
             node.classList.add(s.showDetails)
+        }
+
+        //handle the showAllDetails
+        if ( data ) {
+            document.querySelector('.' + s.showAllDetails).classList.add(s.isVisible);
+        } else {
+            document.querySelector('.' + s.showAllDetails).classList.remove(s.isVisible);
         }
     }
     setTippys(group) {

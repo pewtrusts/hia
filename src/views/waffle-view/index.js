@@ -62,10 +62,11 @@ export default class WaffleView extends Element {
         dropdownContainer.classList.add('js-dropdown-container');
         view.appendChild(dropdownContainer);
 
+
         //waffle container
         var waffleContainer = document.createElement('div');
         waffleContainer.classList.add('js-waffle-container');
-        
+            
             //legend container
         var legendContainer = document.createElement('div');
         legendContainer.classList.add('js-legend-container');

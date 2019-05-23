@@ -87,15 +87,30 @@
 }
 
 .showDetails .item,
-.showAllDetails .item {
+.showAll .item {
     &:hover {
         border: 2px solid $coral !important;
     }
 }
 
-.waffleContainer:not(.showAllDetails) .groupDiv:not(.showDetails) .item {
+.waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
     background-color: $dark_blue;
     &.completed::after {
         background-color: $dark_blue;
+    }
+}
+
+:global(#pew-app) .showAllDetails {
+    position: absolute;
+    right: 0;
+    color: $medium_blue;
+    margin-top: 10px;
+    visibility: hidden;
+    z-index: 1;
+    &:hover {
+        text-decoration: underline;
+    }
+    &.isVisible {
+        visibility: visible;
     }
 }

@@ -7,40 +7,81 @@
     h2 {
         padding: 0 2px;
     }
+
+    button {
+        //resets HT https://gist.github.com/MoOx/9137295
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+
+        background: transparent;
+
+        /* inherit font & color from ancestor */
+        color: inherit;
+        font: inherit;
+
+        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+        line-height: normal;
+
+        /* Corrects font smoothing for webkit */
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+
+        /* Corrects inability to style clickable `input` types in iOS */
+        -webkit-appearance: none;
+
+
+        /* Remove excess padding and border in Firefox 4+ */
+        &::-moz-focus-inner {
+            border: 0;
+            padding: 0;
+        }
+
+    }
 }
 
 .secondary-0 {
     background-color: $medium_blue;
     border: 1px solid $medium_blue;
 }
+
 .secondary-1 {
     background-color: $medium_gray;
     border: 1px solid $medium_gray;
 }
+
 .secondary-2 {
     background-color: $teal;
     border: 1px solid $teal;
 }
+
 .secondary-3 {
     background-color: $coral;
     border: 1px solid $coral;
 }
+
 .secondary-4 {
     background-color: $red;
     border: 1px solid $red;
 }
+
 .secondary-5 {
     background-color: $green;
     border: 1px solid $green;
 }
+
 .secondary-6 {
     background-color: $light_blue;
     border: 1px solid $light_blue;
 }
+
 .secondary-7 {
     background-color: $light_red;
     border: 1px solid $light_red;
 }
+
 .secondary-8 {
     background-color: $light_green;
     border: 1px solid $light_green;
