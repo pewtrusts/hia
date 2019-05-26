@@ -1,6 +1,6 @@
 import Element from '@UI/element';
 import s from './styles.scss';
-import DropDown from '@Project/components/dropdown';
+import ThisDropdown from '@Project/components/dropdown';
 import Waffle from '@Project/components/waffle';
 import Legend from '@Project/components/legend';
 import PS from 'pubsub-setter';
@@ -19,7 +19,13 @@ export default class WaffleView extends Element {
         //only after `this` (waffle view) is read. this is handled in
         // the createComponent method and Element 
         this.addChildren([
-            this.createComponent(DropDown, 'div#dropdown', {renderToSelector: '.js-dropdown-container'}),
+            this.createComponent(ThisDropdown, 'div#dropdown', {
+                renderToSelector: '.js-dropdown-container',
+                data: [{
+                    name: 'Foo',
+                    value: 'Baz'
+                }]
+            }),
             this.createComponent(Waffle, 'div#waffle', {
                 renderToSelector: '.js-waffle-container',
                 data: {

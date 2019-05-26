@@ -1,11 +1,11 @@
-import Element from '@UI/element';
+import {Dropdown} from '@UI/inputs/inputs.js';
 import s from './styles.scss';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
 
 
-export default class DropDown extends Element {
+export default class ThisDropdown extends Dropdown {
     
     prerender(){
          //container
@@ -26,7 +26,7 @@ export default class DropDown extends Element {
         ...
 
         */
-        view.textContent = 'dropdown TK'
+       // view.textContent = 'dropdown TK'
         view.classList.add(s.dropDown);
         return view;
     }
