@@ -34,7 +34,7 @@
     max-width: 625px;
 }
 
-.closeButton {
+:global(#pew-app) .closeButton {
     position: absolute;
     top: 15px;
     right: 15px;
