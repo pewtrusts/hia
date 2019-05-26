@@ -100,12 +100,12 @@ export default class Waffle extends Element {
 
         }
         function itemClickHandler(){
-            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
+            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAll) ){
                 S.setState('selectHIA', +this.dataset.id);
             }
         }
         function itemMouseenter(){
-            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAllDetails) ){
+            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAll) ){
                 this._tippy.show();
             }
         }
@@ -114,7 +114,7 @@ export default class Waffle extends Element {
         }
         function announceMouseEnter() {
             // TO DO: base this logic on state rather than on DOM
-            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAllDetails)) {
+            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAll)) {
                 
                 this._tippy.show();
             }
