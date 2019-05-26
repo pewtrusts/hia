@@ -41,45 +41,60 @@
             margin-top: 27px;
         }
     }
-    .navLink {
-        font-size: 32px;
+    .navItemWrapper {
         width: 50%;
-        padding: 50px 60px 50px 50px;
+        display: flex;
+        flex-direaction: column;
         margin: 0;
         border-bottom: 1px solid #fff;
         border-right: 1px solid #fff;
-        background: svg-load('right-caret.min.svg', stroke=#fff) calc(100% - 25px) center / 20px no-repeat;
+        
+        
+
         @media screen and (max-width: 933px){
             width: 100%;
-            padding: 25px 60px 25px 50px;
             border-right-width: 0;
         }
-        @media screen and (max-width: 655px){
-            font-size: 22px;
-        }
-        @media screen and (max-width: 432px){
-            padding: 25px 60px 25px 25px;
-        }   
-        @media screen and (max-width: 380px){
-            font-size: 20px;
-        } 
         &:nth-child(even) {
             border-right-width: 0;
         }
+        
+        &.placeholderMenuItem {
+            display: none;
+        }
+
+    }
+    .navLink {
+        display: block;
+        padding: 50px 60px 50px 50px;
+        font-size: 32px;
+        width: 100%;
+        flex-grow: 1;
+        background: svg-load('right-caret.min.svg', stroke=#fff) calc(100% - 25px) center / 20px no-repeat;
         span {
-            display: block;
-            font-size: 24px;
-            font-weight: normal;
-            line-height: 125%;
-            @media screen and (max-width: 655px){
-                font-size: 18px;
-            }  
+            span {
+                display: block;
+                font-size: 24px;
+                font-weight: normal;
+                line-height: 125%;
+                @media screen and (max-width: 655px){
+                    font-size: 18px;
+                }  
+            }
+
         }
         &:hover {
             text-decoration: none;
         }
-        &.placeholderMenuItem {
-            display: none;
+        @media screen and (max-width: 933px){
+            padding: 25px 60px 25px 50px;
+        }
+        @media screen and (max-width: 655px){
+            font-size: 22px;
+        }
+         
+        @media screen and (max-width: 380px){
+            font-size: 20px;
         }
     }
 }
