@@ -24,9 +24,9 @@ export default class Menu extends Element {
 
             var item = document.createElement('a');
             item.classList.add(s.navLink);
-            item.href = `#${section.id}`;
+            item.href = `#${section.key}`;
             item.innerHTML = `<span>${section.heading} <span>${section.text}</span></span>`;
-            item.setAttribute('data-section', section.id);
+            item.setAttribute('data-section', section.key);
             wrapper.appendChild(item);
             list.appendChild(wrapper);
         });
