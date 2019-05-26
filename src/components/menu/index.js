@@ -18,13 +18,17 @@ export default class Menu extends Element {
         list.classList.add(s.menuList);
         this.sections = this.model.fields.filter(f => !f.isSecondaryOnly);
         this.sections.forEach(section => {
+
+            var wrapper = document.createElement('div');
+            wrapper.classList.add(s.navItemWrapper);
+
             var item = document.createElement('a');
             item.classList.add(s.navLink);
             item.href = `#${section.id}`;
-            item.innerHTML = `${section.heading} <span>${section.text}</span>`;
+            item.innerHTML = `<span>${section.heading} <span>${section.text}</span></span>`;
             item.setAttribute('data-section', section.id);
-            //item.setAttribute('tabindex', 0);
-            list.appendChild(item);
+            wrapper.appendChild(item);
+            list.appendChild(wrapper);
         });
         if ( this.sections.length % 2 === 1 ){
             let extraItem = document.createElement('div');
