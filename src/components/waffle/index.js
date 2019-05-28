@@ -85,7 +85,7 @@ export default class Waffle extends Element {
         });
         return groups;
     }
-    update(msg,data){ // TO DO: animate secondary dimension changes
+    updateSecondary(msg,data){ // TO DO: animate secondary dimension changes
 
         var nodeShowingDetails = document.querySelector('.' + s.showDetails);
         var groupShowingDetails = nodeShowingDetails ? nodeShowingDetails.dataset.group : null;
@@ -111,6 +111,19 @@ export default class Waffle extends Element {
         this.initGroupsAndItems();
 
     }
+    updatePrimary(msg,data){
+        this.nestedData = this.model.nestBy[data];
+        this.secondary = this.model.fields.find(s => s.key === data).secondaryDimensions[0];
+
+        var waffleContainer = document.querySelector('.js-waffle-container-inner');
+        waffleContainer.innerHTML = '';
+
+        this.render().forEach(group => {
+            waffleContainer.appendChild(group)
+        });
+
+        this.initGroupsAndItems();
+    }
     init() {
         console.log('init waffle');
         PS.setSubs([
@@ -118,7 +131,8 @@ export default class Waffle extends Element {
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
             ['showAllDetails', this.toggleShowAll.bind(this)],
-            ['selectSecondaryDimension', this.update.bind(this)],
+            ['selectSecondaryDimension', this.updateSecondary.bind(this)],
+            ['view', this.updatePrimary.bind(this)]
         ]);
         function showAllDetailsHandler(e){
             e.stopPropagation()
