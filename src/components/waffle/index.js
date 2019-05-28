@@ -17,12 +17,12 @@ export default class Waffle extends Element {
         //container
         var view = super.prerender();
         this.name = 'Waffle';
+        this.nestedData = this.model.nestBy[this.data.primary];
+        this.secondary = this.model.fields.find(s => s.key === this.data.primary).secondaryDimensions[0];
         
         if (this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        var nestedData = this.model.nestBy[this.data.primary];
-        var secondary = this.model.fields.find(s => s.key === this.data.primary).secondaryDimensions[0];
 
             //showAllDetails
         var showAllDetails = document.createElement('button');
@@ -32,18 +32,28 @@ export default class Waffle extends Element {
 
         //container
         var waffleContainer = document.createElement('div');
-        waffleContainer.classList.add(s.waffleContainer);
+        waffleContainer.classList.add(s.waffleContainer, 'js-waffle-container-inner');
 
+        this.render().forEach(group => {
+            waffleContainer.appendChild(group)
+        });
+        
 
+        view.appendChild(waffleContainer);
+        console.log(keys);
+        return view;
+    }
+    render(){
         //groups
+        var groups = [];
         function returnMatchingValuesLength(ab) {
-            return this.model.nestBy[secondary].find(d => d.key === ab[secondary][0]).values.length;
+            return this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length;
         }
-        nestedData.forEach(group => {
+        this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
-            groupDiv.classList.add(s.groupDiv);
+            groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
             groupDiv.insertAdjacentHTML('afterbegin', `<h2 class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'} &ndash; <span class="${s.itemCount}">${group.values.length}</span></h2>`);
 
 
@@ -56,9 +66,9 @@ export default class Waffle extends Element {
             group.values.forEach((value) => {
                 //items
                 var itemDiv = document.createElement('div');
-                var cleanSecondary = this.app.cleanKey(value[secondary]);
-                var nested = this.model.nestBy[secondary];
-                var matchingString = typeof value[secondary] === 'string' ? value[secondary] : value[secondary][0];
+                var cleanSecondary = this.app.cleanKey(value[this.secondary]);
+                var nested = this.model.nestBy[this.secondary];
+                var matchingString = typeof value[this.secondary] === 'string' ? value[this.secondary] : value[this.secondary][0];
                 var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[this.app.cleanKey(value.status)],'secondary-' + indexOfSecondaryValue);
@@ -70,13 +80,36 @@ export default class Waffle extends Element {
             });
             groupDiv.appendChild(itemsContainer);
 
-            waffleContainer.appendChild(groupDiv);
+            groups.push(groupDiv);
 
         });
+        return groups;
+    }
+    update(msg,data){ // TO DO: animate secondary dimension changes
 
-        view.appendChild(waffleContainer);
-        console.log(keys);
-        return view;
+        var nodeShowingDetails = document.querySelector('.' + s.showDetails);
+        var groupShowingDetails = nodeShowingDetails ? nodeShowingDetails.dataset.group : null;
+
+        
+        //destroy
+        var container = document.querySelector('.js-waffle-container-inner');
+        container.innerHTML = '';
+
+        //set new secondary
+        this.secondary = data;
+
+        //rerender
+        this.render().forEach(group => {
+            container.appendChild(group)
+        });
+
+        if ( groupShowingDetails ){
+            document.querySelector('.js-group-' + this.app.cleanKey(groupShowingDetails)).classList.add(s.showDetails);
+        }
+
+        //reinitialize
+        this.initGroupsAndItems();
+
     }
     init() {
         console.log('init waffle');
@@ -85,6 +118,7 @@ export default class Waffle extends Element {
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
             ['showAllDetails', this.toggleShowAll.bind(this)],
+            ['selectSecondaryDimension', this.update.bind(this)],
         ]);
         function showAllDetailsHandler(e){
             e.stopPropagation()
@@ -97,8 +131,11 @@ export default class Waffle extends Element {
                 this.innerText = this.innerText.replace('Show','Hide');
                 this.dataset.isOn = true;
             }
-
         }
+        document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler);
+        this.initGroupsAndItems();
+    }
+    initGroupsAndItems(){
         function itemClickHandler(){
             if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAll) ){
                 S.setState('selectHIA', +this.dataset.id);
@@ -140,7 +177,6 @@ export default class Waffle extends Element {
             item.addEventListener('mouseleave', itemMouseleave);
             item.addEventListener('click', itemClickHandler);
         });
-        document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler)
     }
     toggleShowAll(msg,data){
         if ( data ){
