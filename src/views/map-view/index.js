@@ -31,7 +31,7 @@ export default class MapView extends Element {
         //title
         var title = document.createElement('h2');
         title.textContent = this.model.fields.find(d => d.key === 'stateOrTerritory').text;
-        title.classList.add(s.mapTitle);
+        title.classList.add(s.mapTitle, 'js-map-title'); // TODO remove this js class == for demo only
 
 
         //map
@@ -113,12 +113,16 @@ export default class MapView extends Element {
         this.maxCount = Math.max(...this.valuesArray);
         this.maxLegend = this.maxCount < 100 ? 100 : this.maxCount; 
     }
+    forDemoOnly(msg,data){
+        document.querySelector('.js-map-title').textContent = this.model.fields.find(d => d.key === data).text;
+    }
     init(){
         console.log('init map-view');
 
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightState.bind(this)],
-            ['unHoverPrimaryGroup', this.highlightState.bind(this)]
+            ['unHoverPrimaryGroup', this.highlightState.bind(this)],
+            ['view', this.forDemoOnly.bind(this)]
         ]);
 
 
