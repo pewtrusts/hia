@@ -3,6 +3,7 @@
 .sectionView {
     padding-top: 60px;
     position: relative;
+    display: none;
 }
 .active {
     background-color: $dark_blue;
