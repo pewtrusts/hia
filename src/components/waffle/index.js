@@ -124,10 +124,12 @@ export default class Waffle extends Element {
             e.stopPropagation()
             if ( this.dataset.isOn === 'true' ){
                 S.setState('showAllDetails', false);
+
                 this.innerText = this.innerText.replace('Hide','Show');
                 this.dataset.isOn = false;
             } else {
                 S.setState('showAllDetails', true);
+                
                 this.innerText = this.innerText.replace('Show','Hide');
                 this.dataset.isOn = true;
             }

@@ -184,7 +184,7 @@ export default class HIA extends PCTApp {
             }
     }
     bodyClickClear(){
-        if ( !document.body.UIControlIsOpen ){
+        if ( !document.body.UIControlIsOpen && !S.getState('showAllDetails') ){
             console.log('bodyclick');
             S.setState('selectPrimaryGroup', null);
         }
