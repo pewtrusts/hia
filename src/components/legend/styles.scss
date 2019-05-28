@@ -7,6 +7,7 @@
     //margin: 25px 0 0px 0;
     display: flex;
     visibility: hidden;
+    padding-bottom: 10px;
     &.showLegend {
         visibility: visible;
     }

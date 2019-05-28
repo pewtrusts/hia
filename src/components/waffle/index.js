@@ -195,12 +195,12 @@ export default class Waffle extends Element {
         //handle the waffle group
         var currentDetails = document.querySelector('.' + s.showDetails);
         if ( currentDetails ){
-            currentDetails.classList.remove(s.showDetails);
+            currentDetails.classList.remove(s.showDetails, 'js-show-details');
         }
         var selector = `.${s.groupDiv}[data-group="${data}"`;
         var node = document.querySelector(selector);
         if (node) {
-            node.classList.add(s.showDetails)
+            node.classList.add(s.showDetails, 'js-show-details')
         }
 
         //handle the showAllDetails

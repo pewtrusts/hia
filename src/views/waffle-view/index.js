@@ -104,11 +104,74 @@ export default class WaffleView extends Element {
         console.log('init waffle-view');
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleHeading.bind(this)],
-            ['selectPrimaryGroup', this.toggleDropdown.bind(this)]
+            ['selectPrimaryGroup', this.toggleDropdown.bind(this)],
+            ['selectPrimaryGroup', this.scrollIfNecessary.bind(this)]
         ]);
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
+    }
+    scrollIfNecessary(msg){
+        var split = msg.split('.');
+        if ( split.length > 1 && split[1] === 'map' ){
+            this.scrollPageIfNecessary();
+        }
+    }
+    scrollPageIfNecessary(){
+        var nodeShowingDetails = document.querySelector('.js-show-details');
+        var rect = nodeShowingDetails.getBoundingClientRect();
+        var to = rect.top - 105;
+       
+        if ( rect.top > window.innerHeight - 100 ){
+            this.smoothScroll('#pew-app', to).then(this.scrollWaffleIfNecessary());
+        } else {
+            this.scrollWaffleIfNecessary();
+        }
+    }
+    scrollWaffleIfNecessary(){
+        var nodeShowingDetails = document.querySelector('.js-show-details');
+        console.log(nodeShowingDetails);
+        var to = nodeShowingDetails.offsetTop - document.querySelector('.js-waffle-container-inner').offsetTop;
+        this.smoothScroll('.js-waffle-container-inner', to);
+        
+    }
+    smoothScroll(selector, to, duration = 200){ // HT: https://stackoverflow.com/a/45325140
+        
+        Math.easeInOutQuad = function (t, b, c, d) {
+            t /= d/2;
+            if (t < 1) return c/2*t*t + b;
+            t--;
+            return -c/2 * (t*(t-2) - 1) + b;
+        };
+        return new Promise(resolve => {
+            var element = document.querySelector(selector),
+                start = element.scrollTop,
+                difference = to - start,
+                currentTime = 0,
+                increment = 20;
+
+            var animateScroll = function(){        
+                currentTime += increment;
+                var val = Math.easeInOutQuad(currentTime, start, difference, duration);
+                element.scrollTop = val;
+                if(currentTime < duration) {
+                    setTimeout(animateScroll, increment);
+                } else {
+                    setTimeout(() => {
+                        resolve(true);
+                    }, increment);
+                }
+            };
+            animateScroll();
+        });
+       
+
+        //t = current time
+        //b = start value
+        //c = change in value
+        //d = duration
+        
+
     }
     toggleHeading(msg, data) {
         var heading = document.querySelector('.' + s.instructHeading);

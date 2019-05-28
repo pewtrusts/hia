@@ -181,49 +181,8 @@ export default class MapView extends Element {
         e.stopPropagation();
         S.setState('selectPrimaryGroup.map', d.key);
         GTMPush(`HIA|Select|State|${d.key}`);
-        this.scrollPageIfNecessary();
     }
-    scrollPageIfNecessary(){
-        var waffleView = document.querySelector('#waffle-view');
-        var rect = waffleView.getBoundingClientRect();
-        var threshold = window.innerHeight - 460; 
-        if ( rect.top > threshold ){
-            let difference = rect.top - threshold;
-            this.smoothScroll(difference);
-        }
-    }
-    smoothScroll(by, duration = 200){ // HT: https://stackoverflow.com/a/45325140
-        
-        Math.easeInOutQuad = function (t, b, c, d) {
-            t /= d/2;
-            if (t < 1) return c/2*t*t + b;
-            t--;
-            return -c/2 * (t*(t-2) - 1) + b;
-        };
-
-        var element = document.querySelector('#pew-app'),
-            start = element.scrollTop,
-            currentTime = 0,
-            increment = 20;
-
-        var animateScroll = function(){        
-            currentTime += increment;
-            var val = Math.easeInOutQuad(currentTime, start, by, duration);
-            element.scrollTop = val;
-            if(currentTime < duration) {
-                setTimeout(animateScroll, increment);
-            }
-        };
-        animateScroll();
-       
-
-        //t = current time
-        //b = start value
-        //c = change in value
-        //d = duration
-        
-
-    }
+    
     setTippys(){
         function setTippy(node,d){
             tippy(node, {
