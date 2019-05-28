@@ -3,7 +3,8 @@
 /* this is for global styles. selectors are not rewritten. module = false in dev config */
 
 #pew-app {
-
+    max-height: calc(100vh - 90px);
+    overflow-y: scroll; 
     h2 {
         padding: 0 2px;
     }

@@ -1,7 +1,8 @@
 @import '@Project/css/variable.scss';
 
 .sectionView {
-    
+    padding-top: 60px;
+    position: relative;
 }
 .active {
     background-color: $dark_blue;
@@ -9,4 +10,13 @@
 
 .isBlurred {
     filter: blur(4px) saturate(40%);
+}
+:global(#top-menu) {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    top: 50px;
+    z-index: 1;
+    border-bottom: 3px solid #fff;
 }

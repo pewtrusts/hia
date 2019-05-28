@@ -5,10 +5,9 @@
         "text": "Where have HIAs been done in the United States?",
         "instruct": "Select a state or territory to drill down",
         "secondaryDimensions": [
-            "researchMethods",
             "decisionMakingLevels",
-            "communityTypes",
             "organizationTypes",
+            "communityTypes",
             "fundingSource"
         ]
     },

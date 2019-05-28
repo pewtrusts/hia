@@ -23,7 +23,8 @@ export default class Legend extends Element {
     }
     init(){
         PS.setSubs([
-            ['selectPrimaryGroup', this.toggleLegend.bind(this)]
+            ['selectPrimaryGroup', this.toggleLegend.bind(this)],
+            ['selectSecondaryDimension', this.update.bind(this)]
         ]);
         /* to do*/
 
@@ -64,9 +65,14 @@ export default class Legend extends Element {
         return items;
 
     }
-    clickHandler(){
-        /* to do */
+    update(msg,data){
+        // destroy
+        this.el.innerHTML = '';
 
+        //update
+        this.returnUpdatedItems(data).forEach(item => {
+            this.el.appendChild(item);
+        });
     }
     toggleLegend(msg,data){
         if ( data ){

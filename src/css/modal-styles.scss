@@ -5,9 +5,15 @@
     margin-top: 0;
    //overflow-y: scroll; 
 }
+:global(.explore-module--iframe) {
+ overflow: hidden;
+}
 :global(.explore-module--iframe > .container) {
-    max-height: calc(100vh - 120px);
-   overflow-y: scroll;
+    max-height: calc(100vh - 90px);
+   
+}
+:global(.explore-module__sub-item-title){
+  margin-bottom: 10px;
 }
 @media screen and (max-width: 920px) {
     :global(.explore-module__sub-item-title) {
