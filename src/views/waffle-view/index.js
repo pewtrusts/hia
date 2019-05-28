@@ -16,11 +16,14 @@ export default class WaffleView extends Element {
         var view = super.prerender();
         var dropdownData = {
             label: "Secondary dimension:",
-            data: [{
-                field: 'dimension1',
-                label: 'Dimension One',
-                isDefaultSelection: true
-            }],
+            data: this.model.fields.find(f => f.key === initialPrimary).secondaryDimensions.map((d,i) => {
+                var match = this.model.fields.find(f_ => f_.key === d);
+                return {
+                    field: match.key,
+                    label: match.heading,
+                    isDefaultSelection: i === 0 ? true : false
+                }
+            }),
             type: 'selectSecondaryDimension'
         };
         this.name = 'WaffleView';
@@ -60,7 +63,7 @@ export default class WaffleView extends Element {
         var instruct = this.model.fields.find(d => d.key === initialPrimary).instruct;
         var heading = document.createElement('h2');
         heading.textContent = instruct;
-        heading.classList.add(s.instructHeading);
+        heading.classList.add(s.instructHeading, 'js-instruct-heading');
         view.appendChild(heading);
 
         //dropdown container

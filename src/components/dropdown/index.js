@@ -27,7 +27,7 @@ export default class ThisDropdown extends Dropdown {
         if ( this.prerendered && !this.rerender) {
             return dropdown; // if prerendered and no need to render (no data mismatch)
         }
-        dropdown.classList.add(s.dropdown);
+        dropdown.classList.add(s.dropdown, 'js-dropdown');
         return dropdown;
     }
     onChange(){

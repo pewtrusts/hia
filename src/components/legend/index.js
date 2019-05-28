@@ -15,7 +15,7 @@ export default class Legend extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        view.classList.add(s.legend);
+        view.classList.add(s.legend, 'js-legend');
         this.returnUpdatedItems(this.model.fields.find(f => f.key === this.data.primary).secondaryDimensions[0]).forEach(item => {
             view.appendChild(item);
         });

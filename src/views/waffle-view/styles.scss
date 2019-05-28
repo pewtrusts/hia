@@ -18,9 +18,9 @@
     justify-content: space-between;
     //margin-bottom: 15px;
     max-width: 320px;
-    display: block;
+    //display: block;
     &.hide {
-        display: none;
+        visibility: hidden;
     }
     
 
@@ -59,6 +59,17 @@
    }
    ul {
     margin-left: 0;
+    border: 1px solid $gray;
+    padding: 0 !important;
+
+    li {
+        margin: 0 !important;
+        padding: 12px;
+        &:hover {
+        background-color: $very_light_blue;
+        text-decoration: underline;
+        }
+    }
    }
 }
 :global(.rich-text) .label {
