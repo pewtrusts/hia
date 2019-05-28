@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     font-size: 14px;
     min-height: 36px;
-    margin: 25px 0 0px 0;
+    //margin: 25px 0 0px 0;
     display: flex;
     visibility: hidden;
     &.showLegend {
@@ -27,6 +27,8 @@
 .legendLabel {
     width: 100%;
     margin-bottom: 5px;
+    height: 0;
+    visibility: hidden;
 }
 .boolItem {
     margin-top: 10px;

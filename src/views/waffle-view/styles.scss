@@ -2,6 +2,7 @@
 
 .waffleView {
     border-top: 1px solid $dark_gray;
+    padding-top: 10px;
 }
 .instructHeading {
     position: absolute;
@@ -9,5 +10,76 @@
     margin: 25px 0;
     &.hide {
         display: none;
+    }
+}
+.dropdownWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    //margin-bottom: 15px;
+    max-width: 320px;
+    display: block;
+    &.hide {
+        display: none;
+    }
+    
+
+}
+.dropdownOuter {
+    width: 310px;
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: bold;
+    color: $dark_blue;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    label {
+        font-size: 14px;
+        visibility: hidden;
+        height: 0;
+        margin: 0;
+        display: block;
+    }
+}
+.dropdownInner {
+        //margin-top: 8px;
+        position: relative;
+        background-color: transparent;
+        cursor: pointer;
+        border-bottom: 4px solid $medium_blue;
+    background: inline('./chevron.svg') right center / 22px no-repeat;
+    height: 40px;
+    color: $medium_blue;
+    
+   & > div {
+    padding: 12px;
+     font-size: 12px;
+     font-weight: 700;
+     text-transform: uppercase;
+   }
+   ul {
+    margin-left: 0;
+   }
+}
+:global(.rich-text) .label {
+    font-size: 16px;
+    font-weight: bold;
+    color: $dark_blue;
+    margin: 0;
+    margin-bottom: 20px;
+    
+    a, a:visited, a:active {
+        color: $gray;
+        text-decoration: none;
+        &.sortActive {
+            color: $dark_blue;
+        }
+        &:hover {
+            color: $light_blue;
+            text-decoration: none;
+            &.sortActive {
+                color: $dark_blue;
+            }
+        }
     }
 }

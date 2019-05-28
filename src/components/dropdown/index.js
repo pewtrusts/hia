@@ -1,43 +1,40 @@
-import {Dropdown} from '@UI/inputs/inputs.js';
 import s from './styles.scss';
-//import { stateModule as S } from 'stateful-dead';
+import { Dropdown } from '@UI/inputs/inputs.js';
+import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
-
-
 export default class ThisDropdown extends Dropdown {
-    
-    prerender(){
-         //container
-        var view = super.prerender();
-        this.name = 'DropDown';
-        if ( this.prerendered && !this.rerender) {
-            return view; // if prerendered and no need to render (no data mismatch)
-        }
-        /* to do */
-        
-        // title ie Select a state or territory
-        // dropdown
-        // legend
-        // show all
-        /*
-        ...
-        ...
-        ...
+    constructor(selector, options){
+        var _data = [];
+        var dropdownType = options.data.type;
+        options.data.data.forEach(d => {
+                _data.push({
+                    value: d.field,
+                    name: d.label,
+                    selected: d.isDefaultSelection ? true : false
+                });
+        });
+        options.data = _data.sort(function ascending(a, b) {
+          return a.name < b.name ? -1 : a.name > b.name ? 1 : a.name >= b.name ? 0 : NaN;
+        });
+        super(...arguments);
 
-        */
-       // view.textContent = 'dropdown TK'
-        view.classList.add(s.dropDown);
-        return view;
+        this.dropdownType = dropdownType;
+    }
+    prerender(){
+        //container
+        var dropdown = super.prerender();
+        if ( this.prerendered && !this.rerender) {
+            return dropdown; // if prerendered and no need to render (no data mismatch)
+        }
+        dropdown.classList.add(s.dropdown);
+        return dropdown;
+    }
+    onChange(){
+        S.setState(this.dropdownType, this.selectedOption.dataset.value);
     }
     init(){
-        console.log('init dropDown');
-        /* to do*/
-
-        //subscribe to secondary dimension , drilldown, details
+        super.init();
     }
-    clickHandler(){
-        /* to do */
-
-    }
+    
 }
