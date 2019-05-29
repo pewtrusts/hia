@@ -6,6 +6,7 @@ import s from './styles.scss';
 
 // views
 import MapView from './../map-view/index.js';
+import BarView from './../bar-view/index.js';
 import WaffleView from './../waffle-view/index.js';
 
 import Menu from '@Project/components/menu';
@@ -23,6 +24,7 @@ export default class SectionView extends Element {
         this.addChildren([
             this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'section#map-view'),
+            this.createComponent(BarView, 'section#bar-view'),
             this.createComponent(WaffleView, 'section#waffle-view')
         ]);
         if ( this.prerendered && !this.rerender) {

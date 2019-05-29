@@ -1,0 +1,25 @@
+@import '@Project/css/variable.scss';
+
+.barContainer {
+    display: flex;
+}
+.label {
+    margin: 0;
+    text-align: right;
+    width: 220px;
+    margin-right: 10px;
+    position: relative;
+    bottom: 7px;
+}
+.innerWrapper {
+    flex-grow: 1;
+}
+.bar {
+     width: 100%;
+     height: 15px;
+     background-color: $medium_blue;
+     transform-origin: left;
+}
+.placeholder {
+    width: 100px;
+}

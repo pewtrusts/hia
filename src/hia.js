@@ -152,7 +152,6 @@ export default class HIA extends PCTApp {
         fieldsThatNeedToBeArrays.forEach(field => {
             var array = [];
             this.model.data.forEach(d => {
-                console.log(d);
                 d[field].forEach(value => {
                     var _d = _.cloneDeep(d);
                     _d[field] = value;
