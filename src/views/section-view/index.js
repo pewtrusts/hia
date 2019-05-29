@@ -21,10 +21,11 @@ export default class SectionView extends Element {
          //container
         var view = super.prerender();
         this.name = 'SectionView';
+        this.barViews = this.model.fields.filter(f => !f.isSecondaryOnly).map(f => this.createComponent(BarView, `section#bar-view-${f.key}`, {data: {primary: f.key}}));
         this.addChildren([
             this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'section#map-view'),
-            this.createComponent(BarView, 'section#bar-view'),
+            ...this.barViews,
             this.createComponent(WaffleView, 'section#waffle-view')
         ]);
         if ( this.prerendered && !this.rerender) {

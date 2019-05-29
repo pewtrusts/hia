@@ -170,7 +170,7 @@ export default class HIA extends PCTApp {
         if ( key === '' ){
             return 'none';
         }
-        key = key.toLowerCase().replace('-','').doCamelCase();
+        key = key.toLowerCase().replace(/['"”’“‘,.!?;()&:/]/g, '').doCamelCase();
         console.log(key);
         return key;
     }

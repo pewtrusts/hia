@@ -4,7 +4,7 @@ import Bar from '@Project/components/bar';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
 
-const initialPrimary = 'sectors';
+
 
 export default class BarView extends Element {
     prerender(){
@@ -13,15 +13,15 @@ export default class BarView extends Element {
         this.bars = [];
         this.labels = [];
         this.barContainers = [];
-        this.pushBars(initialPrimary);
+        this.pushBars(this.data.primary);
         this.addChildren(this.bars);
         if ( this.prerendered && !this.rerender) {
             return barView; // if prerendered and no need to render (no data mismatch)
         }
-        barView.classList.add(s.barView, 'js-bar-view');
+        barView.classList.add(s.barView, `js-bar-view-${this.data.primary}`);
 
         //title
-        barView.appendChild(this.returnTitle(initialPrimary));
+        barView.appendChild(this.returnTitle(this.data.primary));
         return barView;
     }
     returnTitle(primary){
@@ -32,7 +32,7 @@ export default class BarView extends Element {
     }
     pushBars(primary){
         this.model.nestBy[primary].forEach(d => {
-            this.bars.push(this.createComponent(Bar, `div.bar-${this.app.cleanKey(d.key)}`, {data: {d,primary}, renderToSelector: '.js-bar-view', primary}))
+            this.bars.push(this.createComponent(Bar, `div.bar-${this.app.cleanKey(d.key)}`, {data: {d,primary}, renderToSelector: `.js-bar-view-${primary}`, primary}))
         });
     }
     init(){
