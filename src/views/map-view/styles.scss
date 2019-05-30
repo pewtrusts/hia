@@ -1,5 +1,11 @@
 @import '@Project/css/variable.scss';
 
+:global(#map-view){
+    display: none;
+    &.active {
+        display: block;
+    }
+}
 
 .mapContainer {
     max-width: calc(170vh - 385px);

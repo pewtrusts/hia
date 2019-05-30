@@ -29,7 +29,7 @@ export default class BarView extends Element {
         if ( this.prerendered && !this.rerender) {
             return barView; // if prerendered and no need to render (no data mismatch)
         }
-        barView.classList.add(s.barView, `js-bar-view-${this.data.primary}`);
+        barView.classList.add(s.barView, 'js-bar-view', `js-bar-view-${this.data.primary}`);
 
         //title
         barView.appendChild(this.returnTitle(this.data.primary));
@@ -49,7 +49,8 @@ export default class BarView extends Element {
     init(){
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightBar.bind(this)],
-            ['unHoverPrimaryGroup', this.highlightBar.bind(this)]
+            ['unHoverPrimaryGroup', this.highlightBar.bind(this)],
+            ['view', this.showBarView.bind(this)]
         ]);
         var innerWrappers = document.querySelectorAll('.js-innerWrapper-' + this.data.primary);
         tippy(innerWrappers, {
@@ -57,6 +58,10 @@ export default class BarView extends Element {
         });
 
         innerWrappers.forEach(wrapper => {
+            wrapper.addEventListener('click', function(e){
+                e.stopPropagation();
+                S.setState('selectPrimaryGroup.map', this.dataset.key);
+            });
             wrapper.addEventListener('mouseenter', function(){
                 S.setState('hoverPrimaryGroup', this.dataset.key, { forceChange: true });
             });
@@ -64,6 +69,13 @@ export default class BarView extends Element {
                 S.setState('unHoverPrimaryGroup', this.dataset.key, { forceChange: true });
             });
         });  
+    }
+    showBarView(msg,data){
+        if ( data === this.data.primary){
+            this.el.classList.add(s.active);
+        } else {
+            this.el.classList.remove(s.active);
+        }
     }
     highlightBar(msg,data){
         var selector = '.bar-' + this.app.cleanKey(data) + ' .js-innerWrapper';

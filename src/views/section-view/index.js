@@ -21,7 +21,7 @@ export default class SectionView extends Element {
          //container
         var view = super.prerender();
         this.name = 'SectionView';
-        this.barViews = this.model.fields.filter(f => !f.isSecondaryOnly).map(f => this.createComponent(BarView, `section#bar-view-${f.key}`, {data: {primary: f.key}}));
+        this.barViews = this.model.fields.filter(f => !f.isSecondaryOnly && f.key !== 'stateOrTerritory' ).map(f => this.createComponent(BarView, `section#bar-view-${f.key}`, {data: {primary: f.key}}));
         this.addChildren([
             this.createComponent(TopMenu, 'div#top-menu'),
             this.createComponent(MapView, 'section#map-view'),
@@ -50,6 +50,7 @@ export default class SectionView extends Element {
         PS.setSubs([
             ['isSelected', showSectionBind],
             ['selectHIA', this.blurSection.bind(this)]
+           
         ]);
         /*this.children.forEach(child => {
             console.log(child);
