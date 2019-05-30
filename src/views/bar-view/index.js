@@ -1,10 +1,9 @@
 import Element from '@UI/element';
 import s from './styles.scss';
 import Bar from '@Project/components/bar';
+import { Axis } from '@Project/components/bar';
 //import { stateModule as S } from 'stateful-dead';
 //import { GTMPush } from '@Utils';
-
-
 
 export default class BarView extends Element {
     prerender(){
@@ -14,7 +13,16 @@ export default class BarView extends Element {
         this.labels = [];
         this.barContainers = [];
         this.pushBars(this.data.primary);
-        this.addChildren(this.bars);
+        this.addChildren([
+            ...this.bars,
+            this.createComponent(Axis, `div.axis-${this.data.primary}`, {
+                renderToSelector: `.js-bar-view-${this.data.primary}`,
+                data: {
+                    styles: s,
+                    primary: this.data.primary
+                }
+            })
+        ]);
         if ( this.prerendered && !this.rerender) {
             return barView; // if prerendered and no need to render (no data mismatch)
         }
@@ -38,5 +46,4 @@ export default class BarView extends Element {
     init(){
        
     }
-    
 }
