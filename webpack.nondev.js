@@ -14,62 +14,80 @@ module.exports = env => {
         module: {
             rules: [{
                     test: /\.scss$/,
+                    exclude: /css\/styles\.scss$/,
+                    use: [{
+                            loader: MiniCssExtractPlugin.loader,
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                localIdentName: '[path]-[local]',
+                                sourceMap: true,
+                                importLoaders: 1
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true,
+                                ident: 'postcss',
+                                plugins: (loader) => [
+                                    require('postcss-inline-svg')(),
+                                    require('postcss-assets')(),
+                                    require('postcss-preset-env')({
+                                        autoprefixer: {
+                                            grid: true
+                                        }
+                                    }),
+                                    require('cssnano')(),
+                                ]
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                    ]
+                },
+                {
+                    test: /css\/styles\.scss$/,
                     //exclude: /exclude/,
                     use: [{
-                        loader: MiniCssExtractPlugin.loader,
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[path]-[local]', 
-                            sourceMap: true,
-                            importLoaders: 1
+                            loader: MiniCssExtractPlugin.loader,
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: false,
+                                sourceMap: true,
+                                importLoaders: 1
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true,
+                                ident: 'postcss',
+                                plugins: (loader) => [
+                                    require('postcss-inline-svg')(),
+                                    require('postcss-assets')()
+                                ]
+                            }
+                        }, {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
                         }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true,
-                            ident: 'postcss',
-                            plugins: (loader) => [
-                                require('postcss-inline-svg')(),
-                                require('postcss-assets')(),
-                                require('postcss-preset-env')({
-                                    autoprefixer: {
-                                        grid: true
-                                    }
-                                }),
-                                require('cssnano')(),
-                            ]
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                ]
-            },
-            {
-                test: /\.css$/,
-                //exclude: /exclude/,
-                use: [{
-                        loader: MiniCssExtractPlugin.loader,
-                    },{
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[local]', // in dev mode hash not necessary to brak caches but incuding path,
-                            minimize: true
-                        }
-                    }
-                ]
-            }]
+                    ]
+                }
+            ]
         },
         plugins: [
-            
+
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
@@ -77,6 +95,5 @@ module.exports = env => {
                 chunkFilename: "[id].css",
             })
         ]
-      });
-  };
- 
+    });
+};
