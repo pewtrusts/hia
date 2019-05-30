@@ -36,7 +36,7 @@
         cursor:pointer;
         padding-left: 4px;
 
-        &:hover {
+        &:hover, &:global(.hover) {
             border-left-color: $coral;
         }
     }

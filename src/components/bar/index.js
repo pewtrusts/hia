@@ -1,6 +1,7 @@
 import s from './styles.scss';
 import Element from '@UI/element';
-import tippy from 'tippy.js';
+
+
 
 export default class Bar extends Element {
 
@@ -22,8 +23,9 @@ export default class Bar extends Element {
 
         //innerWrapper
         var innerWrapper = document.createElement('div');
-        innerWrapper.classList.add(s.innerWrapper, 'js-innerWrapper-' + this.data.primary);
+        innerWrapper.classList.add(s.innerWrapper, 'js-innerWrapper', 'js-innerWrapper-' + this.data.primary);
         innerWrapper.dataset.tippyContent = `<strong>${this.data.d.values.length} HIA${this.data.d.values.length > 1 ? 's' : ''}</strong><br />Click for details`;
+        innerWrapper.dataset.key = this.data.d.key;
 
 
         //bar 
@@ -49,10 +51,7 @@ export default class Bar extends Element {
         return scale;
     }
     init() {
-        var innerWrappers = document.querySelectorAll('.js-innerWrapper-' + this.data.primary);
-        tippy(innerWrappers, {
-            followCursor: true
-        });
+       
     }
     update() {
         /*
