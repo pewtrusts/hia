@@ -70,7 +70,8 @@ function getRuntimeData() {
             transform: function(value, headerName){
                 let match = model.fields.find(s => s.key === headerName);
                 if ( match && match.splitToArray ){
-                    return value.split(',');
+                    value = value.replace(/([a-z]),([A-Z])/g, '$1|$2');
+                    return value.split('|');
                 }
                 return value;
             }
