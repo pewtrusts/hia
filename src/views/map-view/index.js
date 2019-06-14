@@ -9,8 +9,8 @@ import PS from 'pubsub-setter';
 import { stateModule as S } from 'stateful-dead';
 import { GTMPush } from '@Utils';
 
-const gradient = ['#5AC7BE', '#296EC3'];
-//const gradient = ['#2c75ce', '#09132a'];
+//const gradient = ['#5AC7BE', '#296EC3'];
+const gradient = ['#2c75ce', '#09132a'];
 const legendTitle = 'Number of health impact assessments';
 
 export default class MapView extends Element {
