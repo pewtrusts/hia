@@ -73,7 +73,7 @@
         outline-width: 0
     }
 
-    &.completed::after {
+    &:not(.completed)::after {
         content: ' ';
         display: block;
         width: 5px;
@@ -95,7 +95,7 @@
 
 .waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
     background-color: $dark_blue;
-    &.completed::after {
+    &:not(.completed)::after {
         background-color: $dark_blue;
     }
 }
