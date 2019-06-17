@@ -88,7 +88,8 @@
         position: absolute;
         width: 20%;
         top: 0;
-        bottom: 0;
+        bottom: 60%;
+
     }
     :global(.second-secondary) {
         right: 0;
@@ -111,10 +112,12 @@
     }
 }
 
-.waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
+.waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item, .waffleContainer:not(.showAll) .groupDiv:not(.showDetails) :global(.additional-secondary) {
     background-color: $blue_gray;
+    border-color: $blue_gray;
     &:not(.completed)::after {
         background-color: $blue_gray;
+        border-color: $blue_gray;
     }
 }
 

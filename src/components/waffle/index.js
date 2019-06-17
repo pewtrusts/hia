@@ -66,10 +66,11 @@ export default class Waffle extends Element {
             group.values.sort((a,b) => {
                 var aLength = typeof a[this.secondary] === 'string' ? 1 : a[this.secondary].length;
                 var bLength = typeof b[this.secondary] === 'string' ? 1 : b[this.secondary].length;
-                if ( aLength === 1 || bLength === 1 ){
+                /*if ( aLength === 1 || bLength === 1 ){
                     return aLength - bLength;
-                }
-                return nested.findIndex(s => s.key === a[this.secondary][1]) - nested.findIndex(s => s.key === b[this.secondary][1]);
+                }*/
+                //return nested.findIndex(s => s.key === a[this.secondary][1]) - nested.findIndex(s => s.key === b[this.secondary][1]);
+                return aLength - bLength;
             });
             group.values.sort((a, b) => a[this.secondary][0] === '' ? 1 : b[this.secondary][0] === '' ? -1 : returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
             group.values.forEach((value) => {
@@ -101,6 +102,12 @@ export default class Waffle extends Element {
                     if ( value[this.secondary].length > 4 ){
                         let corner = document.createElement('div');
                         corner.classList.add('additional-secondary', 'fifth-secondary', 'secondary-' + nested.findIndex(s => s.key === value[this.secondary][4]));
+                        itemDiv.appendChild(corner);
+
+                    }
+                    if ( value[this.secondary].length > 5 ){
+                        let corner = document.createElement('div');
+                        corner.classList.add('additional-secondary', 'sixth-secondary', 'secondary-' + nested.findIndex(s => s.key === value[this.secondary][4]));
                         itemDiv.appendChild(corner);
 
                     }
