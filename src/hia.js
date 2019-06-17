@@ -144,7 +144,9 @@ export default class HIA extends PCTApp {
         var fieldsThatNeedToBeArrays = this.model.fields.filter(s => s.splitToArray === true).map(each => each.key);
         var otherFieldsToBeVisualized = this.model.fields.filter(s => s.splitToArray !== true).map(each => each.key);
         function nestData(field, entries){
-            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => a.values.length >= b.values.length ? -1 : 1);
+            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => {
+                return a.key === '' ? 1 : b.key === '' ? -1 : a.values.length >= b.values.length ? -1 : 1;
+            });
         }
         console.log(this.model.data);
         otherFieldsToBeVisualized.forEach(field => {
