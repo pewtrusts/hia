@@ -84,6 +84,17 @@
         left: calc(50% - 3px);
         top: calc(50% - 2px);
     }
+    &.hasMultipleSecondaries::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 13px solid #000;
+        border-left: 13px solid transparent;
+
+    }
 }
 
 .showDetails .item,
@@ -94,9 +105,9 @@
 }
 
 .waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
-    background-color: $dark_blue;
+    background-color: $blue_gray;
     &:not(.completed)::after {
-        background-color: $dark_blue;
+        background-color: $blue_gray;
     }
 }
 
