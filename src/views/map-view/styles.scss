@@ -60,10 +60,10 @@
 :global(g.state-boxes g.is-not-null):hover rect,
 :global(g.state.is-not-null).hover path,
 :global(g.state-boxes g.is-not-null).hover rect, {
-    fill: $coral !important;
+    fill: $red !important;
 }
 
 :global(g.state-boxes g.is-not-null):hover rect, :global(g.state-boxes g.is-not-null).hover rect {
-    stroke: $coral !important;
+    stroke: $red !important;
 
 }
