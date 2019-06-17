@@ -50,46 +50,41 @@
 }
 
 .secondary-0 {
+    background-color: $dark_blue;
+    border: 1px solid $dark_blue;
+}
+
+.secondary-1 {
     background-color: $medium_blue;
     border: 1px solid $medium_blue;
 }
 
-.secondary-1 {
-    background-color: $medium_gray;
-    border: 1px solid $medium_gray;
-}
-
 .secondary-2 {
-    background-color: $teal;
-    border: 1px solid $teal;
-}
-
-.secondary-3 {
-    background-color: $coral;
-    border: 1px solid $coral;
-}
-
-.secondary-4 {
-    background-color: $red;
-    border: 1px solid $red;
-}
-
-.secondary-5 {
-    background-color: $green;
-    border: 1px solid $green;
-}
-
-.secondary-6 {
     background-color: $light_blue;
     border: 1px solid $light_blue;
 }
 
-.secondary-7 {
+.secondary-3 {
+    background-color: $teal;
+    border: 1px solid $teal;
+}
+
+.secondary-4 {
+    background-color: $coral;
+    border: 1px solid $coral;
+}
+
+.secondary-5 {
+    background-color: $light_blue;
+    border: 1px solid $light_blue;
+}
+
+.secondary-6 {
     background-color: $light_red;
     border: 1px solid $light_red;
 }
 
-.secondary-8 {
+.secondary-7 {
     background-color: $light_green;
     border: 1px solid $light_green;
 }
