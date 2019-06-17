@@ -86,32 +86,21 @@
     }
     :global(.additional-secondary) {
         position: absolute;
-        height: 0;
-        width: 0;
+        width: 20%;
+        top: 0;
+        bottom: 0;
     }
     :global(.second-secondary) {
-        top: 0;
         right: 0;
-        border-top: 13px solid #000;
-        border-left: 13px solid transparent;
     }
     :global(.third-secondary) {
-        bottom: 0;
-        right: 0;
-        border-bottom: 13px solid #000;
-        border-left: 13px solid transparent;
+        right: 20%
     }
     :global(.fourth-secondary) {
-        bottom: 0;
-        left: 0;
-        border-bottom: 13px solid #000;
-        border-right: 13px solid transparent;
+       right: 40%;
     }
     :global(.fifth-secondary) {
-        top: 0;
-        left: 0;
-        border-top: 13px solid #000;
-        border-right: 13px solid transparent;
+        right: 60%
     }
 }
 
