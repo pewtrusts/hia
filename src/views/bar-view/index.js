@@ -78,12 +78,14 @@ export default class BarView extends Element {
         }
     }
     highlightBar(msg,data){
-        var selector = '.bar-' + this.app.cleanKey(data) + ' .js-innerWrapper';
-        var bar = document.querySelector(selector);
-        if ( msg === 'hoverPrimaryGroup' ){
-            bar.classList.add('hover');
-        } else {
-            bar.classList.remove('hover');
+        if ( this.data.primary === S.getState('view')){
+            var selector = '.bar-' + this.app.cleanKey(data) + ' .js-innerWrapper';
+            var bar = document.querySelector(selector);
+            if ( msg === 'hoverPrimaryGroup' ){
+                bar.classList.add('hover');
+            } else {
+                bar.classList.remove('hover');
+            }
         }
     }
 }
