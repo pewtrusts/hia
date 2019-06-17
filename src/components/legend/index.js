@@ -24,7 +24,8 @@ export default class Legend extends Element {
     init(){
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleLegend.bind(this)],
-            ['selectSecondaryDimension', this.update.bind(this)]
+            ['selectSecondaryDimension', this.update.bind(this)],
+            ['view', this.update.bind(this)]
         ]);
         /* to do*/
 
@@ -68,7 +69,9 @@ export default class Legend extends Element {
     update(msg,data){
         // destroy
         this.el.innerHTML = '';
-
+        if ( msg === 'view' ){
+            data = this.model.fields.find(f => f.key === data).secondaryDimensions[0];
+        }
         //update
         this.returnUpdatedItems(data).forEach(item => {
             this.el.appendChild(item);
