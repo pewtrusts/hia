@@ -84,16 +84,34 @@
         left: calc(50% - 3px);
         top: calc(50% - 2px);
     }
-    &.hasMultipleSecondaries::before {
-        content: '';
+    :global(.additional-secondary) {
         position: absolute;
+        height: 0;
+        width: 0;
+    }
+    :global(.second-secondary) {
         top: 0;
         right: 0;
-        width: 0;
-        height: 0;
         border-top: 13px solid #000;
         border-left: 13px solid transparent;
-
+    }
+    :global(.third-secondary) {
+        bottom: 0;
+        right: 0;
+        border-bottom: 13px solid #000;
+        border-left: 13px solid transparent;
+    }
+    :global(.fourth-secondary) {
+        bottom: 0;
+        left: 0;
+        border-bottom: 13px solid #000;
+        border-right: 13px solid transparent;
+    }
+    :global(.fifth-secondary) {
+        top: 0;
+        left: 0;
+        border-top: 13px solid #000;
+        border-right: 13px solid transparent;
     }
 }
 

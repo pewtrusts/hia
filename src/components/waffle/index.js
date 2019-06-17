@@ -79,9 +79,31 @@ export default class Waffle extends Element {
                 
                 var matchingString = typeof value[this.secondary] === 'string' ? value[this.secondary] : value[this.secondary][0];
                 var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
-                if ( typeof value[this.secondary] !== 'string' && value[this.secondary].length > 1 ){
-                    itemDiv.classList.add(s.hasMultipleSecondaries, 'second-secondary-' + nested.findIndex(s => s.key === value[this.secondary][1]) );
+                if ( typeof value[this.secondary] !== 'string' ) {
+                    if (  value[this.secondary].length > 1 ){
+                        let corner = document.createElement('div');
+                        corner.classList.add('additional-secondary', 'second-secondary', 'second-secondary-' + nested.findIndex(s => s.key === value[this.secondary][1]));
+                        itemDiv.appendChild(corner);
 
+                    }
+                    if ( value[this.secondary].length > 2 ){
+                        let corner = document.createElement('div');
+                        corner.classList.add('additional-secondary', 'third-secondary', 'third-secondary-' + nested.findIndex(s => s.key === value[this.secondary][2]));
+                        itemDiv.appendChild(corner);
+
+                    }
+                    if ( value[this.secondary].length > 3 ){
+                        let corner = document.createElement('div');
+                        corner.classList.add('additional-secondary', 'fourth-secondary', 'fourth-secondary-' + nested.findIndex(s => s.key === value[this.secondary][3]));
+                        itemDiv.appendChild(corner);
+
+                    }
+                    if ( value[this.secondary].length > 4 ){
+                        let corner = document.createElement('div');
+                        corner.classList.add('additional-secondary', 'fifth-secondary', 'fifth-secondary-' + nested.findIndex(s => s.key === value[this.secondary][4]));
+                        itemDiv.appendChild(corner);
+
+                    }
                 }
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[this.app.cleanKey(value.status)],'secondary-' + indexOfSecondaryValue);

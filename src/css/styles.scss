@@ -92,34 +92,64 @@
 }
 // second secondaries
 
-.second-secondary-0::before {
+.second-secondary-0, .fifth-secondary-0 {
     border-top-color: $dark_blue !important;
 }
 
-.second-secondary-1::before {
+.second-secondary-1, .fifth-secondary-1 {
     border-top-color: $medium_blue !important;
 }
 
-.second-secondary-2::before {
+.second-secondary-2, .fifth-secondary-2 {
     border-top-color: $light_blue !important;
 }
 
-.second-secondary-3::before {
+.second-secondary-3, .fifth-secondary-3 {
     border-top-color: $teal !important;
 }
 
-.second-secondary-4::before {
+.second-secondary-4, .fifth-secondary-4 {
     border-top-color: $faded_jade !important;
 }
 
-.second-secondary-5::before {
+.second-secondary-5, .fifth-secondary-5 {
     border-top-color: $coral !important;
 }
-.second-secondary-6::before {
+.second-secondary-6, .fifth-secondary-6 {
     border-top-color: $tuscany !important;
 }
-.second-secondary-7::before {
+.second-secondary-7, .fifth-secondary-7 {
     border-top-color: #E29896 !important;
 }
 
 
+
+.third-secondary-0, .fourth-secondary-0 {
+    border-bottom-color: $dark_blue !important;
+}
+
+.third-secondary-1, .fourth-secondary-1 {
+    border-bottom-color: $medium_blue !important;
+}
+
+.third-secondary-2, .fourth-secondary-2 {
+    border-bottom-color: $light_blue !important;
+}
+
+.third-secondary-3, .fourth-secondary-3 {
+    border-bottom-color: $teal !important;
+}
+
+.third-secondary-4, .fourth-secondary-4 {
+    border-bottom-color: $faded_jade !important;
+}
+
+.third-secondary-5, .fourth-secondary-5 {
+    border-bottom-color: $coral !important;
+}
+.third-secondary-6, .fourth-secondary-6 {
+    border-bottom-color: $tuscany !important;
+}
+.third-secondary-7, .fourth-secondary-7 {
+    border-bottom-color: #E29896 !important;
+}
