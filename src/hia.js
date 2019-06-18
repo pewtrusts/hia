@@ -128,7 +128,7 @@ export default class HIA extends PCTApp {
         document.querySelector('.js-instruct-heading').style.height = height + 'px';
     }
     init() {
-        
+        this.worker = new Worker('./worker.js');
         this.views.length = 0;
         
         super.init();

@@ -51,6 +51,11 @@ export default class DetailsView extends Element {
             ['selectHIA', this.update.bind(this)]
         ]);
         this.el.addEventListener('click', this.clickHandler)
+        this.app.worker.onmessage = function(e){
+            console.log(e);
+            document.getElementById('hia-title-link').setAttribute('href', e.data[0]);
+            document.getElementById('hia-language').textContent = e.data[1];
+        }
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
@@ -74,7 +79,7 @@ export default class DetailsView extends Element {
             return d.id === data;
         });
         var date = !isNaN(parseInt(d.publicationDate)) ? parseInt(d.publicationDate) : d.publicationDate;
-        var template = `<h2 class="${s.detailsHeading}">${d.title}</h2>
+        var template = `<h2 class="${s.detailsHeading}"><a target="_blank" id="hia-title-link">${d.title}</a></h2>
                         <p><b>Date:</b> ${date}</p>
                         <p>${d.description}</p>
                         <div class="${s.columnsWrapper}">
@@ -84,14 +89,14 @@ export default class DetailsView extends Element {
                             
                             
                                 <p><b>Status:</b> ${d.status}</p>
-                                <p><b>Language:</b> TK UNAVAILABLE IN CSV</p>
+                                <p><b>Language:</b> <span id="hia-language"></span></p>
                             
                         </div>
 
 
         `;
         document.querySelector('.js-details-container').innerHTML = template;
-
+        this.app.worker.postMessage(d.title);
     }
 }
 
