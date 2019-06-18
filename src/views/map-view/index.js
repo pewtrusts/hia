@@ -38,9 +38,14 @@ export default class MapView extends Element {
         var mapContainer = this.prerenderMap();
         var legend = this.prerenderLegend();
 
+        //note
+        var mapNote = document.createElement('p');
+        mapNote.textContent = 'Only US territories that have conducted HIAs are represented on the map.';
+
         view.appendChild(title);
         view.appendChild(mapContainer);
         view.appendChild(legend);
+        view.appendChild(mapNote);
 
        //view.innerText = this.name;
         return view;
