@@ -94,9 +94,9 @@
 }
 
 .waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
-    background-color: $dark_blue;
+    background-color: $blue_gray;
     &:not(.completed)::after {
-        background-color: $dark_blue;
+        background-color: $blue_gray;
     }
 }
 
