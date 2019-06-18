@@ -45,7 +45,7 @@ export default class DetailsView extends Element {
         }
     }
     init(){
-        console.log('init details');
+        
         PS.setSubs([
             ['selectHIA', this.showDetailsHandler.bind(this)],
             ['selectHIA', this.update.bind(this)]
@@ -108,7 +108,7 @@ class CloseButton extends Element {
         return view;
     }
     init(){
-        console.log('init closeButton');
+        
         this.el.addEventListener('click', this.clickHandler, true);
     }
     clickHandler(e){

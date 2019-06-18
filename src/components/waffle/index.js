@@ -7,7 +7,7 @@ import tippy from 'tippy.js';
 //import { GTMPush } from '@Utils';
 
 
-const keys = new Set();
+
 
 
 
@@ -40,7 +40,7 @@ export default class Waffle extends Element {
         
 
         view.appendChild(waffleContainer);
-        console.log(keys);
+        
         return view;
     }
     render(){
@@ -141,7 +141,7 @@ export default class Waffle extends Element {
     }
     init() {
        this.showAllDetails = document.querySelector('.' + s.showAllDetails);
-        console.log('init waffle');
+        
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
@@ -269,7 +269,7 @@ export default class Waffle extends Element {
     }
     clickHandler(e) {
         e.stopPropagation();
-        console.log('click group');
+        
         S.setState('selectPrimaryGroup', this.dataset.group);
 
     }

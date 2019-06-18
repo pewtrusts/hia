@@ -111,7 +111,7 @@ export default class WaffleView extends Element {
         };
     }
     init() {
-        console.log('init waffle-view');
+        
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleHeading.bind(this)],
             ['selectPrimaryGroup', this.toggleDropdown.bind(this)],
@@ -158,7 +158,7 @@ export default class WaffleView extends Element {
     }
     scrollWaffleIfNecessary() {
         var nodeShowingDetails = document.querySelector('.js-show-details');
-        console.log(nodeShowingDetails);
+        
         var to = nodeShowingDetails.offsetTop - document.querySelector('.js-waffle-container-inner').offsetTop;
         this.smoothScroll('.js-waffle-container-inner', to);
 

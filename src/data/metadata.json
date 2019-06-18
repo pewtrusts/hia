@@ -8,7 +8,8 @@
             "decisionMakingLevels",
             "organizationTypes",
             "communityTypes",
-            "fundingSource"
+            "fundingSource",
+            "dateBucket"
         ]
     },
     {
@@ -21,7 +22,8 @@
             "decisionMakingLevels",
             "organizationTypes",
             "communityTypes",
-            "fundingSource"
+            "fundingSource",
+            "dateBucket"
         ]
     },
     {
@@ -100,5 +102,14 @@
         "splitToArray": true,
         "secondaryDimensions": [],
         "isSecondaryOnly": true
+    },
+    {
+        "key": "dateBucket",
+        "heading": "Publication date",
+        "text": "",
+        "instruct": "",
+        "secondaryDimensions": [],
+        "isSecondaryOnly": true,
+        "order": ["Prior to 2009", "2009–2012", "2013–2016", "2017–2019", "In progress"]
     }
 ]

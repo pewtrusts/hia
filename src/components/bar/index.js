@@ -11,7 +11,7 @@ export default class Bar extends Element {
             return div;
         }
         div.classList.add(s.barContainer);
-        console.log(this);
+        
 
         //label
         var label = document.createElement('p');
@@ -72,7 +72,7 @@ export class Axis extends Element {
             return div;
         }
         div.classList.add(s.barContainer, s.axisContainer);
-        console.log(this);
+        
 
         //label
         var label = document.createElement('p');

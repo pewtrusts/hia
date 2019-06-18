@@ -45,7 +45,7 @@ export default class SectionView extends Element {
         return view;
     }
     init(){
-        console.log('init section-view');
+        
         var showSectionBind = this.showSection.bind(this)
         PS.setSubs([
             ['isSelected', showSectionBind],
@@ -53,7 +53,7 @@ export default class SectionView extends Element {
            
         ]);
         /*this.children.forEach(child => {
-            console.log(child);
+            
             child.init();
         });*
         /* to do*/
@@ -89,7 +89,7 @@ class TopMenu extends Menu {
     }
     init(){
         super.init();
-        console.log('init topmenu-view');
+        
         PS.setSubs([
             ['view', this.indicateActiveSection.bind(this)]
         ]);

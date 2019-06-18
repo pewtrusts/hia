@@ -19,9 +19,9 @@ export default class MapView extends Element {
          //container
         var view = super.prerender();
         this.name = 'MapView';
-        console.log(this.model.data);
+        
         this.valuesArray = this.model.nestBy.stateOrTerritory.map(d => d.values.length);
-        console.log(this.model.nestBy.stateOrTerritory);
+        
         this.getMaxCount();
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
@@ -121,7 +121,7 @@ export default class MapView extends Element {
         }
     }
     init(){
-        console.log('init map-view');
+        
 
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightState.bind(this)],
