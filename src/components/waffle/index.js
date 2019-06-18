@@ -50,7 +50,6 @@ export default class Waffle extends Element {
             return this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length;
         }
         this.nestedData.forEach(group => {
-            var nested = this.model.nestBy[this.secondary];
             var groupDiv = document.createElement('div');
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
@@ -61,28 +60,16 @@ export default class Waffle extends Element {
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
             itemsContainer.style.width = Math.ceil(Math.sqrt(group.values.length)) * 28 + 'px';
-            // line above sets width of each so that each is as close to a square as possible
 
-            group.values.sort((a,b) => {
-                var aLength = typeof a[this.secondary] === 'string' ? 1 : a[this.secondary].length;
-                var bLength = typeof b[this.secondary] === 'string' ? 1 : b[this.secondary].length;
-                if ( aLength === 1 || bLength === 1 ){
-                    return aLength - bLength;
-                }
-                return nested.findIndex(s => s.key === a[this.secondary][1]) - nested.findIndex(s => s.key === b[this.secondary][1]);
-            });
-            group.values.sort((a, b) => a[this.secondary][0] === '' ? 1 : b[this.secondary][0] === '' ? -1 : returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
+            // line above sets width of each so that each is as close to a square as possible
+            group.values.sort((a, b) => returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
             group.values.forEach((value) => {
                 //items
                 var itemDiv = document.createElement('div');
                 var cleanSecondary = this.app.cleanKey(value[this.secondary]);
-                
+                var nested = this.model.nestBy[this.secondary];
                 var matchingString = typeof value[this.secondary] === 'string' ? value[this.secondary] : value[this.secondary][0];
                 var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
-                if ( typeof value[this.secondary] !== 'string' && value[this.secondary].length > 1 ){
-                    itemDiv.classList.add(s.hasMultipleSecondaries, 'second-secondary-' + nested.findIndex(s => s.key === value[this.secondary][1]) );
-
-                }
                 itemDiv.classList.add(s.item);
                 itemDiv.classList.add(cleanSecondary, s[this.app.cleanKey(value.status)],'secondary-' + indexOfSecondaryValue);
                 itemDiv.dataset.title = value.title;
@@ -136,8 +123,6 @@ export default class Waffle extends Element {
         });
 
         this.initGroupsAndItems();
-        this.showAllDetails.textContent= this.updateShowAllDetails(data);
-
     }
     init() {
        this.showAllDetails = document.querySelector('.' + s.showAllDetails);
@@ -220,7 +205,7 @@ export default class Waffle extends Element {
     }
     updateShowAllDetails(primaryDimension){
         var name = this.model.fields.find(f => f.key === primaryDimension).heading;
-        return `${S.getState('showAllDetails') ? 'Hide' : 'Show'} details for all ${name.toLowerCase()}`;
+        return `Show details for all ${name.toLowerCase()}`;
     }
     showGroupDetails(msg, data){
 
