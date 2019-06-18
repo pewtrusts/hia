@@ -17,7 +17,9 @@ export default class Bar extends Element {
         var label = document.createElement('p');
         label.classList.add(s.label, 'js-bar-label');
         var span = document.createElement('span');
-        span.textContent = this.data.d.key || 'Not specified';
+        var text = this.data.d.key || 'Not specified';
+        text = this.model.abbreviations[text] || text;
+        span.textContent = text;
         label.appendChild(span);
         this.parent.labels.push(label);
 

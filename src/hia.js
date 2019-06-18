@@ -11,6 +11,7 @@ import PS from 'pubsub-setter';
 //data 
 import fields from './data/metadata.json';
 import stateAbbreviations from './data/state-abbreviations.json';
+import abbreviations from './data/abbreviations.json';
 
 //views
 import MenuView from './views/menu-view/';
@@ -36,6 +37,7 @@ const yearBuckets = [2020,2017,2013,2009];
 const model = {
     fields,
     stateAbbreviations,
+    abbreviations,
     nestBy: {}
 };
 function addIDs(data){
