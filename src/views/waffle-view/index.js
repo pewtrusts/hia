@@ -66,6 +66,11 @@ export default class WaffleView extends Element {
 
         view.appendChild(waffleContainer);
 
+        var note = document.createElement('p');
+        note.classList.add(s.note);
+        note.textContent = 'Please note that a single HIA may appear in multiple categories.'
+        view.appendChild(note);
+
         return view;
     }
     returnHeading(primaryDimension){
