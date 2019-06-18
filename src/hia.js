@@ -82,6 +82,7 @@ function getRuntimeData() {
 }
 
 function addDateBuckets(data){
+    
     data.forEach(d => {
         if ( isNaN(parseInt(d.publicationDate)) ) {
             let str = d.publicationDate.toLowerCase();
