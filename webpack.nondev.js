@@ -96,8 +96,8 @@ module.exports = env => {
             }),
             new CopyWebpackPlugin([{
                 from: 'js/worker.js',
-                context: 'src',
-                to: 'js'
+                context: 'src'
+                
             }])
         ]
     });
