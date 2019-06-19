@@ -172,8 +172,7 @@ export default class HIA extends PCTApp {
         var fieldsThatNeedToBeArrays =  this.model.fields.filter(s => s.splitToArray === true).map(each => each.key);
         var otherFieldsToBeVisualized = this.model.fields.filter(s => s.splitToArray !== true).map(each => each.key);
         function nestData(field, entries){
-            //var _this = this;
-            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => {
+            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => { // this sort function is sorting primary dimensions only
                 let match = this.model.fields.find(f => f.key === field);
                 if ( match.order ){
                     return  a.key === '' ? 1 : b.key === '' ? -1 : match.order.indexOf(a.key) - match.order.indexOf(b.key);

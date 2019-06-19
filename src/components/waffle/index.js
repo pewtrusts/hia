@@ -51,7 +51,7 @@ export default class Waffle extends Element {
             if ( match.order ) { // if an order for the secondary fields is hard coded
                 return ab[this.secondary][0] !== '' ? -match.order.indexOf(ab[this.secondary][0]) : -9999;
             }
-            return this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length;
+            return ab[this.secondary][0] !== '' ? this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length : -9999;
         }
         this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
