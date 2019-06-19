@@ -10,7 +10,7 @@ module.exports = env => { // module.exports is function now to pass in env varia
             module: {
                 rules: [{
                         test: /\.js$/,
-                        exclude: [/node_modules/, /\.min\./, /vendor/],
+                        exclude: [/node_modules/, /\.min\./, /vendor/, /worker\.js/],
                         use: [{
                                 loader: 'babel-loader',
                                 /*options: {

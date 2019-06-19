@@ -1,4 +1,4 @@
-/* global process */
+/* global process PUBLICPATH */
 //utils
 import Papa from 'papaparse';
 import * as d3 from 'd3-collection';
@@ -11,6 +11,7 @@ import PS from 'pubsub-setter';
 //data 
 import fields from './data/metadata.json';
 import stateAbbreviations from './data/state-abbreviations.json';
+import abbreviations from './data/abbreviations.json';
 
 //views
 import MenuView from './views/menu-view/';
@@ -31,9 +32,12 @@ import PCTApp from '@App';
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
 
+const yearBuckets = [2020,2017,2013,2009];
+
 const model = {
     fields,
     stateAbbreviations,
+    abbreviations,
     nestBy: {}
 };
 function addIDs(data){
@@ -79,17 +83,35 @@ function getRuntimeData() {
     });
 }
 
+function addDateBuckets(data){
+    
+    data.forEach(d => {
+        if ( isNaN(parseInt(d.publicationDate)) ) {
+            let str = d.publicationDate.toLowerCase();
+            d.dateBucket = [str.charAt(0).toUpperCase() + str.slice(1)];
+        } else {
+            yearBuckets.forEach((threshold, i) => {
+                if ( parseInt(d.publicationDate) < threshold ){
+                    d.dateBucket = i === yearBuckets.length - 1 ? ['Prior to ' + threshold] : [`${yearBuckets[i + 1]}–${yearBuckets[i] - 1}`];
+                }
+            });
+        }
+    });
+    return data;
+}
+
 export default class HIA extends PCTApp {
     prerender() {
         getRuntimeData.call(this).then((v) => {
             
-            model.data = v;
+            model.data = addDateBuckets(v);
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */
             this.model = model;
             this.el.setAttribute('data-data-hash', JSON.stringify(v).hashCode()); // hashCode is helper function from utils, imported and IIFE'd in index.js
             this.nestData();
             this.pushViews();
+            console.log(model);
             Promise.all(this.views.map(view => view.isReady)).then(() => {
                 this.onViewsReady();
                 if ( process.env.NODE_ENV === 'development' ){
@@ -106,9 +128,15 @@ export default class HIA extends PCTApp {
         document.querySelector('.js-instruct-heading').style.height = height + 'px';
     }
     init() {
-        console.log('init App!');
+        var publicPath = '';
+        if ( process.env.NODE_ENV === 'production' ){ // production build needs to know the public path of assets
+                                                                                 // for dev and preview, assets are a child of root; for build they
+                                                                                 // are in some distant path on sitecore
+            publicPath = PUBLICPATH;
+        }
+        this.worker = new Worker(publicPath + 'worker.js');
         this.views.length = 0;
-        console.log(this.views);
+        
         super.init();
         this.bodyEventListenerBind = this.bodyEventListenerHandler.bind(this);
         PS.setSubs([
@@ -116,7 +144,7 @@ export default class HIA extends PCTApp {
            // ['selectHIA', this.bodyEventListenerBind]
         ]);
         getRuntimeData.call(this).then((v) => {
-            model.data = v;
+            model.data = addDateBuckets(v);
             this.model = model;
             if ( this.el.dataset.dataHash != JSON.stringify(v).hashCode() ){
                 this.el.setAttribute('data-data-mismatch', true);
@@ -126,11 +154,11 @@ export default class HIA extends PCTApp {
 
             this.pushViews();
             this.views.forEach(view => {
-               console.log('about to init:', view);
+               
                view.init(this);
             });
         });
-        console.log(model);
+        
     }
     pushViews(){
         this.views.push(
@@ -141,16 +169,21 @@ export default class HIA extends PCTApp {
         );
     }
     nestData(){
-        var fieldsThatNeedToBeArrays = this.model.fields.filter(s => s.splitToArray === true).map(each => each.key);
+        var fieldsThatNeedToBeArrays =  this.model.fields.filter(s => s.splitToArray === true).map(each => each.key);
         var otherFieldsToBeVisualized = this.model.fields.filter(s => s.splitToArray !== true).map(each => each.key);
         function nestData(field, entries){
-            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => {
-                return a.key === '' ? 1 : b.key === '' ? -1 : a.values.length >= b.values.length ? -1 : 1;
+            return d3.nest().key(d => d[field]).entries(entries).sort((a,b) => { // this sort function is sorting primary dimensions only
+                let match = this.model.fields.find(f => f.key === field);
+                if ( match.order ){
+                    return  a.key === '' ? 1 : b.key === '' ? -1 : match.order.indexOf(a.key) - match.order.indexOf(b.key);
+                } else {
+                   return a.key === '' ? 1 : b.key === '' ? -1 : a.values.length >= b.values.length ? -1 : 1;
+                }
             });
         }
-        console.log(this.model.data);
+        
         otherFieldsToBeVisualized.forEach(field => {
-            this.model.nestBy[field] = nestData(field, this.model.data);
+            this.model.nestBy[field] = nestData.call(this, field, this.model.data);
         });
         fieldsThatNeedToBeArrays.forEach(field => {
             var array = [];
@@ -161,11 +194,11 @@ export default class HIA extends PCTApp {
                     array.push(_d);
                 });
             });
-            this.model.nestBy[field] = nestData(field, array);
+            this.model.nestBy[field] = nestData.call(this, field, array);
         });
     }
     cleanKey(key) {
-        console.log(key);
+        
         if ( key === undefined ){
             return 'null';
         }
@@ -174,7 +207,7 @@ export default class HIA extends PCTApp {
             return 'none';
         }
         key = key.toLowerCase().replace(/['"”’“‘,.!?;()&:/]/g, '').doCamelCase();
-        console.log(key);
+        
         return key;
     }
     bodyEventListenerHandler(msg,data){
@@ -187,7 +220,7 @@ export default class HIA extends PCTApp {
     }
     bodyClickClear(){
         if ( !document.body.UIControlIsOpen && !S.getState('showAllDetails') ){
-            console.log('bodyclick');
+            
             S.setState('selectPrimaryGroup', null);
         }
     }

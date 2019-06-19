@@ -31,7 +31,7 @@ export default class Mask extends Element {
         return view;
     }
     init(){
-        console.log('init mask');
+        
         PS.setSubs([
             ['selectHIA', this.activate.bind(this)]
         ]);

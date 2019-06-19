@@ -35,11 +35,11 @@ export default class MenuView extends Element {
         return view;            
     }
     init(){
-        console.log('init menu-view');
+        
 
         PS.setSubs([['isSelected', this.hideSection.bind(this)]]);
         /*this.children.forEach(child => {
-            console.log(child);
+            
             child.init();
         });*/
         /* to do*/      
