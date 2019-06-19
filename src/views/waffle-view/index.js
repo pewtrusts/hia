@@ -66,6 +66,11 @@ export default class WaffleView extends Element {
 
         view.appendChild(waffleContainer);
 
+        var note = document.createElement('p');
+        note.classList.add(s.note);
+        note.textContent = 'Please note that a single HIA may appear in multiple categories.'
+        view.appendChild(note);
+
         return view;
     }
     returnHeading(primaryDimension){
@@ -111,7 +116,7 @@ export default class WaffleView extends Element {
         };
     }
     init() {
-        console.log('init waffle-view');
+        
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleHeading.bind(this)],
             ['selectPrimaryGroup', this.toggleDropdown.bind(this)],
@@ -158,7 +163,7 @@ export default class WaffleView extends Element {
     }
     scrollWaffleIfNecessary() {
         var nodeShowingDetails = document.querySelector('.js-show-details');
-        console.log(nodeShowingDetails);
+        
         var to = nodeShowingDetails.offsetTop - document.querySelector('.js-waffle-container-inner').offsetTop;
         this.smoothScroll('.js-waffle-container-inner', to);
 

@@ -91,6 +91,9 @@ module.exports = env => { // module.exports is function now to pass in env varia
             }, {
                 from: 'assets/**/*.*',
                 context: 'src',
+            }, {
+                from: 'js/worker.js',
+                context: 'src'
             }
             ]),
             new webpack.HotModuleReplacementPlugin(),

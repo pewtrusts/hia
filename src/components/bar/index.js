@@ -11,13 +11,15 @@ export default class Bar extends Element {
             return div;
         }
         div.classList.add(s.barContainer);
-        console.log(this);
+        
 
         //label
         var label = document.createElement('p');
         label.classList.add(s.label, 'js-bar-label');
         var span = document.createElement('span');
-        span.textContent = this.data.d.key || 'Not specified';
+        var text = this.data.d.key || 'Not specified';
+        text = this.model.abbreviations[text] || text;
+        span.textContent = text;
         label.appendChild(span);
         this.parent.labels.push(label);
 
@@ -72,7 +74,7 @@ export class Axis extends Element {
             return div;
         }
         div.classList.add(s.barContainer, s.axisContainer);
-        console.log(this);
+        
 
         //label
         var label = document.createElement('p');

@@ -8,7 +8,8 @@
             "decisionMakingLevels",
             "organizationTypes",
             "communityTypes",
-            "fundingSource"
+            "fundingSource",
+            "dateBucket"
         ]
     },
     {
@@ -21,7 +22,8 @@
             "decisionMakingLevels",
             "organizationTypes",
             "communityTypes",
-            "fundingSource"
+            "fundingSource",
+            "dateBucket"
         ]
     },
     {
@@ -40,7 +42,7 @@
     {
         "key": "affectedPopulations",
         "heading": "Affected populations",
-        "text": "Which populations are affected by the projects being assessed (COPY NOT REVIEWED)?",
+        "text": "Which populations have been included in HIA analyses?",
         "instruct": "Select a population type to drill down",
         "splitToArray": true,
         "secondaryDimensions": [
@@ -54,7 +56,7 @@
     {
         "key": "researchMethods",
         "heading": "Research methods",
-        "text": "How has research on HIAs been conducted (COPY NOT REVIEWED)?",
+        "text": "What research methods have been used in HIAs?",
         "instruct": "Select a research method to drill down",
         "splitToArray": true,
         "secondaryDimensions": [
@@ -66,7 +68,7 @@
     {
         "key": "decisionMakingLevels",
         "heading": "Decision-making levels",
-        "text": "At what level are decisions about the projects being made (COPY NOT REVIEWED)?",
+        "text": "What levels of decision-making have HIAs been informing?",
         "instruct": "Select a decision-making level to drill down",
         "splitToArray": true,
         "secondaryDimensions": [
@@ -100,5 +102,14 @@
         "splitToArray": true,
         "secondaryDimensions": [],
         "isSecondaryOnly": true
+    },
+    {
+        "key": "dateBucket",
+        "heading": "Publication date",
+        "text": "",
+        "instruct": "",
+        "secondaryDimensions": [],
+        "isSecondaryOnly": true,
+        "order": ["Prior to 2009", "2009–2012", "2013–2016", "2017–2019", "In progress"]
     }
 ]

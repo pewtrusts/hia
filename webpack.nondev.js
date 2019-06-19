@@ -93,7 +93,12 @@ module.exports = env => {
                 // both options are optional
                 filename: "css/styles.css?v=[hash:6]",
                 chunkFilename: "[id].css",
-            })
+            }),
+            new CopyWebpackPlugin([{
+                from: 'js/worker.js',
+                context: 'src'
+                
+            }])
         ]
     });
 };
