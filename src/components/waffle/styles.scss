@@ -7,7 +7,9 @@
     max-height: calc(100vh - 275px);
     //    width: 915px;
 }
+.highlightMatchingSecondary {
 
+}
 
 .groupDiv {
     position: relative;
@@ -94,9 +96,11 @@
 }
 
 .waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
-    background-color: $blue_gray;
+    background-color: $blue_gray !important;
+    opacity: 1 !important;
     &:not(.completed)::after {
-        background-color: $blue_gray;
+        background-color: $blue_gray !important;
+        opacity: 1 !important;
     }
 }
 

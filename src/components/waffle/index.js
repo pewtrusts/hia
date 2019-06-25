@@ -74,8 +74,13 @@ export default class Waffle extends Element {
                 var nested = this.model.nestBy[this.secondary];
                 var matchingString = typeof value[this.secondary] === 'string' ? value[this.secondary] : value[this.secondary][0];
                 var indexOfSecondaryValue = nested.findIndex(s => s.key === matchingString);
-                itemDiv.classList.add(s.item);
+                itemDiv.classList.add(s.item, 'waffle-item');
                 itemDiv.classList.add(cleanSecondary, s[this.app.cleanKey(value.status)],'secondary-' + indexOfSecondaryValue);
+                if ( typeof value[this.secondary] !== 'string' ) {
+                    value[this.secondary].forEach(value => {
+                        itemDiv.classList.add('match-secondary-' + nested.findIndex(s => s.key === value));
+                    });
+                }
                 itemDiv.dataset.title = value.title;
                 itemDiv.dataset.id = value.id;
                 //itemDiv.dataset.tippyContent = value.Title;
@@ -129,7 +134,8 @@ export default class Waffle extends Element {
         this.initGroupsAndItems();
     }
     init() {
-       this.showAllDetails = document.querySelector('.js-show-all-details');
+        this.waffleContainer = this.el.querySelector('.js-waffle-container-inner');
+        this.showAllDetails = document.querySelector('.js-show-all-details');
         
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
@@ -137,7 +143,8 @@ export default class Waffle extends Element {
             ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
             ['showAllDetails', this.toggleShowAll.bind(this)],
             ['selectSecondaryDimension', this.updateSecondary.bind(this)],
-            ['view', this.updatePrimary.bind(this)]
+            ['view', this.updatePrimary.bind(this)],
+            ['highlightSecondary', this.highlightMatchingSecondary.bind(this)]
         ]);
         function showAllDetailsHandler(e){
             e.stopPropagation()
@@ -155,6 +162,14 @@ export default class Waffle extends Element {
         }
         document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler);
         this.initGroupsAndItems();
+    }
+    highlightMatchingSecondary(msg, data){
+        if ( data !== null ) {
+            this.waffleContainer.classList.add('match-secondary-' + data);
+        } else {
+            let currentIndex = S.getPreviousState('highlightSecondary');
+            this.waffleContainer.classList.remove('match-secondary-' + currentIndex);
+        }
     }
     initGroupsAndItems(){
         function itemClickHandler(){

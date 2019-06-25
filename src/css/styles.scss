@@ -49,44 +49,83 @@
 
 }
 
-.secondary-0 {
+.secondary-0, .match-secondary-0 .match-secondary-0 {
     background-color: $dark_blue;
     border: 1px solid $dark_blue;
 }
 
-.secondary-1 {
+.secondary-1, .match-secondary-1 .match-secondary-1 {
     background-color: $medium_blue;
     border: 1px solid $medium_blue;
 }
 
-.secondary-2 {
+.secondary-2, .match-secondary-2 .match-secondary-2 {
     background-color: $light_blue;
     border: 1px solid $light_blue;
 }
 
-.secondary-3 {
+.secondary-3, .match-secondary-3 .match-secondary-3 {
     background-color: $teal;
     border: 1px solid $teal;
 }
 
-.secondary-4 {
+.secondary-4, .match-secondary-4 .match-secondary-4 {
     background-color: $faded_jade;
     border: 1px solid $faded_jade;
 }
 
-.secondary-5 {
+.secondary-5, .match-secondary-5 .match-secondary-5 {
     background-color: $coral;
     border: 1px solid $coral;
 }
-.secondary-6 {
+.secondary-6, .match-secondary-6 .match-secondary-6 {
     background-color: $tuscany;
     border: 1px solid $tuscany;
 }
-.secondary-7 {
+.secondary-7, .match-secondary-7 .match-secondary-7 {
     background-color: #E29896;
     border: 1px solid #E29896;
 }
-
+.match-secondary-0 .waffle-item:not(.match-secondary-0) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-1 .waffle-item:not(.match-secondary-1) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-2 .waffle-item:not(.match-secondary-2) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-3 .waffle-item:not(.match-secondary-3) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-4 .waffle-item:not(.match-secondary-4) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-5 .waffle-item:not(.match-secondary-5) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-6 .waffle-item:not(.match-secondary-6) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-7 .waffle-item:not(.match-secondary-7) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
 
 .none {
     background-color: $gray;

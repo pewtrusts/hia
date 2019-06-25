@@ -17,6 +17,9 @@
     margin: 5px 10px 0 15px;
     font-size: 14px;
     font-weight: 300;
+    &.isSelected {
+        font-weight: 400;
+    }
 }
 .legendItem {
     width: 12px;
