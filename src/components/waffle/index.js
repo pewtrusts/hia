@@ -26,7 +26,7 @@ export default class Waffle extends Element {
 
             //showAllDetails
         var showAllDetails = document.createElement('button');
-        showAllDetails.classList.add(s.showAllDetails);
+        showAllDetails.classList.add('js-show-all-details', s.showAllDetails);
         showAllDetails.textContent = this.updateShowAllDetails(this.data.primary);
         view.appendChild(showAllDetails);
 
@@ -125,11 +125,11 @@ export default class Waffle extends Element {
         this.render().forEach(group => {
             waffleContainer.appendChild(group)
         });
-
+        this.showAllDetails.textContent = this.updateShowAllDetails(data);
         this.initGroupsAndItems();
     }
     init() {
-       this.showAllDetails = document.querySelector('.' + s.showAllDetails);
+       this.showAllDetails = document.querySelector('.js-show-all-details');
         
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
