@@ -231,7 +231,7 @@ export default class Waffle extends Element {
     }
     updateShowAllDetails(primaryDimension){
         var name = this.model.fields.find(f => f.key === primaryDimension).heading;
-        return `Show details for all ${name.toLowerCase()}`;
+        return `${ S.getState('showAllDetails') ? 'Hide' : 'Show' } details for all ${name.toLowerCase()}`;
     }
     showGroupDetails(msg, data){
 
