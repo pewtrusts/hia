@@ -104,4 +104,8 @@
     background-color: #E29896;
     border: 1px solid #E29896;
 }
+.isSelected :global(.secondary-8)  {
+    background-color: darken($tuscany, 25%);;
+    border: 1px solid darken($tuscany, 25%);;
+}
 

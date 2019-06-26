@@ -86,6 +86,10 @@
     background-color: #E29896;
     border: 1px solid #E29896;
 }
+.secondary-8, .match-secondary-8 .match-secondary-8 {
+    background-color: darken($tuscany, 25%);
+    border: 1px solid darken($tuscany, 25%);
+}
 .match-secondary-0 .waffle-item:not(.match-secondary-0) {
     opacity: 0.5;
     background-color:$gray;
@@ -122,6 +126,11 @@
     border-color: $gray;
 }
 .match-secondary-7 .waffle-item:not(.match-secondary-7) {
+    opacity: 0.5;
+    background-color:$gray;
+    border-color: $gray;
+}
+.match-secondary-8 .waffle-item:not(.match-secondary-8) {
     opacity: 0.5;
     background-color:$gray;
     border-color: $gray;
