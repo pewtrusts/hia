@@ -61,7 +61,7 @@ export default class WaffleView extends Element {
 
         //legend container
         var legendContainer = document.createElement('div');
-        legendContainer.classList.add('js-legend-container');
+        legendContainer.classList.add('js-legend-container', s.legendContainer);
         waffleContainer.appendChild(legendContainer);
 
         view.appendChild(waffleContainer);
@@ -82,7 +82,7 @@ export default class WaffleView extends Element {
     }
     returnDropdownWrapper(){
         var dropdownWrapper = document.createElement('div');
-        dropdownWrapper.classList.add(s.dropdownWrapper, s.hide, ',js-dropdown-wrapper');
+        dropdownWrapper.classList.add(s.dropdownWrapper, s.hide, 'js-dropdown-wrapper');
         var dropdownInner = document.createElement('div'),
             dropdownOuter = document.createElement('div'),
             dropdownLabel = document.createElement('label');

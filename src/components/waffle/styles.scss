@@ -1,10 +1,15 @@
 @import '@Project/css/variable.scss';
-
+.waffle {
+    position: relative;
+    margin-top: 35px;
+}
 .waffleContainer {
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
     max-height: calc(100vh - 275px);
+    //width: calc(100% - 120px);
+    padding-left: 120px;
     //    width: 915px;
 }
 .highlightMatchingSecondary {
@@ -105,8 +110,9 @@
 }
 
 :global(#pew-app) .showAllDetails {
-    
+    position: absolute;
     right: 0;
+    top: -35px;
     color: $medium_blue;
     margin-top: 10px;
     visibility: hidden;

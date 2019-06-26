@@ -23,7 +23,7 @@ export default class Waffle extends Element {
         if (this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-
+        view.classList.add(s.waffle);
             //showAllDetails
         var showAllDetails = document.createElement('button');
         showAllDetails.classList.add('js-show-all-details', s.showAllDetails);
@@ -63,7 +63,7 @@ export default class Waffle extends Element {
 
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
-            itemsContainer.style.width = Math.ceil(Math.sqrt(group.values.length)) * 28 + 'px';
+            itemsContainer.style.width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28) + 'px';
 
             // line above sets width of each so that each is as close to a square as possible
             group.values.sort((a, b) => returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
