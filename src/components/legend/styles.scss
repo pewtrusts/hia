@@ -17,8 +17,18 @@
     margin: 5px 10px 0 15px;
     font-size: 14px;
     font-weight: 300;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        color:#000;
+        text-decoration: underline;
+    }
     &.isSelected {
         font-weight: 400;
+        opacity: 1 !important;
+    }
+    .legendItemIsSelected & {
+        opacity: 0.75;
     }
 }
 .legendItem {
@@ -27,6 +37,11 @@
     margin-right: 4px;
     position: relative;
     top: 3px;
+    .legendItemIsSelected .legendGroup:not(.isSelected) & {
+        background-color: $gray;
+        border-color: $gray;
+    }
+
 }
 .legendLabel {
     width: 100%;
@@ -52,3 +67,41 @@
         top: calc(50% - 3px);
     }
 }
+.isSelected :global(.secondary-0)  {
+    background-color: $dark_blue;
+    border: 1px solid $dark_blue;
+}
+
+.isSelected :global(.secondary-1)  {
+    background-color: $medium_blue;
+    border: 1px solid $medium_blue;
+}
+
+.isSelected :global(.secondary-2)  {
+    background-color: $light_blue;
+    border: 1px solid $light_blue;
+}
+
+.isSelected :global(.secondary-3)  {
+    background-color: $teal;
+    border: 1px solid $teal;
+}
+
+.isSelected :global(.secondary-4)  {
+    background-color: $faded_jade;
+    border: 1px solid $faded_jade;
+}
+
+.isSelected :global(.secondary-5)  {
+    background-color: $coral;
+    border: 1px solid $coral;
+}
+.isSelected :global(.secondary-6)  {
+    background-color: $tuscany;
+    border: 1px solid $tuscany;
+}
+.isSelected :global(.secondary-7)  {
+    background-color: #E29896;
+    border: 1px solid #E29896;
+}
+

@@ -43,6 +43,7 @@ export default class Legend extends Element {
                     S.setState('highlightSecondary', null);
                     this.isSelected = false;
                     this.classList.remove(s.isSelected);
+                    _this.el.classList.remove(s.legendItemIsSelected);
                 } else {
                     if ( _this.app.selectedLegendItem && _this.app.selectedLegendItem !== this) {
                         _this.app.selectedLegendItem.isSelected = false;
@@ -52,6 +53,7 @@ export default class Legend extends Element {
                     setTimeout(() => { // setTimeout allows the setState above to be caaried through. better to make promise-based;
                         _this.app.selectedLegendItem = this;
                         S.setState('highlightSecondary', i);
+                        _this.el.classList.add(s.legendItemIsSelected)
                         this.isSelected = true;
                         this.classList.add(s.isSelected);
                     });
