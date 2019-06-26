@@ -17,12 +17,10 @@ export default class Legend extends Element {
         }
 
         //legendContainer
-        var cont = document.createElement('div');
-        cont.classList.add(s.legend, 'js-legend');
+        view.classList.add(s.legend, 'js-legend');
         this.returnUpdatedItems(this.model.fields.find(f => f.key === this.data.primary).secondaryDimensions[0]).forEach(item => {
-            cont.appendChild(item);
+            view.appendChild(item);
         });
-        view.appendChild(cont);
 
         return view;
     }
@@ -108,24 +106,24 @@ export default class Legend extends Element {
     }
     update(msg,data){
         // destroy
-        this.legendContainer.innerHTML = '';
-        this.legendContainer.classList.remove(s.legendItemIsSelected);
+        this.el.innerHTML = '';
+        this.el.classList.remove(s.legendItemIsSelected);
         if ( msg === 'view' ){
             data = this.model.fields.find(f => f.key === data).secondaryDimensions[0];
         }
         //update
         this.returnUpdatedItems(data).forEach(item => {
-            this.legendContainer.appendChild(item);
+            this.el.appendChild(item);
         });
         this.initLegend();
     }
     toggleLegend(msg,data){
-        if ( data ){
-            this.legendContainer.classList.add(s.showLegend);
-            this.legendNote.classList.add(s.showNote);
-        } else {
-            this.legendContainer.classList.remove(s.showLegend);
-            this.legendNote.classList.remove(s.showNote);
-        }
+            if ( data ){
+                this.el.classList.add(s.showLegend);
+                this.legendNote.classList.add(s.showNote);
+            } else {
+                this.el.classList.remove(s.showLegend);
+                this.legendNote.classList.remove(s.showNote);
+            }
     }
 }

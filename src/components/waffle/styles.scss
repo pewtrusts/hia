@@ -105,14 +105,12 @@
 }
 
 :global(#pew-app) .showAllDetails {
-    position: absolute;
     
     right: 0;
     color: $medium_blue;
     margin-top: 10px;
     visibility: hidden;
     z-index: 1;
-    transform: translateY(-40px);
     &:hover {
         text-decoration: underline;
     }
