@@ -82,7 +82,7 @@ export default class WaffleView extends Element {
     }
     returnDropdownWrapper(){
         var dropdownWrapper = document.createElement('div');
-        dropdownWrapper.classList.add(s.dropdownWrapper, s.hide);
+        dropdownWrapper.classList.add(s.dropdownWrapper, s.hide, ',js-dropdown-wrapper');
         var dropdownInner = document.createElement('div'),
             dropdownOuter = document.createElement('div'),
             dropdownLabel = document.createElement('label');
@@ -99,6 +99,12 @@ export default class WaffleView extends Element {
         dropdownOuter.appendChild(dropdownLabel);
         dropdownOuter.appendChild(dropdownInner);
         dropdownWrapper.appendChild(dropdownOuter);
+
+        //note
+        var note = document.createElement('p');
+        note.classList.add(s.legendNote, 'js-legend-note');
+        note.innerHTML = '<strong>Note:</strong> HIAs that belong to more than one category are color-coded according to one listed first in the data source. Select an item from the legend to see all HIAs associated with that category.'
+        dropdownWrapper.appendChild(note);
         return dropdownWrapper;
     }
     setDropdownData(primaryDimension) {

@@ -15,13 +15,20 @@ export default class Legend extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        view.classList.add(s.legend, 'js-legend');
+
+        //legendContainer
+        var cont = document.createElement('div');
+        cont.classList.add(s.legend, 'js-legend');
         this.returnUpdatedItems(this.model.fields.find(f => f.key === this.data.primary).secondaryDimensions[0]).forEach(item => {
-            view.appendChild(item);
+            cont.appendChild(item);
         });
+        view.appendChild(cont);
+
         return view;
     }
     init(){
+        this.legendContainer = this.el.querySelector('.js-legend');
+        this.legendNote = this.el.querySelector('.js-legend-note');
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleLegend.bind(this)],
             ['selectSecondaryDimension', this.update.bind(this)],
@@ -101,22 +108,24 @@ export default class Legend extends Element {
     }
     update(msg,data){
         // destroy
-        this.el.innerHTML = '';
-        this.el.classList.remove(s.legendItemIsSelected);
+        this.legendContainer.innerHTML = '';
+        this.legendContainer.classList.remove(s.legendItemIsSelected);
         if ( msg === 'view' ){
             data = this.model.fields.find(f => f.key === data).secondaryDimensions[0];
         }
         //update
         this.returnUpdatedItems(data).forEach(item => {
-            this.el.appendChild(item);
+            this.legendContainer.appendChild(item);
         });
         this.initLegend();
     }
     toggleLegend(msg,data){
         if ( data ){
-            this.el.classList.add(s.showLegend);
+            this.legendContainer.classList.add(s.showLegend);
+            this.legendNote.classList.add(s.showNote);
         } else {
-            this.el.classList.remove(s.showLegend);
+            this.legendContainer.classList.remove(s.showLegend);
+            this.legendNote.classList.remove(s.showNote);
         }
     }
 }
