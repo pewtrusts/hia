@@ -118,6 +118,7 @@ export default class Waffle extends Element {
 
         //reinitialize
         this.initGroupsAndItems();
+        this.highlightMatchingSecondary('reset');
 
     }
     updatePrimary(msg,data){
@@ -132,6 +133,7 @@ export default class Waffle extends Element {
         });
         this.showAllDetails.textContent = this.updateShowAllDetails(data);
         this.initGroupsAndItems();
+        this.highlightMatchingSecondary('reset');
     }
     init() {
         this.waffleContainer = this.el.querySelector('.js-waffle-container-inner');
@@ -164,10 +166,15 @@ export default class Waffle extends Element {
         this.initGroupsAndItems();
     }
     highlightMatchingSecondary(msg, data){
-        if ( data !== null ) {
-            this.waffleContainer.classList.add('match-secondary-' + data);
+        if ( msg !== 'reset' ) {
+            if ( data !== null ) {
+                this.waffleContainer.classList.add('match-secondary-' + data);
+            } else {
+                let currentIndex = S.getPreviousState('highlightSecondary');
+                this.waffleContainer.classList.remove('match-secondary-' + currentIndex);
+            }
         } else {
-            let currentIndex = S.getPreviousState('highlightSecondary');
+            let currentIndex = S.getState('highlightSecondary');
             this.waffleContainer.classList.remove('match-secondary-' + currentIndex);
         }
     }
