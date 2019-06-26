@@ -99,7 +99,7 @@ export default class Legend extends Element {
 
         //boolean item
         var boolItem = document.createElement('div');
-        boolItem.classList.add(s.boolItem);
+        boolItem.classList.add(s.boolItem, s.legendItem);
         boolItem.textContent = '= In progress';
         items.push(boolItem);
 

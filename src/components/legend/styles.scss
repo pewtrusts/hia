@@ -14,7 +14,7 @@
 }
 .legendGroup {
     display: flex;
-    margin: 5px 10px 0 15px;
+    padding: 5px 20px 5px 0;
     font-size: 14px;
     font-weight: 300;
     transition: opacity 0.2s ease-in-out;
@@ -51,11 +51,11 @@
 }
 
 .boolItem {
-    margin-top: 10px;
-    width: 100%;
+    width: auto;
     padding-left: 12px;
     font-weight: 300;
     position: relative;
+    top: 5px;
     &::before {
         content: ' ';
         display: block;
@@ -65,7 +65,7 @@
         border: 1px solid #000;
         position: absolute;
         left: 0;
-        top: calc(50% - 3px);
+        top: calc(50% - 1px);
     }
 }
 .isSelected :global(.secondary-0)  {
