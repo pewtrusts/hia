@@ -124,3 +124,17 @@
         visibility: visible;
     }
 }
+.indicator {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    display: inline-block;
+    position: relative;
+    top:2px;
+}
+.indicatorsGroup {
+    margin-left: 10px;
+}
+:global(.tippy-popper) {
+    max-width: 230px;
+}

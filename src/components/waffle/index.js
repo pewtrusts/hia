@@ -83,6 +83,7 @@ export default class Waffle extends Element {
                 }
                 itemDiv.dataset.title = value.title;
                 itemDiv.dataset.id = value.id;
+                itemDiv.dataset.secondaries = JSON.stringify(value[this.secondary]);
                 //itemDiv.dataset.tippyContent = value.Title;
                 //tippy(itemDiv);
                 itemsContainer.appendChild(itemDiv);
@@ -254,6 +255,7 @@ export default class Waffle extends Element {
         }
     }
     setTippys(group) {
+
         tippy(group, {
             content: `<strong>${group.dataset.count} HIA${+group.dataset.count > 1 ? 's' : ''}</strong><br />Click for details`,
             trigger: 'manual',
@@ -261,8 +263,16 @@ export default class Waffle extends Element {
         });
     }
     setItemTippy(item){
+        var nested = this.model.nestBy[this.secondary];        
+        var indicators = JSON.parse(item.dataset.secondaries).reduce((acc, cur) => {
+            if ( cur !== '' ) {
+                return acc + `<div class="${s.indicator} secondary-${nested.findIndex(s => s.key === cur)}"></div>`
+            } else {
+                return acc + `<div class="${s.indicator} none"></div>`
+            }
+        },'');
         tippy(item, {
-            content: `<strong>${item.dataset.title}</strong><br />Click for details`,
+            content: `<strong>${item.dataset.title}</strong><br /><span class="flex space-between"><span>Click for details</span><span class="${s.indicatorsGroup}">${indicators}</span>`,
             trigger: 'manual'
         });
     }
