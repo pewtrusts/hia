@@ -68,7 +68,7 @@ export default class WaffleView extends Element {
 
         var note = document.createElement('p');
         note.classList.add(s.note);
-        note.textContent = 'Please note that a single HIA may appear in multiple categories.'
+        note.textContent = 'Please note that a single HIA may appear in multiple groups.'
         view.appendChild(note);
 
         return view;
