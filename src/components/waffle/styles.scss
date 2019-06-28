@@ -43,9 +43,13 @@
 }
 
 .groupDivHeading {
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 2px;
     font-size: 14px;
+    min-width: 85px;
+    span {
+        font-weight: 400;
+    }
 }
 
 .itemsContainer {

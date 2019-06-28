@@ -55,15 +55,16 @@ export default class Waffle extends Element {
         }
         this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
+            var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28);
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
-            groupDiv.insertAdjacentHTML('afterbegin', `<h2 class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'} &ndash; <span class="${s.itemCount}">${group.values.length}</span></h2>`);
+            groupDiv.insertAdjacentHTML('afterbegin', `<h2 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
 
 
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
-            itemsContainer.style.width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28) + 'px';
+            itemsContainer.style.width = width + 'px';
 
             // line above sets width of each so that each is as close to a square as possible
             group.values.sort((a, b) => returnMatchingValuesLength.call(this, b) - returnMatchingValuesLength.call(this, a));
