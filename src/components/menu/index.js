@@ -63,8 +63,6 @@ export default class Menu extends Element {
     
     clickHandler(context){
         
-        
-        
         GTMPush(`HIA|Navigate|${context.name}|${this.dataset.section}`);
         S.setState('view', this.dataset.section);
     }

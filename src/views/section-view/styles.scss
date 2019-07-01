@@ -4,6 +4,12 @@
     padding-top: 60px;
     position: relative;
     display: none;
+    @media screen and (max-width: 1070px) {
+        padding-top: 115px;
+    }
+    @media screen and (max-width: 659px) {
+        padding-top: 0px;
+    }
 }
 .active {
     background-color: $dark_blue;
@@ -19,5 +25,33 @@
     left: 0;
     top: 50px;
     z-index: 3;
-    border-bottom: 3px solid #fff;
+    @media screen and (max-width: 920px) {
+        top: 32px;
+    }
+    nav {
+        border-bottom: 3px solid #fff;
+        transition: transform 0.2s ease-in-out;
+    }
+    @media screen and (max-width: 659px) {
+        nav {
+            transform: translateX(100%);
+        }
+    }
+    &.isMobile .showMenu {
+        display: block;
+    }
+    &.isMobile.mobileIsInView {
+        nav {
+            transform: translateX(0);
+        }
+    }
+}
+:global(#pew-app) .showMenu {
+    position: absolute;
+    top: -32px;
+    right: 70px;
+    padding: 8px 10px;
+    background-color: $medium_blue;
+    color: #fff;
+    display: none;
 }

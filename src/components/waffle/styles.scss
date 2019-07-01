@@ -11,6 +11,9 @@
     //width: calc(100% - 120px);
     padding-left: 120px;
     //    width: 915px;
+    @media screen and (max-width: 659px) {
+        padding-left: 0;
+    }
 }
 .highlightMatchingSecondary {
 

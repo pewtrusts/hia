@@ -24,6 +24,8 @@ export default class MenuView extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
+       
+
         view.classList.add(s.menuView);
         view.classList.add('menu-view');
         var heading = document.createElement('h2');
