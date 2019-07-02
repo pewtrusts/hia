@@ -37,20 +37,25 @@
             transform: translateX(100%);
         }
     }
+    &.isMobile {
+        top: auto;
+        bottom: 37px;
+    }
     &.isMobile .showMenu {
         display: block;
     }
     &.isMobile.mobileIsInView {
         nav {
             transform: translateX(0);
+            box-shadow: rgba(0,0,0,0.5) 0px -2px 2px
         }
     }
 }
 :global(#pew-app) .showMenu {
-    position: absolute;
-    top: -32px;
-    right: 70px;
-    padding: 8px 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
     background-color: $medium_blue;
     color: #fff;
     display: none;

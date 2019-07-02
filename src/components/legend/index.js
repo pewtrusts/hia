@@ -26,11 +26,12 @@ export default class Legend extends Element {
     }
     init(){
         this.legendContainer = this.el.querySelector('.js-legend');
-        this.legendNote = this.el.querySelector('.js-legend-note');
+        this.legendNote = document.querySelector('.js-legend-note');
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleLegend.bind(this)],
             ['selectSecondaryDimension', this.update.bind(this)],
-            ['view', this.update.bind(this)],
+            ['view', this.update.bind(this)]
+           
            // ['selectPrimaryGroup', this.resetLegendSelection.bind(this)],
            // ['selectSecondaryDimension', this.resetLegendSelection.bind(this)]
         ]);
@@ -39,6 +40,7 @@ export default class Legend extends Element {
 
         //subscribe to secondary dimension , drilldown, details
     }
+    
     initLegend(){
         var _this = this;
         this.legendGroups = this.el.querySelectorAll('.js-legend-group');

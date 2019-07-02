@@ -24,6 +24,9 @@
     @media screen and (max-width: 659px){
         padding: 0;
     }
+    &:global(.is-on-top){
+        z-index: 4;
+    }
 }
 .dropdownWrapper {
     display: flex;
@@ -150,5 +153,18 @@
         left: 0;
         width: 100%;
         z-index: 0;
+    }
+}
+:global(#pew-app) .showLegendButton {
+    position: fixed;
+    top: 0;
+    right: 65px;
+    padding: 8px 10px;
+    background-color: $medium_blue;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    &.isVisible {
+        opacity: 1;
     }
 }

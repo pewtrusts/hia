@@ -71,6 +71,14 @@ export default class WaffleView extends Element {
         legendContainer.classList.add('js-legend-container', s.legendContainer);
         topContainer.appendChild(legendContainer);
 
+         //showLegendButton 
+        var btn = document.createElement('button');
+        btn.textContent = 'Show legend';
+        btn.classList.add('js-show-legend-button', s.showLegendButton);
+        legendContainer.appendChild(btn);
+
+
+
         view.appendChild(topContainer);
 
         //note
@@ -131,16 +139,30 @@ export default class WaffleView extends Element {
         };
     }
     init() {
-        
+        this.showLegendButton = document.querySelector('.js-show-legend-button');
+
         PS.setSubs([
             ['selectPrimaryGroup', this.toggleHeading.bind(this)],
             ['selectPrimaryGroup', this.toggleDropdown.bind(this)],
             ['selectPrimaryGroup', this.scrollIfNecessary.bind(this)],
             ['view', this.update.bind(this)],
+            ['legendIsMobile', this.toggleShowLegendButton.bind(this)]
         ]);
+
+        this.showLegendButton.addEventListener('click', function(){
+            document.getElementById('top-container').classList.toggle('is-on-top');
+        });
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
+    }
+    toggleShowLegendButton(msg,data){
+        if ( data ){
+            this.showLegendButton.classList.add(s.isVisible);
+        } else {
+            this.showLegendButton.classList.remove(s.isVisible);
+
+        }
     }
     update(msg,data){
         // heading

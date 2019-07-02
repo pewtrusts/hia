@@ -53,13 +53,19 @@ export default class Waffle extends Element {
             }
             return ab[this.secondary][0] !== '' ? this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length : -9999;
         }
-        this.nestedData.forEach(group => {
+        this.nestedData.forEach((group, i) => {
             var groupDiv = document.createElement('div');
             var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28);
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
             groupDiv.insertAdjacentHTML('afterbegin', `<h3 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
+
+            if ( i === 0 ){ //set up a dummy div for Intersection Observer to observe
+                let anchor = document.createElement('div');
+                anchor.classList.add(s.anchor, 'js-anchor');
+                groupDiv.appendChild(anchor)
+            }
 
 
             var itemsContainer = document.createElement('div');
@@ -135,11 +141,13 @@ export default class Waffle extends Element {
         });
         this.showAllDetails.textContent = this.updateShowAllDetails(data);
         this.initGroupsAndItems();
+        this.initIntersectionObserver();
         this.highlightMatchingSecondary('reset');
     }
     init() {
         this.waffleContainer = this.el.querySelector('.js-waffle-container-inner');
         this.showAllDetails = document.querySelector('.js-show-all-details');
+        
         
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
@@ -160,12 +168,26 @@ export default class Waffle extends Element {
             } else {
                 S.setState('showAllDetails', true);
                 
-                this.innerText = this.innerText.replace('Show','Hide');
+                this.innerText = this.innerText.replace('Show','Hide'); 
                 this.dataset.isOn = true;
             }
         }
         document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler);
         this.initGroupsAndItems();
+        this.initIntersectionObserver();
+    }
+    initIntersectionObserver(){
+      
+        function callback(entries){
+            console.log(entries[0]);
+            if ( entries[0].isIntersecting ){
+                let currentState = S.getState('legendIsMobile') || false;
+                S.setState('legendIsMobile', !currentState);
+            }
+        }
+        this.anchor = this.el.querySelector('.js-anchor');
+        var observer = new IntersectionObserver(callback, {threshold: 0.9});
+        observer.observe(this.anchor);
     }
     highlightMatchingSecondary(msg, data){
         if ( msg !== 'reset' ) {

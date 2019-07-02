@@ -162,3 +162,12 @@
 :global(.tippy-popper) {
     max-width: 230px;
 }
+
+.anchor {
+    position: absolute;
+    height: calc(100vh - 100px);
+    width: 2px;
+    background-color: magenta;
+    z-index: 4;
+    top: 0;
+}
