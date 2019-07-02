@@ -2,6 +2,10 @@
 .waffle {
     position: relative;
     margin-top: 35px;
+    background-color: #fff;
+    @media screen and (max-width: 659px){
+        z-index: 1;
+}
 }
 .waffleContainer {
     display: flex;
@@ -9,6 +13,7 @@
     padding-left: 120px;
     @media screen and (max-width: 659px) {
         padding-left: 0;
+        
     }
 }
 .highlightMatchingSecondary {
@@ -18,7 +23,6 @@
 .groupDiv {
     position: relative;
     padding: 10px 10px 10px 0;
-    // background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -39,6 +43,9 @@
         background-color: $red;
 
     }
+    @media screen and (max-width: 659px){
+        width: 100%;
+    }
 
 }
 
@@ -47,8 +54,16 @@
     margin-bottom: 2px;
     font-size: 14px;
     min-width: 85px;
+    
+    background-color: #fff;
+    //z-index: 2;
     span {
         font-weight: 400;
+    }
+    @media screen and (max-width: 659px){
+        position: sticky;
+        top: 0;
+        z-index: 2;
     }
 }
 
@@ -57,7 +72,11 @@
     display: flex;
     flex-wrap: wrap-reverse;
     position: relative;
-    max-width: 100%;
+
+    @media screen and (max-width: 659px) {
+        max-width: 100%;
+
+    }
 
 
 
