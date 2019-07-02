@@ -51,19 +51,33 @@ export default class WaffleView extends Element {
         // heading
         view.appendChild(this.returnHeading(initialPrimary));
 
+        //dropdown and legend container
+        var topContainer = document.createElement('div');
+        topContainer.classList.add(s.topContainer);
+        topContainer.id = 'top-container';
+
+
         //dropdown container
-        view.appendChild(this.returnDropdownWrapper(initialPrimary));
+        topContainer.appendChild(this.returnDropdownWrapper(initialPrimary));
 
 
         //waffle container
         var waffleContainer = document.createElement('div');
+        waffleContainer.classList.add(s.waffleContainer);
         waffleContainer.classList.add('js-waffle-container');
 
         //legend container
         var legendContainer = document.createElement('div');
         legendContainer.classList.add('js-legend-container', s.legendContainer);
-        waffleContainer.appendChild(legendContainer);
+        topContainer.appendChild(legendContainer);
 
+        view.appendChild(topContainer);
+
+        //note
+        var legendNote = document.createElement('p');
+        legendNote.classList.add(s.legendNote, 'js-legend-note');
+        legendNote.innerHTML = '<strong>Note:</strong> HIAs can belong to multiple categories; they are color-coded according to the category listed first in the data source. Select an item from the legend to see all HIAs that belong.'
+        waffleContainer.appendChild(legendNote);
         view.appendChild(waffleContainer);
 
         var note = document.createElement('p');
@@ -100,11 +114,6 @@ export default class WaffleView extends Element {
         dropdownOuter.appendChild(dropdownInner);
         dropdownWrapper.appendChild(dropdownOuter);
 
-        //note
-        var note = document.createElement('p');
-        note.classList.add(s.legendNote, 'js-legend-note');
-        note.innerHTML = '<strong>Note:</strong> HIAs that belong to more than one category are color-coded according to one listed first in the data source. Select an item from the legend to see all HIAs associated with that category.'
-        dropdownWrapper.appendChild(note);
         return dropdownWrapper;
     }
     setDropdownData(primaryDimension) {

@@ -3,6 +3,7 @@
 .barView {
     position: relative;
     display: none;
+    //padding-bottom: 25px;
     &.active {
         display: block;
     }

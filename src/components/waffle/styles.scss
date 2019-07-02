@@ -6,10 +6,7 @@
 .waffleContainer {
     display: flex;
     flex-wrap: wrap;
-    overflow-y: scroll;
-    max-height: calc(100vh - 275px);
     padding-left: 120px;
-
     @media screen and (max-width: 659px) {
         padding-left: 0;
     }

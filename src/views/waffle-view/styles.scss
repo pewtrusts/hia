@@ -2,7 +2,7 @@
 
 .waffleView {
     padding-top: 10px;
-    margin-top: 50px;
+    //margin-top: 50px;
    
 }
 .instructHeading {
@@ -14,6 +14,13 @@
     &.hide {
         display: none;
     }
+}
+.topContainer {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+    padding: 20px 0;
 }
 .dropdownWrapper {
     display: flex;
@@ -103,6 +110,9 @@
     font-size: 14px;
     margin-top: 15px;
 }
+.waffleContainer {
+    position: relative;
+}
 .legendContainer {
     width: 120px;
     position: absolute;
@@ -114,16 +124,25 @@
     }
 }
 .legendNote {
-    margin-bottom: 0;
-    width: 300px;
-    flex-grow: 1;
+    position: absolute;
+    left: 350px;
+    top: -100px;
     font-weight: 300;
     font-size: 14px;
+    z-index: 2;
+    line-height: 140%;
    // visibility: hidden;
     strong {
         font-weight: 400;
     }
     &.showNote {
         visibility: visible;
+    }
+    @media screen and (max-width: 659px) {
+        position: relative;
+        top:0;
+        left: 0;
+        width: 100%;
+        z-index: 0;
     }
 }

@@ -10,10 +10,15 @@
 }
 
 #pew-app {
-    max-height: calc(100vh - 90px);
-    overflow-y: scroll; 
+    
     h2 {
         padding: 0 2px;
+        position: sticky;
+        top: 0px;
+        padding: 20px 0;
+        background-color: #fff;
+        z-index: 2;
+        margin-top: 0;
     }
 
     button {
@@ -49,7 +54,10 @@
 
     }
 }
-
+#section-view {
+    max-height: calc(100vh - 90px);
+    overflow-y: scroll; 
+}
 .section-title {
     font-size: 28px;
     margin: 20px 0;
