@@ -8,9 +8,8 @@
     flex-wrap: wrap;
     overflow-y: scroll;
     max-height: calc(100vh - 275px);
-    //width: calc(100% - 120px);
     padding-left: 120px;
-    //    width: 915px;
+
     @media screen and (max-width: 659px) {
         padding-left: 0;
     }
@@ -26,6 +25,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    max-width: 100%;
 
     &:focus {
         outline-width: 0;
@@ -60,6 +60,7 @@
     display: flex;
     flex-wrap: wrap-reverse;
     position: relative;
+    max-width: 100%;
 
 
 
