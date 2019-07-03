@@ -19,8 +19,9 @@
         z-index: 2;
         margin-top: 0;
         &.section-title{
-            background-color: #fff;
-        }
+            background-image: linear-gradient(#fff, #fff 90%, transparent);
+            margin-bottom: 0;
+        }   
     }
 
     button {

@@ -2,9 +2,11 @@
 
 :global(#map-view){
     display: none;
+
     &.active {
         display: block;
     }
+    padding-bottom: 4px;
 }
 
 .mapContainer {

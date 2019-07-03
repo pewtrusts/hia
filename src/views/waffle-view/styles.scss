@@ -19,13 +19,16 @@
     position: sticky;
     top: -1px;
     z-index: 1;
-    background-color: #fff;
-    padding: 20px 0;
+    background-image: linear-gradient(#fff, #fff 90%, transparent);
+    padding: 20px 0 30px;
     @media screen and (max-width: 659px){
         padding: 0;
     }
     &:global(.is-on-top){
         z-index: 4;
+        background-image: none;
+        background-color: #fff;
+        box-shadow: 0 2px 2px rgba(0,0,0,0.5);
     }
 }
 .dropdownWrapper {
