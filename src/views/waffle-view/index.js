@@ -151,7 +151,9 @@ export default class WaffleView extends Element {
         ]);
 
         this.showLegendButton.addEventListener('click', function(){
+            this.isActive = !this.isActive;
             document.getElementById('top-container').classList.toggle('is-on-top');
+            this.textContent = this.isActive ? 'Hide legend' : 'Show legend';
         });
         /* to do*/
 
