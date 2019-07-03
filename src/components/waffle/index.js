@@ -24,6 +24,11 @@ export default class Waffle extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
         view.classList.add(s.waffle);
+
+        var anchor = document.createElement('div');
+        anchor.classList.add(s.anchor, 'js-anchor');
+        view.appendChild(anchor);
+
             //showAllDetails
         var showAllDetails = document.createElement('button');
         showAllDetails.classList.add('js-show-all-details', s.showAllDetails);
@@ -53,20 +58,13 @@ export default class Waffle extends Element {
             }
             return ab[this.secondary][0] !== '' ? this.model.nestBy[this.secondary].find(d => d.key === ab[this.secondary][0]).values.length : -9999;
         }
-        this.nestedData.forEach((group, i) => {
+        this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
             var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28);
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
             groupDiv.insertAdjacentHTML('afterbegin', `<h3 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
-
-            if ( i === 0 ){ //set up a dummy div for Intersection Observer to observe
-                let anchor = document.createElement('div');
-                anchor.classList.add(s.anchor, 'js-anchor');
-                groupDiv.appendChild(anchor)
-            }
-
 
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
@@ -177,16 +175,15 @@ export default class Waffle extends Element {
         this.initIntersectionObserver();
     }
     initIntersectionObserver(){
-      
         function callback(entries){
-            console.log(entries[0]);
             if ( entries[0].isIntersecting ){
-                let currentState = S.getState('legendIsMobile') || false;
-                S.setState('legendIsMobile', !currentState);
+                S.setState('legendIsMobile', true);
+            } else {
+                S.setState('legendIsMobile', false);
             }
         }
         this.anchor = this.el.querySelector('.js-anchor');
-        var observer = new IntersectionObserver(callback, {threshold: 0.9});
+        var observer = new IntersectionObserver(callback);//, {threshold: buildThresholdList()});
         observer.observe(this.anchor);
     }
     highlightMatchingSecondary(msg, data){
