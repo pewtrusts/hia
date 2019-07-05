@@ -4,6 +4,7 @@
     padding-top: 60px;
     position: relative;
     display: none;
+    border-top: 1px solid $gray;
     @media screen and (max-width: 1070px) {
         padding-top: 115px;
     }

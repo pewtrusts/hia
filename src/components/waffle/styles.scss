@@ -54,8 +54,10 @@
     margin-bottom: 2px;
     font-size: 14px;
     min-width: 85px;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
+    padding-top: 5px;
     background-image: linear-gradient(#fff, #fff 80%, transparent);
+    max-width: 100%;
     //z-index: 2;
     span {
         font-weight: 400;
