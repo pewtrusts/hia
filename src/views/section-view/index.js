@@ -102,9 +102,11 @@ class TopMenu extends Menu {
         this._mobileIsInView = bool;
         if ( bool ) {
             this.el.classList.add(s.mobileIsInView);
+            this.showMenu.classList.add(s.isActive);
             this.showMenu.textContent = 'Hide menu';
         } else {
             this.el.classList.remove(s.mobileIsInView);
+            this.showMenu.classList.remove(s.isActive);
             this.showMenu.textContent = 'Show menu';
         }
     }

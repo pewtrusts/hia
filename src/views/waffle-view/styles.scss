@@ -171,4 +171,16 @@
     &.isVisible {
         opacity: 1;
     }
+    &.isActive::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 3px);
+        width: 0;
+        height: 0;
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-bottom: 6px solid #fff;
+    }
 }
