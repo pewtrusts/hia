@@ -14,16 +14,18 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+    max-height: calc(100vh - 91px);
+    overflow-y: auto;
     h2 {
         padding: 0 2px;
-        position: sticky;
-        top: -2px;
         padding: 20px 0;
         z-index: 2;
         margin-top: 0;
         &.section-title{
             background-image: linear-gradient(#fff, #fff 90%, transparent);
             margin-bottom: 0;
+            position: sticky;
+            top: -2px;
         }   
     }
 
