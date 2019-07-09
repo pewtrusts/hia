@@ -113,7 +113,6 @@ export default class HIA extends PCTApp {
             this.pushViews();
             console.log(model);
             Promise.all(this.views.map(view => view.isReady)).then(() => {
-                this.onViewsReady();
                 if ( process.env.NODE_ENV === 'development' ){
                     this.init();
                 } else { //App.prerender is call only if env = development or window isPrerendering so here window is prerendering
@@ -121,11 +120,6 @@ export default class HIA extends PCTApp {
                 }
             });
         });
-    }
-    onViewsReady(){
-        //adjust heading height
-        var height = document.querySelector('.js-dropdown').offsetHeight + document.querySelector('.js-legend').offsetHeight;
-        document.querySelector('.js-instruct-heading').style.height = height + 'px';
     }
     init() {
         var publicPath = '';

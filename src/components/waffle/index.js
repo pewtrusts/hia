@@ -29,12 +29,6 @@ export default class Waffle extends Element {
         anchor.classList.add(s.anchor, 'js-anchor');
         view.appendChild(anchor);
 
-            //showAllDetails
-        var showAllDetails = document.createElement('button');
-        showAllDetails.classList.add('js-show-all-details', s.showAllDetails);
-        showAllDetails.textContent = this.updateShowAllDetails(this.data.primary);
-        view.appendChild(showAllDetails);
-
         //container
         var waffleContainer = document.createElement('div');
         waffleContainer.classList.add(s.waffleContainer, 'js-waffle-container-inner');
@@ -137,40 +131,22 @@ export default class Waffle extends Element {
         this.render().forEach(group => {
             waffleContainer.appendChild(group)
         });
-        this.showAllDetails.textContent = this.updateShowAllDetails(data);
         this.initGroupsAndItems();
         this.initIntersectionObserver();
         this.highlightMatchingSecondary('reset');
     }
     init() {
         this.waffleContainer = this.el.querySelector('.js-waffle-container-inner');
-        this.showAllDetails = document.querySelector('.js-show-all-details');
         
         
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
-            ['selectPrimaryGroup', this.showGroupDetails.bind(this)],
-            ['showAllDetails', this.toggleShowAll.bind(this)],
             ['selectSecondaryDimension', this.updateSecondary.bind(this)],
             ['view', this.updatePrimary.bind(this)],
             ['highlightSecondary', this.highlightMatchingSecondary.bind(this)]
         ]);
-        function showAllDetailsHandler(e){
-            e.stopPropagation()
-            if ( this.dataset.isOn === 'true' ){
-                S.setState('showAllDetails', false);
-
-                this.innerText = this.innerText.replace('Hide','Show');
-                this.dataset.isOn = false;
-            } else {
-                S.setState('showAllDetails', true);
-                
-                this.innerText = this.innerText.replace('Show','Hide'); 
-                this.dataset.isOn = true;
-            }
-        }
-        document.querySelector('.' + s.showAllDetails).addEventListener('click', showAllDetailsHandler);
+        
         this.initGroupsAndItems();
         this.initIntersectionObserver();
     }
@@ -201,78 +177,20 @@ export default class Waffle extends Element {
     }
     initGroupsAndItems(){
         function itemClickHandler(){
-            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAll) ){
                 S.setState('selectHIA', +this.dataset.id);
-            }
         }
         function itemMouseenter(){
-            if ( this.parentElement.parentElement.classList.contains(s.showDetails) || this.parentElement.parentElement.parentElement.classList.contains(s.showAll) ){
                 this._tippy.show();
-            }
         }
         function itemMouseleave(){
             this._tippy.hide();
         }
-        function announceMouseEnter() {
-            // TO DO: base this logic on state rather than on DOM
-            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAll)) {
-                
-                this._tippy.show();
-            }
-            S.setState('hoverPrimaryGroup', this.dataset.group, { forceChange: true });
-        }
-
-        function announceMouseLeave() {
-            if (!this.classList.contains(s.showDetails) && !this.parentElement.classList.contains(s.showAllDetails)) {
-                //this._tippy.destroy();
-                this._tippy.hide();
-            }
-            S.setState('unHoverPrimaryGroup', this.dataset.group, { forceChange: true });
-        }
-        document.querySelectorAll('.' + s.groupDiv).forEach(group => {
-            this.setTippys(group);
-            group.addEventListener('mouseenter', announceMouseEnter);
-            group.addEventListener('mouseleave', announceMouseLeave);
-            group.addEventListener('click', this.clickHandler);
-        });
         document.querySelectorAll('.' + s.item).forEach(item => {
             this.setItemTippy(item);
             item.addEventListener('mouseenter', itemMouseenter);
             item.addEventListener('mouseleave', itemMouseleave);
             item.addEventListener('click', itemClickHandler);
         });
-    }
-    toggleShowAll(msg,data){
-        if ( data ){
-            document.querySelector('.' + s.waffleContainer).classList.add(s.showAll);
-        } else {
-            document.querySelector('.' + s.waffleContainer).classList.remove(s.showAll);
-        }
-
-    }
-    updateShowAllDetails(primaryDimension){
-        var name = this.model.fields.find(f => f.key === primaryDimension).heading;
-        return `${ S.getState('showAllDetails') ? 'Hide' : 'Show' } details for all ${name.toLowerCase()}`;
-    }
-    showGroupDetails(msg, data){
-
-        //handle the waffle group
-        var currentDetails = document.querySelector('.' + s.showDetails);
-        if ( currentDetails ){
-            currentDetails.classList.remove(s.showDetails, 'js-show-details');
-        }
-        var selector = `.${s.groupDiv}[data-group="${data}"`;
-        var node = document.querySelector(selector);
-        if (node) {
-            node.classList.add(s.showDetails, 'js-show-details')
-        }
-
-        //handle the showAllDetails
-        if ( data ) {
-            document.querySelector('.' + s.showAllDetails).classList.add(s.isVisible);
-        } else {
-            document.querySelector('.' + s.showAllDetails).classList.remove(s.isVisible);
-        }
     }
     setTippys(group) {
 
@@ -299,12 +217,18 @@ export default class Waffle extends Element {
     highlightGroup(msg, data) {
         var selector = `.${s.groupDiv}[data-group="${data}"`;
         var node = document.querySelector(selector);
+        var oldNode = document.querySelector('.' + s.isHighlighted);
         if (node) {
             if (msg === 'hoverPrimaryGroup') {
+                if ( oldNode ){
+                    oldNode.classList.remove(s.isHighlighted);
+                }
                 node.classList.add(s.isHighlighted);
             }
             if (msg === 'unHoverPrimaryGroup') {
-                node.classList.remove(s.isHighlighted);
+                setTimeout(() => {
+                    node.classList.remove(s.isHighlighted);
+                },1500);
             }
         }
     }

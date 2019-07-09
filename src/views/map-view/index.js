@@ -199,7 +199,7 @@ export default class MapView extends Element {
     setTippys(){
         function setTippy(node,d){
             tippy(node, {
-                content: `<strong>${d.values.length} HIA${d.values.length > 1 ? 's' : ''}</strong><br />Click for details`,
+                content: `<strong>${d.values.length} HIA${d.values.length > 1 ? 's' : ''}</strong><br />See below for details`,
                 followCursor: true
             });
         }

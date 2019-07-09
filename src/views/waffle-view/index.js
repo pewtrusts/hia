@@ -48,8 +48,6 @@ export default class WaffleView extends Element {
         view.classList.add(s.waffleView);
 
 
-        // heading
-        view.appendChild(this.returnHeading(initialPrimary));
 
         //dropdown and legend container
         var topContainer = document.createElement('div');
@@ -96,13 +94,6 @@ export default class WaffleView extends Element {
 
         return view;
     }
-    returnHeading(primaryDimension){
-        var instruct = this.model.fields.find(d => d.key === primaryDimension).instruct;
-        var heading = document.createElement('h2');
-        heading.textContent = instruct;
-        heading.classList.add(s.instructHeading, 'js-instruct-heading');
-        return heading;
-    }
     returnDropdownWrapper(){
         var dropdownWrapper = document.createElement('div');
         dropdownWrapper.classList.add(s.dropdownWrapper, s.hide, 'js-dropdown-wrapper');
@@ -143,9 +134,6 @@ export default class WaffleView extends Element {
         this.showLegendButton = document.querySelector('.js-show-legend-button');
 
         PS.setSubs([
-            ['selectPrimaryGroup', this.toggleHeading.bind(this)],
-            ['selectPrimaryGroup', this.toggleDropdown.bind(this)],
-            ['selectPrimaryGroup', this.scrollIfNecessary.bind(this)],
             ['view', this.update.bind(this)],
             ['legendIsMobile', this.toggleShowLegendButton.bind(this)]
         ]);
@@ -173,8 +161,6 @@ export default class WaffleView extends Element {
         }
     }
     update(msg,data){
-        // heading
-        document.querySelector('.js-instruct-heading').textContent = this.returnHeading(data).textContent;
 
         //dropdown
         this.dropdownData = this.setDropdownData(data);
@@ -189,86 +175,5 @@ export default class WaffleView extends Element {
         });
         this.dropdown.init();
     }
-    scrollIfNecessary(msg) {
-        var split = msg.split('.');
-        if (split.length > 1 && split[1] === 'map') {
-            this.scrollPageIfNecessary();
-        }
-    }
-    scrollPageIfNecessary() {
-        var nodeShowingDetails = document.querySelector('.js-show-details');
-        var rect = nodeShowingDetails.getBoundingClientRect();
-        var to = rect.top - 105;
-
-        if (rect.top > window.innerHeight - 100) {
-            this.smoothScroll('#pew-app', to).then(this.scrollWaffleIfNecessary());
-        } else {
-            this.scrollWaffleIfNecessary();
-        }
-    }
-    scrollWaffleIfNecessary() {
-        var nodeShowingDetails = document.querySelector('.js-show-details');
-        
-        var to = nodeShowingDetails.offsetTop - document.querySelector('.js-waffle-container-inner').offsetTop;
-        this.smoothScroll('.js-waffle-container-inner', to);
-
-    }
-    smoothScroll(selector, to, duration = 200) { // HT: https://stackoverflow.com/a/45325140
-
-        Math.easeInOutQuad = function(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        };
-        return new Promise(resolve => {
-            var element = document.querySelector(selector),
-                start = element.scrollTop,
-                difference = to - start,
-                currentTime = 0,
-                increment = 20;
-
-            var animateScroll = function() {
-                currentTime += increment;
-                var val = Math.easeInOutQuad(currentTime, start, difference, duration);
-                element.scrollTop = val;
-                if (currentTime < duration) {
-                    setTimeout(animateScroll, increment);
-                } else {
-                    setTimeout(() => {
-                        resolve(true);
-                    }, increment);
-                }
-            };
-            animateScroll();
-        });
-
-
-        //t = current time
-        //b = start value
-        //c = change in value
-        //d = duration
-
-
-    }
-    toggleHeading(msg, data) {
-        var heading = document.querySelector('.' + s.instructHeading);
-        if (data) {
-            heading.classList.add(s.hide);
-        } else {
-            heading.classList.remove(s.hide);
-        }
-    }
-    toggleDropdown(msg, data) {
-        var dropdown = document.querySelector('.' + s.dropdownWrapper);
-        if (data) {
-            dropdown.classList.remove(s.hide);
-        } else {
-            dropdown.classList.add(s.hide);
-        }
-    }
-    clickHandler() {
-        /* to do */
-
-    }
+    
 }

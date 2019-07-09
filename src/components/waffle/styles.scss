@@ -39,7 +39,7 @@
         width: calc(100% - 10px);
         height: 10px;
         left: 0;
-        bottom: 0;
+        bottom: 10px;
         background-color: $red;
 
     }
@@ -50,6 +50,9 @@
 }
 
 .groupDivHeading {
+    .isHighlighted & {
+        font-weight: 900;
+    }
     font-weight: 600;
     margin-bottom: 2px;
     font-size: 14px;
@@ -127,14 +130,7 @@
     }
 }
 
-.waffleContainer:not(.showAll) .groupDiv:not(.showDetails) .item {
-    background-color: $blue_gray !important;
-    opacity: 1 !important;
-    &:not(.completed)::after {
-        background-color: $blue_gray !important;
-        opacity: 1 !important;
-    }
-}
+
 
 :global(#pew-app) .showAllDetails {
     position: absolute;

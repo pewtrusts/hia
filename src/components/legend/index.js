@@ -28,7 +28,6 @@ export default class Legend extends Element {
         this.legendContainer = this.el.querySelector('.js-legend');
         this.legendNote = document.querySelector('.js-legend-note');
         PS.setSubs([
-            ['selectPrimaryGroup', this.toggleLegend.bind(this)],
             ['selectSecondaryDimension', this.update.bind(this)],
             ['view', this.update.bind(this)]
            
@@ -118,14 +117,5 @@ export default class Legend extends Element {
             this.el.appendChild(item);
         });
         this.initLegend();
-    }
-    toggleLegend(msg,data){
-            if ( data ){
-                this.el.classList.add(s.showLegend);
-                this.legendNote.classList.add(s.showNote);
-            } else {
-                this.el.classList.remove(s.showLegend);
-                this.legendNote.classList.remove(s.showNote);
-            }
     }
 }
