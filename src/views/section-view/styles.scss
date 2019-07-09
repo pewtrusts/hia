@@ -4,12 +4,14 @@
     padding-top: 60px;
     position: relative;
     display: none;
-    border-top: 1px solid $gray;
     @media screen and (max-width: 1070px) {
         padding-top: 115px;
     }
     @media screen and (max-width: 659px) {
         padding-top: 0px;
+    }
+    @media screen and (max-width: 470px) {
+        border-top: 1px solid $gray;
     }
 }
 .active {

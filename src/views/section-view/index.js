@@ -138,7 +138,7 @@ class TopMenu extends Menu {
 
         this.showMenu.addEventListener('click', this.menuClickHandler.bind(this));
     }
-    checkIsMobile(msg, data = window.innerWidth){
+    checkIsMobile(msg, data = [window.innerWidth]){
         if ( data[0] > 659 ){
             this.isMobile = false;
         } else {
