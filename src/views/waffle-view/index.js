@@ -64,7 +64,6 @@ export default class WaffleView extends Element {
         waffleContainer.classList.add(s.waffleContainer);
         waffleContainer.classList.add('js-waffle-container');
 
-
         //legend container
         var legendContainer = document.createElement('div');
         legendContainer.classList.add('js-legend-container', s.legendContainer);
@@ -80,12 +79,8 @@ export default class WaffleView extends Element {
 
         view.appendChild(topContainer);
 
-        //note
-        var legendNote = document.createElement('p');
-        legendNote.classList.add(s.legendNote, 'js-legend-note');
-        legendNote.innerHTML = '<strong>Note:</strong> HIAs can belong to multiple categories; they are color-coded according to the category listed first in the data source. Select an item from the legend to see all HIAs that belong.'
-        waffleContainer.appendChild(legendNote);
         view.appendChild(waffleContainer);
+       
 
         var note = document.createElement('p');
         note.classList.add(s.note);
@@ -95,6 +90,13 @@ export default class WaffleView extends Element {
         return view;
     }
     returnDropdownWrapper(){
+         //note
+        var legendNote = document.createElement('p');
+        legendNote.classList.add(s.legendNote, 'js-legend-note');
+        legendNote.innerHTML = '<strong>Note:</strong> HIAs can belong to multiple categories; they are color-coded according to the category listed first in the data source. Select an item from the legend to see all HIAs that belong.'
+        
+        
+
         var dropdownWrapper = document.createElement('div');
         dropdownWrapper.classList.add(s.dropdownWrapper, s.hide, 'js-dropdown-wrapper');
         var dropdownInner = document.createElement('div'),
@@ -113,6 +115,7 @@ export default class WaffleView extends Element {
         dropdownOuter.appendChild(dropdownLabel);
         dropdownOuter.appendChild(dropdownInner);
         dropdownWrapper.appendChild(dropdownOuter);
+        dropdownWrapper.appendChild(legendNote);
 
         return dropdownWrapper;
     }
