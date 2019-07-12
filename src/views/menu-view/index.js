@@ -25,7 +25,7 @@ export default class MenuView extends Element {
             return view; // if prerendered and no need to render (no data mismatch)
         }
        
-
+        view.classList.add(s.isLoading);
         view.classList.add(s.menuView);
         view.classList.add('menu-view');
         var heading = document.createElement('h2');
@@ -38,7 +38,7 @@ export default class MenuView extends Element {
     }
     init(){
         
-
+        this.el.classList.remove(s.isLoading);
         PS.setSubs([['isSelected', this.hideSection.bind(this)]]);
         /*this.children.forEach(child => {
             

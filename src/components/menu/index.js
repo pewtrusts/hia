@@ -11,7 +11,7 @@ export default class Menu extends Element {
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
         }
-        
+        view.classList.add(s.isLoading);
         var list = document.createElement('nav');
         list.setAttribute('aria-label', 'In-page');
         list.setAttribute('aria-controls', 'map-view bar-view waffle-view');
@@ -24,7 +24,7 @@ export default class Menu extends Element {
 
             var item = document.createElement('a');
             item.classList.add(s.navLink);
-            item.href = `#${section.key}`;
+            item.href = 'javascript:void(0)';
             item.innerHTML = `<span>${section.heading} <span>${section.text}</span></span>`;
             item.setAttribute('data-section', section.key);
             wrapper.appendChild(item);
@@ -43,20 +43,31 @@ export default class Menu extends Element {
     init(){
         
         var _this = this;
-        this.el.querySelectorAll('a').forEach(item => {
-            
+        this.items = this.el.querySelectorAll('a');
+        this.items.forEach(item => {
+            item.isDisabled = true;
             item.addEventListener('click', function(e){
                 e.preventDefault();
+                if ( item.isDisabled ){
+                    return;
+                }
                 _this.clickHandler.call(this, _this);
             });
             item.addEventListener('keyup', function(e){
                 if (e.keyCode === 13 ){ // enter key
                     e.preventDefault();
+                    if ( item.isDisabled ){
+                        return;
+                    }
                     _this.clickHandler.call(this, _this);
                 }
                 
             });
         });
+        this.items.forEach(item => {
+            item.isDisabled = false;
+        });
+        this.el.classList.remove(s.isLoading);
 
         
     }

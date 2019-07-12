@@ -103,7 +103,6 @@ function addDateBuckets(data){
 export default class HIA extends PCTApp {
     prerender() {
         getRuntimeData.call(this).then((v) => {
-            
             model.data = addDateBuckets(v);
             /* set data-hash attribute on container on prerender. later on init the hash will be compared against the data fetched at runtime to see
                if it is the same or not. if note the same, views will have to be rerendered. */

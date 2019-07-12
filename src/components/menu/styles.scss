@@ -31,6 +31,12 @@
         &:active, &:visited {
             color:#fff;
         }
+        .isLoading & {
+            cursor: wait;
+            &:hover, &:focus, &.active {
+                background-color: $gray;
+            }
+        }
     }
 }
 

@@ -1,8 +1,22 @@
 @import '@Project/css/variable.scss';
 
 :global(#pew-app) .menuView {
-    //display: none; // REMOVE THIS
+    transition: background-color 0.2s ease-in-out;
     background-color: $medium_blue;
+    &.isLoading {
+        background-color: $gray;
+        &::before {
+            content: 'loading ...';
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            transform: translateX(-50%);
+        }
+    }
     
     //min-height: calc(100vh - 220px);
     h2 {
