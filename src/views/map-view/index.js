@@ -10,7 +10,7 @@ import { stateModule as S } from 'stateful-dead';
 import { GTMPush } from '@Utils';
 
 //const gradient = ['#5AC7BE', '#296EC3'];
-const gradient = ['#2c75ce', '#09132a'];
+const gradient = ['#88cfe4', '#2c75ce', '#09132a'];
 const legendTitle = 'Number of health impact assessments';
 
 export default class MapView extends Element {
@@ -55,7 +55,7 @@ export default class MapView extends Element {
         mapContainer.classList.add(s.mapContainer, 'js-map-container');
         mapContainer.innerHTML = mapSVG;
         
-        this.colorScale = chroma.scale(gradient).domain([1, Math.log(this.maxLegend)]);
+        this.colorScale = chroma.scale(gradient).gamma(0.9).domain([0, Math.log10(this.maxLegend)]);
 
 
         this.model.nestBy.stateOrTerritory.forEach(d => {
@@ -66,7 +66,7 @@ export default class MapView extends Element {
                     stateGroup.classList.add('is-not-null');
                     let label = stateGroup.querySelector('.state__label');
                     let path  = stateGroup.querySelector('.state__path');
-                    path.style.fill = this.colorScale(Math.log(d.values.length));
+                    path.style.fill = this.colorScale(Math.log10(d.values.length));
                     if (label){
                         label.style.fontWeight = 'bold';
                         label.style.fill = '#fff';
@@ -75,8 +75,8 @@ export default class MapView extends Element {
                 if ( stateBox ){
                     stateBox.classList.add('is-not-null');
                     let rect = stateBox.querySelector('rect');
-                    rect.style.fill = this.colorScale(Math.log(d.values.length));
-                    rect.style.stroke = this.colorScale(Math.log(d.values.length));
+                    rect.style.fill = this.colorScale(Math.log10(d.values.length));
+                    rect.style.stroke = this.colorScale(Math.log10(d.values.length));
                     stateBox.querySelector('.state-box__label').style.fill = '#fff';
                 }
                 
@@ -95,8 +95,19 @@ export default class MapView extends Element {
 
 
         var grad = document.createElement('div');
-        grad.style.background = `linear-gradient(to right, ${gradient.join(',')}`;
         grad.classList.add(s.gradient);
+        for ( var i = 0; i < 230; i++ ){
+            let step = document.createElement('div');
+            let relative = i / 229;
+            let range = Math.log10(this.maxLegend);
+            let value = range * relative;
+            step.dataset.value = value;
+            console.log(value);
+            step.style.backgroundColor = this.colorScale(value);
+            step.classList.add(s.gradStep)
+            grad.appendChild(step);
+        }
+        //grad.style.background = `linear-gradient(to right, ${gradient.join(',')}`;
         
         legendWrapper.appendChild(grad);
 
@@ -104,7 +115,7 @@ export default class MapView extends Element {
             var label = document.createElement('div');
             label.classList.add(s.tick);
             label.textContent = tick;
-            label.style.left = i === 0 ? 0 : i === 1 ? ( Math.log(tick) / Math.log(this.maxLegend) ) * 100 + '%' : '100%';
+            label.style.left = i === 0 ? 0 : i === 1 ? ( Math.log10(tick) / Math.log10(this.maxLegend) ) * 100 + '%' : '100%';
             legendWrapper.appendChild(label);
         });
 
