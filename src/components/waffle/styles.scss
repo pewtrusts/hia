@@ -27,6 +27,7 @@
     flex-direction: column;
     justify-content: flex-end;
     max-width: 100%;
+    transition: opacity 0.2s ease-in-out;
     @media screen and (max-width: 659px){
         padding-right: 0;
     }
@@ -34,7 +35,12 @@
     &:focus {
         outline-width: 0;
     }
-
+    &.isNotHighlighted {
+        opacity: .2;
+    }
+    &.isHighlighted {
+        opacity: 1;
+    }
     &.isHighlighted::after {
         content: '';
         display: block;
@@ -42,10 +48,11 @@
         width: calc(100% - 10px);
         height: 10px;
         left: 0;
-        bottom: 10px;
+        bottom: 20px;
         background-color: $red;
 
     }
+   
     @media screen and (max-width: 659px){
         width: 100%;
     }
@@ -168,4 +175,8 @@
     position: absolute;
     height: calc(100% - 100vh + 75px);
     top: calc(100vh - 75px);
+}
+.groupAnchor {
+    position: absolute;
+    bottom: calc(100% + 170px);
 }

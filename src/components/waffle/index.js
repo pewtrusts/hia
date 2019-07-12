@@ -55,10 +55,17 @@ export default class Waffle extends Element {
         this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
             var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28);
+
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
             groupDiv.insertAdjacentHTML('afterbegin', `<h3 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
+
+            //anchor
+            var anchor = document.createElement('div');
+            anchor.classList.add(s.groupAnchor);
+            anchor.id = 'anchor-' + this.app.cleanKey(group.key);
+            groupDiv.appendChild(anchor);
 
             var itemsContainer = document.createElement('div');
             itemsContainer.classList.add(s.itemsContainer);
@@ -144,11 +151,17 @@ export default class Waffle extends Element {
             ['unHoverPrimaryGroup', this.highlightGroup.bind(this)],
             ['selectSecondaryDimension', this.updateSecondary.bind(this)],
             ['view', this.updatePrimary.bind(this)],
-            ['highlightSecondary', this.highlightMatchingSecondary.bind(this)]
+            ['highlightSecondary', this.highlightMatchingSecondary.bind(this)],
+            ['selectPrimaryGroup', this.scrollToGroup.bind(this)],
+            ['selectPrimaryGroup', this.highlightGroup.bind(this)]
         ]);
         
         this.initGroupsAndItems();
         this.initIntersectionObserver();
+    }
+    scrollToGroup(msg,data){
+        console.log(data);
+        document.querySelector('#anchor-' + this.app.cleanKey(data)).scrollIntoView({behavior: 'smooth'});
     }
     initIntersectionObserver(){
         function callback(entries){
@@ -176,6 +189,7 @@ export default class Waffle extends Element {
         }
     }
     initGroupsAndItems(){
+        this.groups = document.querySelectorAll('.' + s.groupDiv);
         function itemClickHandler(){
                 S.setState('selectHIA', +this.dataset.id);
         }
@@ -219,16 +233,25 @@ export default class Waffle extends Element {
         var node = document.querySelector(selector);
         var oldNode = document.querySelector('.' + s.isHighlighted);
         if (node) {
-            if (msg === 'hoverPrimaryGroup') {
+            if (msg !== 'hoverPrimaryGroup') {
                 if ( oldNode ){
                     oldNode.classList.remove(s.isHighlighted);
                 }
                 node.classList.add(s.isHighlighted);
-            }
-            if (msg === 'unHoverPrimaryGroup') {
-                setTimeout(() => {
-                    node.classList.remove(s.isHighlighted);
-                },1500);
+                if ( msg.split('.')[0] === 'selectPrimaryGroup' ){
+                    this.groups.forEach(group => {
+                        group.classList.add(s.isNotHighlighted);
+                        setTimeout(() => {
+                            group.classList.remove(s.isNotHighlighted);
+                        },2000);
+                    });
+                    setTimeout(() => {
+                        node.classList.remove(s.isHighlighted);
+                        S.setState(msg, null);
+                    },2000);
+                }
+            } else {
+                node.classList.remove(s.isHighlighted);
             }
         }
     }
