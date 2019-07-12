@@ -22,6 +22,7 @@
     &.isSelected {
         font-weight: 400;
         opacity: 1 !important;
+        background: svg-load('./circle-x.svg') calc(100% - 3px) 7px / 15px no-repeat;
     }
     .legendItemIsSelected & {
         opacity: 0.75;

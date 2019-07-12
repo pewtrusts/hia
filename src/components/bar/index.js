@@ -26,7 +26,7 @@ export default class Bar extends Element {
         //innerWrapper
         var innerWrapper = document.createElement('div');
         innerWrapper.classList.add(s.innerWrapper, 'js-innerWrapper', 'js-innerWrapper-' + this.data.primary);
-        innerWrapper.dataset.tippyContent = `<strong>${this.data.d.values.length} HIA${this.data.d.values.length > 1 ? 's' : ''}</strong><br />See below for details`;
+        innerWrapper.dataset.tippyContent = `<strong>${this.data.d.values.length} HIA${this.data.d.values.length > 1 ? 's' : ''}</strong><br />Click for details`;
         innerWrapper.dataset.key = this.data.d.key;
 
 
