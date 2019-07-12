@@ -82,18 +82,13 @@ export default class WaffleView extends Element {
         view.appendChild(waffleContainer);
        
 
-        var note = document.createElement('p');
-        note.classList.add(s.note);
-        note.textContent = 'Please note that a single HIA may appear in multiple groups.'
-        view.appendChild(note);
-
         return view;
     }
     returnDropdownWrapper(){
          //note
         var legendNote = document.createElement('p');
         legendNote.classList.add(s.legendNote, 'js-legend-note');
-        legendNote.innerHTML = '<strong>Note:</strong> HIAs can belong to multiple categories; they are color-coded according to the category listed first in the data source. Select an item from the legend to see all HIAs that belong.'
+        legendNote.innerHTML = '<strong>Note:</strong> The number of HIAs depicted in graphs and as squares below may add up to more than the total number of HIAs because one HIA can belong to more than one group. HIAs may also belong to more than one color-coded category. Select a category from the legend to see all HIAs that belong.'
         
         
 
