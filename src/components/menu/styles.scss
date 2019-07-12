@@ -113,12 +113,13 @@
         display: flex;
     }
     .navItemWrapper {
-        width: 20%;
-        max-width: 165px;
+        width: 16%;
+       // max-width: 165px;
         border-right: 3px solid #fff;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        flex-grow: 1;
         @media screen and (max-width: 1070px){
             display: block;
             width: 100%;
