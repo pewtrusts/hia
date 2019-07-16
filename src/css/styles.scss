@@ -64,7 +64,6 @@
 }
 #section-view {
     max-height: calc(100vh - 90px);
-    overflow-y: scroll; 
     @media screen and (max-width: 659px){
         max-height: calc(100vh - 75px);
     }
