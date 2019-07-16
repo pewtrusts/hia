@@ -18,12 +18,13 @@
 }
 .topContainer {
     position: sticky;
-    top: -2px;
+    top: 58px;
     z-index: 1;
     background-image: linear-gradient(#fff, #fff 95%, rgba(255,255,255,0));
     padding: 20px 0 30px;
     @media screen and (max-width: 659px){
         padding: 10px 0 0;
+        top: 0;
         &:global(.is-on-top){
             z-index: 4;
             

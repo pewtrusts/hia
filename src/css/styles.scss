@@ -25,7 +25,10 @@
             background-image: linear-gradient(#fff, #fff 90%, rgba(255,255,255,0));
             margin-bottom: 0;
             position: sticky;
-            top: -2px;
+            top: 58px;
+            @media screen and (max-width: 659px){
+                top: 0;
+            }
         }   
     }
 
