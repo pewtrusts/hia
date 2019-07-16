@@ -22,7 +22,7 @@
         z-index: 2;
         margin-top: 0;
         &.section-title{
-            background-image: linear-gradient(#fff, #fff 90%, transparent);
+            background-image: linear-gradient(#fff, #fff 90%, rgba(255,255,255,0));
             margin-bottom: 0;
             position: sticky;
             top: -2px;
