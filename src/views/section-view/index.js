@@ -152,6 +152,6 @@ class TopMenu extends Menu {
         this.el.querySelectorAll('a').forEach(link => {
             link.classList.remove(s.active);
         });
-        this.el.querySelector(`a[data-section="${data}"`).classList.add(s.active);
+        this.el.querySelector(`a[data-section="${data}"]`).classList.add(s.active);
     }
 }
