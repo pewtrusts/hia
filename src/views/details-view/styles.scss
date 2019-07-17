@@ -9,10 +9,16 @@
     background-color: $medium_blue;
     padding: 30px 9% 25px;
     transition: transform 0.2s ease-in-out;
-    transform: translateY(calc(100% + 50px));
+    transform: translateY(100%);
     z-index: 1;
     color: #fff;
     max-height: 100vh;
+    /*IE10 and IE11
+    ==================*/
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        left: auto;
+        max-width: 990px;
+    }
     @media screen and (max-width: 470px){
         padding-left: 10px;
         padding-right: 10px;

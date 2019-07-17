@@ -5,7 +5,6 @@ import * as d3 from 'd3-collection';
 import _ from 'lodash';
 import { stateModule as S } from 'stateful-dead';
 import PS from 'pubsub-setter';
-import smoothscroll from 'smoothscroll-polyfill';
 
 //import { publishWindowResize } from '@Utils';
 
@@ -33,7 +32,6 @@ import PCTApp from '@App';
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
 
-smoothscroll.polyfill();
 
 
 const yearBuckets = [2020,2017,2013,2009];

@@ -6,12 +6,13 @@
    //overflow-y: scroll; 
 }
 :global(.explore-module--iframe) {
- overflow: hidden;
+  overflow: hidden; /* commenting this out will craete scroll on IE */
+  //height: calc(100% - 50px);
+  > section {
+    overflow-y: auto;
+  }
 }
-:global(.explore-module--iframe > .container) {
-    max-height: calc(100vh - 90px);
-   
-}
+
 :global(.explore-module__sub-item-title){
   margin-bottom: 10px;
 }
