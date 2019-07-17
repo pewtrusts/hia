@@ -5,6 +5,7 @@ import * as d3 from 'd3-collection';
 import _ from 'lodash';
 import { stateModule as S } from 'stateful-dead';
 import PS from 'pubsub-setter';
+import smoothscroll from 'smoothscroll-polyfill';
 
 //import { publishWindowResize } from '@Utils';
 
@@ -31,6 +32,9 @@ import PCTApp from '@App';
 
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
+
+smoothscroll.polyfill();
+
 
 const yearBuckets = [2020,2017,2013,2009];
 
@@ -191,11 +195,11 @@ export default class HIA extends PCTApp {
         });
     }
     cleanKey(key) {
-        
-        if ( key === undefined ){
+        var isString = typeof key === 'string';
+        if ( key === undefined || key === null ){
             return 'null';
         }
-        key = typeof key === 'string' ? key : key[0];
+        key = isString ? key : key[0];
         if ( key === '' ){
             return 'none';
         }
