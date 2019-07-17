@@ -160,8 +160,9 @@ export default class Waffle extends Element {
         this.initIntersectionObserver();
     }
     scrollToGroup(msg,data){
-        console.log(data);
-        document.querySelector('#anchor-' + this.app.cleanKey(data)).scrollIntoView({behavior: 'smooth'});
+        if ( data ){
+            document.querySelector('#anchor-' + this.app.cleanKey(data)).scrollIntoView({behavior: 'smooth'});
+        }
     }
     initIntersectionObserver(){
         function callback(entries){
@@ -229,7 +230,7 @@ export default class Waffle extends Element {
         });
     }
     highlightGroup(msg, data) {
-        var selector = `.${s.groupDiv}[data-group="${data}"`;
+        var selector = `.${s.groupDiv}[data-group="${data}"]`;
         var node = document.querySelector(selector);
         var oldNode = document.querySelector('.' + s.isHighlighted);
         if (node) {
