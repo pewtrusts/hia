@@ -45,7 +45,12 @@ export default class Menu extends Element {
         var _this = this;
         this.items = this.el.querySelectorAll('a');
         this.items.forEach(item => {
-            item.isDisabled = true;
+            Object.defineProperty(item, 'isDisabled', { // IE11 is tripping up on writing a property to `item`; says isDisabled is read-only. it may be something to do withthe
+                                                        // Nodelist.prototype.forEach polyfill
+                value: true,
+                writable: true
+            });
+            //item.isDisabled = true;
             item.addEventListener('click', function(e){
                 e.preventDefault();
                 if ( item.isDisabled ){
