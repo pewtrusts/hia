@@ -91,9 +91,6 @@ module.exports = env => { // module.exports is function now to pass in env varia
             }, {
                 from: 'assets/**/*.*',
                 context: 'src',
-            }, {
-                from: 'js/worker.js',
-                context: 'src'
             }
             ]),
             new webpack.HotModuleReplacementPlugin(),
@@ -103,7 +100,8 @@ module.exports = env => { // module.exports is function now to pass in env varia
         ],
         output: {
             filename: '[name].js?v=[hash:6]',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'dist'),
+            globalObject: 'this' // needed to get imported worker to work
         },
     });
 };

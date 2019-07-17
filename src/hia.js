@@ -7,6 +7,8 @@ import { stateModule as S } from 'stateful-dead';
 import PS from 'pubsub-setter';
 
 //import { publishWindowResize } from '@Utils';
+//worker
+import Worker from './worker.js';
 
 //data 
 import fields from './data/metadata.json';
@@ -140,10 +142,13 @@ export default class HIA extends PCTApp {
         var publicPath = '';
         if ( process.env.NODE_ENV === 'production' ){ // production build needs to know the public path of assets
                                                                                  // for dev and preview, assets are a child of root; for build they
-                                                                                 // are in some distant path on sitecore
+            console.log(publicPath);                                                            // are in some distant path on sitecore
             publicPath = PUBLICPATH;
         }
-        this.worker = new Worker(publicPath + 'worker.js');
+        this.worker = new Worker();
+        this.worker.onerror = () => {
+            this.workerFallback();
+        }
         this.views.length = 0;
         
         super.init();
@@ -168,6 +173,12 @@ export default class HIA extends PCTApp {
             });
         });
         
+    }
+    workerFallback(){
+        this.APIdata = fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d9dc47f1-2c76-444a-b4e3-b60d29bb3237&q=&sortBy=relevance&sortOrder=asc&page=1&loadAllPages=true&resourceTypes%5B%5D=HIA%20reports')
+        .then(function(response){
+            return response.json();
+        });
     }
     pushViews(){
         this.views.push(

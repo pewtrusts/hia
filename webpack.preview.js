@@ -64,6 +64,7 @@ module.exports = env => {
         output: {
             filename: '[name].js',
             path: path.join(__dirname, folder),
+            globalObject: 'this' // needed to get imported worker to work
         }
       });
   };

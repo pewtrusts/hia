@@ -56,6 +56,9 @@ export default class DetailsView extends Element {
             document.getElementById('hia-title-link').setAttribute('href', e.data[0]);
             document.getElementById('hia-language').textContent = e.data[1];
         }
+        /*this.app.worker.onerror = function(e){
+            console.log(e);
+        }*/
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
@@ -96,7 +99,13 @@ export default class DetailsView extends Element {
 
         `;
         document.querySelector('.js-details-container').innerHTML = template;
-        this.app.worker.postMessage(d.title);
+        if ( !this.app.APIdata ) {
+            this.app.worker.postMessage(d.title);
+        } else {
+            let match = this.app.APIdata.find(c => c.title === d.title);
+            document.getElementById('hia-title-link').setAttribute('href', match.url);
+            document.getElementById('hia-language').textContent = match.language;
+        }
     }
 }
 

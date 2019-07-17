@@ -2,7 +2,7 @@ var APIdata = fetch('https://www.pewtrusts.org/api/hipmapapi/getresults?pageId=d
         .then(function(response){
             return response.json();
         });
-console.log(APIdata);
+console.log('apidata', APIdata);
 onmessage = async e => {
     var data = await APIdata;
     var title = e.data;

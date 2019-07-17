@@ -22,6 +22,15 @@ module.exports = env => { // module.exports is function now to pass in env varia
                             }
                         ]},
                         {
+                            test: /worker\.js/,
+                            use: [{
+                                loader: 'worker-loader'
+                            },
+                            {
+                                loader: 'eslint-loader'
+                            }]
+                        },
+                        {
                             test: /\.csv$/,
                             loader: 'file-loader',
                             options: {
