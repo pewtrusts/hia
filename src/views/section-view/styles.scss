@@ -28,6 +28,13 @@
     left: 0;
     top: 50px;
     z-index: 3;
+    max-width: 1087px;
+    /*IE10 and IE11
+    ==================*/
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        left: auto;
+        max-width: 990px;
+    }
     @media screen and (max-width: 920px) {
         top: 32px;
     }
