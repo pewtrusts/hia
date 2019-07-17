@@ -32,6 +32,20 @@ import PCTApp from '@App';
 // some of the data has multiple values in a field. some of these need to be separated out so they can be
 // visualized separately. identify those fields here
 
+SVGElement.prototype.contains = SVGElement.prototype.contains || function contains(node) {
+    /* eslint no-cond-assign: off */
+    if (!(0 in arguments)) {
+        throw new TypeError('1 argument is required');
+    }
+ 
+    do {
+        if (this === node) {
+            return true;
+        }
+    } while (node = node && node.parentNode);
+ 
+    return false;
+};
 
 
 const yearBuckets = [2020,2017,2013,2009];
