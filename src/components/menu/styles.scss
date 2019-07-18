@@ -76,7 +76,10 @@
         font-size: 32px;
         width: 100%;
         flex-grow: 1;
-        background: svg-load('right-caret.min.svg', stroke=#fff) calc(100% - 25px) center / 20px no-repeat;
+        background-image: svg-load('right-caret.min.svg', stroke=#fff);
+        background-position: calc(100% - 25px) center;
+        background-size: 20px 35px;
+        background-repeat: no-repeat;
         span {
             span {
                 display: block;

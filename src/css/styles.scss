@@ -1,7 +1,19 @@
 @import 'variable.scss';
 
 /* this is for global styles. selectors are not rewritten. module = false in dev config */
-
+.ie-note {
+    position: absolute;
+    color: #fff;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    top: 10px;
+    display: none;
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+        display: block;
+    }
+}
 .flex {
     display: flex;
 }
