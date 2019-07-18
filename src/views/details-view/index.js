@@ -78,9 +78,10 @@ export default class DetailsView extends Element {
         if ( !data ){
             return;
         }
-        var d = this.model.data.find(function(d){
-            return d.id === data;
-        });
+        console.log(this.model.data);
+        var d = this.model.data.find(function(x){
+            return x.id === data;
+        }); //using filter ... [0] bc the IE11 find polyfill is throwing fits
         var date = !isNaN(parseInt(d.publicationDate)) ? parseInt(d.publicationDate) : d.publicationDate;
         var template = `<h2 class="${s.detailsHeading}"><a target="_blank" id="hia-title-link">${d.title}</a></h2>
                         <p><b>Date:</b> ${date}</p>
@@ -102,9 +103,12 @@ export default class DetailsView extends Element {
         if ( !this.app.APIdata ) {
             this.app.worker.postMessage(d.title);
         } else {
-            let match = this.app.APIdata.find(c => c.title === d.title);
-            document.getElementById('hia-title-link').setAttribute('href', match.url);
-            document.getElementById('hia-language').textContent = match.language;
+            this.app.APIdata.then(function(v){
+                console.log(v);
+                let match = v.results.find(c => c.title === d.title); //using filter ... [0] bc the IE11 find polyfill is throwing fits
+                document.getElementById('hia-title-link').setAttribute('href', match.url);
+                document.getElementById('hia-language').textContent = match.language;
+            });
         }
     }
 }
