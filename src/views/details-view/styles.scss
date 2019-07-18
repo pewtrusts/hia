@@ -12,7 +12,8 @@
     transform: translateY(100%);
     z-index: 1;
     color: #fff;
-    max-height: 100vh;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
     /*IE10 and IE11
     ==================*/
     @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
