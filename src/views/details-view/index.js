@@ -51,14 +51,7 @@ export default class DetailsView extends Element {
             ['selectHIA', this.update.bind(this)]
         ]);
         this.el.addEventListener('click', this.clickHandler)
-        this.app.worker.onmessage = function(e){
-            console.log(e);
-            document.getElementById('hia-title-link').setAttribute('href', e.data[0]);
-            document.getElementById('hia-language').textContent = e.data[1];
-        }
-        /*this.app.worker.onerror = function(e){
-            console.log(e);
-        }*/
+        
         /* to do*/
 
         //subscribe to secondary dimension , drilldown, details
@@ -100,16 +93,13 @@ export default class DetailsView extends Element {
 
         `;
         document.querySelector('.js-details-container').innerHTML = template;
-        if ( !this.app.APIdata ) {
-            this.app.worker.postMessage(d.title);
-        } else {
+        
             this.app.APIdata.then(function(v){
                 console.log(v);
                 let match = v.results.find(c => c.title === d.title); //using filter ... [0] bc the IE11 find polyfill is throwing fits
                 document.getElementById('hia-title-link').setAttribute('href', match.url);
                 document.getElementById('hia-language').textContent = match.language;
             });
-        }
     }
 }
 

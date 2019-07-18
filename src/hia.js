@@ -7,8 +7,6 @@ import { stateModule as S } from 'stateful-dead';
 import PS from 'pubsub-setter';
 
 //import { publishWindowResize } from '@Utils';
-//worker
-import Worker from './worker.js';
 
 //data 
 import fields from './data/metadata.json';
@@ -145,10 +143,7 @@ export default class HIA extends PCTApp {
             console.log(publicPath);                                                            // are in some distant path on sitecore
             publicPath = PUBLICPATH;
         }
-        this.worker = new Worker();
-        this.worker.onerror = () => {
-            this.workerFallback();
-        }
+        this.workerFallback();
         this.views.length = 0;
         
         super.init();
