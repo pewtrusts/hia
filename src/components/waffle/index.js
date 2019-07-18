@@ -207,14 +207,6 @@ export default class Waffle extends Element {
             item.addEventListener('click', itemClickHandler);
         });
     }
-    setTippys(group) {
-
-        tippy(group, {
-            content: `<strong>${group.dataset.count} HIA${+group.dataset.count > 1 ? 's' : ''}</strong><br />Click for details`,
-            trigger: 'manual',
-            offset: '0, -100'
-        });
-    }
     setItemTippy(item){
         var nested = this.model.nestBy[this.secondary];        
         var indicators = JSON.parse(item.dataset.secondaries).reduce((acc, cur) => {
@@ -225,8 +217,10 @@ export default class Waffle extends Element {
             }
         },'');
         tippy(item, {
-            content: `<strong>${item.dataset.title}</strong><br /><span class="flex space-between"><span>Click for details</span><span class="${s.indicatorsGroup}">${indicators}</span>`,
-            trigger: 'manual'
+            content: `<strong>${item.dataset.title}</strong><br /><span class="flex space-between"><span>Clic for details</span><span class="${s.indicatorsGroup}">${indicators}</span>`,
+            followCursor: true
+            
+ 
         });
     }
     highlightGroup(msg, data) {
