@@ -22,6 +22,7 @@
     z-index: 1;
     background-image: linear-gradient(#fff, #fff 95%, rgba(255,255,255,0));
     padding: 20px 0 30px;
+    will-change: scroll-position;
     @media screen and (max-width: 659px){
         padding: 10px 0 0;
         top: 0;
@@ -29,6 +30,11 @@
             z-index: 4;
             
         }
+    }
+    /* Microsoft Edge Browser 12+ (All) - @supports method */
+    /* the scroll on MSEdge position-sticky is so janky, best to disable it */
+    @supports (-ms-ime-align:auto) {
+        position: static;
     }
     
 }

@@ -41,6 +41,11 @@
             @media screen and (max-width: 659px){
                 top: 0;
             }
+            /* Microsoft Edge Browser 12+ (All) - @supports method */
+            /* the scroll on MSEdge position-sticky is so janky, best to disable it */
+            @supports (-ms-ime-align:auto) {
+                position: static;
+            }
         }   
     }
 
