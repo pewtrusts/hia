@@ -139,6 +139,7 @@ export default class MapView extends Element {
     init(){
         
 
+
         PS.setSubs([
             ['hoverPrimaryGroup', this.highlightState.bind(this)],
             ['unHoverPrimaryGroup', this.highlightState.bind(this)],
@@ -147,9 +148,9 @@ export default class MapView extends Element {
 
 
         
-        this.setTippys();
 
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
+        this.setTippys();
         this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
@@ -214,7 +215,9 @@ export default class MapView extends Element {
                 followCursor: true
             });
         }
+        console.log(document);
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
+        console.log(this.mapContainer);
         this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
