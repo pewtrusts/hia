@@ -17,5 +17,4 @@ if ( process.env.NODE_ENV === 'development' || window.IS_PRERENDERING ){ // proc
     App.prerender();
 } else {
     App.init();
-    
 }

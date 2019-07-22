@@ -46,9 +46,9 @@ module.exports = env => {
                  renderer: new PrerenderSPAPlugin.PuppeteerRenderer({
                      injectProperty: 'IS_PRERENDERING',
                      inject: true,
-                    //headless: false,
-                     //sloMo: 10000,
-                     renderAfterTime: 1000
+                     //renderAfterTime: 5000,
+                     renderAfterDocumentEvent: 'all-views-ready',
+                     headless: false
                  }),
                  postProcess: function(renderedRoute){
                      renderedRoute.html = renderedRoute.html.replace(/class="emitted-css" href="(.*?)"/,'class="emitted-css" href="' + publicPath + '$1' + '"');
