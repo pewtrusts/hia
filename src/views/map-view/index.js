@@ -71,7 +71,7 @@ export default class MapView extends Element {
             stateSquare.classList.add(s.stateSquare);
             stateSquare.classList.add(`js-state-square-${this.app.cleanKey(state.key)}`);
             stateSquare.textContent = this.model.stateAbbreviations[state.key];
-            stateSquare.style.backgroundColor = this.colorScale(Math.log10(state.values.length));
+            stateSquare.style.setProperty('background-color',this.colorScale(Math.log10(state.values.length)));
             tileMapContainer.appendChild(stateSquare);
         });
         return tileMapContainer;
