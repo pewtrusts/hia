@@ -65,6 +65,7 @@ export default class Waffle extends Element {
             var anchor = document.createElement('div');
             anchor.classList.add(s.groupAnchor);
             anchor.id = 'anchor-' + this.app.cleanKey(group.key);
+            anchor.setAttribute('tabindex','0');
             groupDiv.appendChild(anchor);
 
             var itemsContainer = document.createElement('div');
@@ -161,7 +162,9 @@ export default class Waffle extends Element {
     }
     scrollToGroup(msg,data){
         if ( data ){
+            let anchor = document.querySelector('#anchor-' + this.app.cleanKey(data));
             document.querySelector('#anchor-' + this.app.cleanKey(data)).scrollIntoView({behavior: 'smooth'});
+            anchor.focus();
         }
     }
     initIntersectionObserver(){
