@@ -163,8 +163,8 @@ export default class Waffle extends Element {
     scrollToGroup(msg,data){
         if ( data ){
             let anchor = document.querySelector('#anchor-' + this.app.cleanKey(data));
-            document.querySelector('#anchor-' + this.app.cleanKey(data)).scrollIntoView({behavior: 'smooth'});
             anchor.focus();
+            anchor.scrollIntoView({behavior: 'smooth'});
         }
     }
     initIntersectionObserver(){

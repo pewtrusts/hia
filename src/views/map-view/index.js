@@ -38,17 +38,44 @@ export default class MapView extends Element {
         var mapContainer = this.prerenderMap();
         var legend = this.prerenderLegend();
 
+        //tilemap
+
+        var tileMap = this.prerenderTileMap();
+
         //note
         var mapNote = document.createElement('p');
         mapNote.textContent = 'Only US territories that have conducted HIAs are represented on the map.';
 
         view.appendChild(title);
         view.appendChild(mapContainer);
+        view.appendChild(tileMap);
         view.appendChild(legend);
         view.appendChild(mapNote);
 
+
        //view.innerText = this.name;
         return view;
+    }
+    prerenderTileMap(){
+        function sortAlpha(a,b, direction = 'ascending'){
+            var sorted = [a,b].sort();
+            return direction === 'ascending' ? sorted.indexOf(a) - sorted.indexOf(b) : sorted.indexOf(b) - sorted.indexOf(a);
+        }
+        var tileMapContainer = document.createElement('div');
+        tileMapContainer.classList.add(s.tileMapContainer);
+        tileMapContainer.classList.add('js-tilemap-container');
+
+        var data  = this.model.nestBy.stateOrTerritory.slice().sort((a,b) => sortAlpha(a.key,b.key));
+        data.forEach(state => {
+            var stateSquare = document.createElement('div');
+            stateSquare.classList.add(s.stateSquare);
+            stateSquare.classList.add(`js-state-square-${this.app.cleanKey(state.key)}`);
+            stateSquare.textContent = this.model.stateAbbreviations[state.key];
+            stateSquare.style.backgroundColor = this.colorScale(Math.log10(state.values.length));
+            tileMapContainer.appendChild(stateSquare);
+        });
+        return tileMapContainer;
+
     }
     prerenderMap(){
         var mapContainer = document.createElement('div');
@@ -148,12 +175,13 @@ export default class MapView extends Element {
 
 
         
-
+        this.tileMapContainer = document.querySelector('.js-tilemap-container');
         this.mapContainer = this.mapContainer || document.querySelector('.js-map-container');
         this.setTippys();
         this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+             var tile = this.tileMapContainer.querySelector('.js-state-square-' + this.app.cleanKey([d.key]));
             if ( d.key !== "null") {
                 if ( stateGroup ){
                     stateGroup.addEventListener('click', e => {
@@ -174,6 +202,17 @@ export default class MapView extends Element {
                         S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
                     });
                     stateBox.addEventListener('mouseleave', function(){
+                        S.setState('unHoverPrimaryGroup', d.key, {forceChange: true});
+                    });
+                }
+                if ( tile ){
+                    tile.addEventListener('click', e => {
+                        this.stateClickHandler.call(this, d, e);
+                    });
+                    tile.addEventListener('mouseenter', function(){
+                        S.setState('hoverPrimaryGroup', d.key, {forceChange: true});
+                    });
+                    tile.addEventListener('mouseleave', function(){
                         S.setState('unHoverPrimaryGroup', d.key, {forceChange: true});
                     });
                 }
@@ -221,12 +260,16 @@ export default class MapView extends Element {
         this.model.nestBy.stateOrTerritory.forEach(d => {
             var stateGroup = this.mapContainer.querySelector('.state-' + this.model.stateAbbreviations[d.key]);
             var stateBox = this.mapContainer.querySelector('.state-box-' + this.model.stateAbbreviations[d.key]);
+            var tile = this.tileMapContainer.querySelector('.js-state-square-' + this.app.cleanKey([d.key]));
             if ( d.key !== "null") {
                 if ( stateGroup ){
                     setTippy(stateGroup, d);
                 }
                 if ( stateBox ){
                     setTippy(stateBox, d);
+                }
+                if ( tile ){
+                    setTippy(tile, d);
                 }
             }
         });   
