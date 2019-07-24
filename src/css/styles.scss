@@ -1,7 +1,7 @@
 @import 'variable.scss';
 
 /* this is for global styles. selectors are not rewritten. module = false in dev config */
-.ie-note {
+.rich-text .ie-note {
     position: absolute;
     color: #fff;
     font-style: italic;
@@ -29,7 +29,6 @@
     height: calc(100vh - 91px);
     overflow-y: auto;
     h2 {
-        padding: 0 2px;
         padding: 20px 0;
         z-index: 2;
         margin-top: 0;

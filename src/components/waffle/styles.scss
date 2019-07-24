@@ -59,7 +59,7 @@
 
 }
 
-.groupDivHeading {
+:global(.rich-text) .groupDivHeading {
     .isHighlighted & {
         font-weight: 900;
     }
