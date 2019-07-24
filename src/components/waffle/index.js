@@ -59,7 +59,7 @@ export default class Waffle extends Element {
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
             groupDiv.classList.add(s.groupDiv, 'js-group-' + this.app.cleanKey(group.key));
-            groupDiv.insertAdjacentHTML('afterbegin', `<h3 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : '[blank]'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
+            groupDiv.insertAdjacentHTML('afterbegin', `<h3 style="width: ${width}px;" class="${s.groupDivHeading}">${group.key !== '' ? group.key : 'Not specified'}<br /><span class="${s.itemCount}">${group.values.length}</span></h2>`);
 
             //anchor
             var anchor = document.createElement('div');
