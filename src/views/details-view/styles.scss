@@ -19,7 +19,7 @@
     @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
         left: auto;
         max-width: 990px;
-    }
+    } 
     @media screen and (max-width: 470px){
         padding-left: 10px;
         padding-right: 10px;
@@ -31,17 +31,17 @@
         font-weight: 900;
     }
 }
-.columnsWrapper {
-    display: flex;
+.columnsWrapper {  
+    display: flex; 
     flex-wrap: wrap;
-    p {
+    p {  
         width: 312px;
-        padding-right: 20px;
+        padding-right: 20px;  
     }
 }
 .container {
     width: 100%;
-    max-width: 625px;
+    max-width: 625px; 
 }
 
 :global(#pew-app) .closeButton {
@@ -56,6 +56,10 @@
 
 
 }
-.detailsHeading a {
-    color: #fff !important;
+.detailsHeading {
+    a {
+        background: inline('./arrow.svg') no-repeat right;
+        color: #fff !important;
+        padding-right: 30px;
+    }
 }
