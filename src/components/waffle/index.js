@@ -217,7 +217,7 @@ export default class Waffle extends Element {
             }
         },'');
         tippy(item, {
-            content: `<strong>${item.dataset.title}</strong><br /><span class="flex space-between"><span>Clic for details</span><span class="${s.indicatorsGroup}">${indicators}</span>`,
+            content: `<strong>${item.dataset.title}</strong><br /><span class="flex space-between"><span>Click for details</span><span class="${s.indicatorsGroup}">${indicators}</span>`,
             followCursor: true
             
  
