@@ -54,7 +54,7 @@ export default class Waffle extends Element {
         }
         this.nestedData.forEach(group => {
             var groupDiv = document.createElement('div');
-            var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 15 * 28);
+            var width = Math.min(Math.ceil(Math.sqrt(group.values.length)) * 28, 14 * 28);
 
             groupDiv.dataset.group = group.key;
             groupDiv.dataset.count = group.values.length;
