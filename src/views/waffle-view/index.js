@@ -88,7 +88,7 @@ export default class WaffleView extends Element {
          //note
         var legendNote = document.createElement('p');
         legendNote.classList.add(s.legendNote, 'js-legend-note');
-        legendNote.innerHTML = '<strong>Note:</strong> The number of HIAs depicted in graphs and as squares below may add up to more than the total number of HIAs because one HIA can belong to more than one group. HIAs may also belong to more than one color-coded category. Select a category from the legend to see all HIAs that belong.'
+        legendNote.innerHTML = '<strong>Note:</strong> HIAs may be included in multiple dimension categories. For example, an HIA could be included in two sectors or organization types Select a category from the legend to see all HIAs that belong.'
         
         
 
