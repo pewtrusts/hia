@@ -1,5 +1,7 @@
 @import 'variable.scss';
-
+:global(.explore-module__modal-iframe-wrapper){
+  overflow-y: hidden;
+}
 :global(.explore-module__modal-inner) {
     height: 100%;
     margin-top: 0;
