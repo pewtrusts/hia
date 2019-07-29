@@ -88,7 +88,7 @@ export default class WaffleView extends Element {
          //note
         var legendNote = document.createElement('p');
         legendNote.classList.add(s.legendNote, 'js-legend-note');
-        legendNote.innerHTML = '<strong>Note:</strong> HIAs may be included in multiple dimension categories. For example, an HIA could be included in two sectors or organization types Select a category from the legend to see all HIAs that belong.'
+        legendNote.innerHTML = '<strong>Note:</strong> HIAs may be included in multiple dimension categories. For example, an HIA could be included in two sectors or organization types. Select a category from the legend to see all HIAs that belong.'
         
         
 
