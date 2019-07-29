@@ -23,6 +23,9 @@ import MaskView from './views/mask-view/';
 // app prototype
 import PCTApp from '@App';
 
+const dataSource = 'https://www.pewtrusts.org/api/hipmapapi/getdownload?resourceTypes=HIA%20reports&sortBy=relevance&sortOrder=asc&loadAllPages=true&pageId={d9dc47f1-2c76-444a-b4e3-b60d29bb3237}';
+//const dataSource = '/data/localHIAData.csv';
+
 //static content
 //import sections from './partials/sections.html';
 //import footer from './partials/footer.html';
@@ -70,7 +73,7 @@ function cleanHeaderRow(match){
 
 function getRuntimeData() {
     return new Promise((resolveWrapper, rejectWrapper) => {
-        Papa.parse('https://www.pewtrusts.org/api/hipmapapi/getdownload?resourceTypes=HIA%20reports&sortBy=relevance&sortOrder=asc&loadAllPages=true&pageId={d9dc47f1-2c76-444a-b4e3-b60d29bb3237}', {
+        Papa.parse(dataSource, {
             beforeFirstChunk: function(chunk){
                 var newChunk = chunk.replace(/.*/, function(match){
                     return cleanHeaderRow(match);

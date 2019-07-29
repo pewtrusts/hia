@@ -24,12 +24,12 @@ export default class SectionView extends Element {
          //container
         var view = super.prerender();
         this.name = 'SectionView';
-        this.barViews = this.model.fields.filter(f => !f.isSecondaryOnly && f.key !== 'stateOrTerritory' ).map(f => this.createComponent(BarView, `section#bar-view-${f.key}`, {data: {primary: f.key}}));
+        this.barViews = this.model.fields.filter(f => !f.isSecondaryOnly && f.key !== 'stateOrTerritory' ).map(f => this.createComponent(BarView, `section#bar-view-${f.key}`, {rerenderOnDataMismatch: true, data: {primary: f.key}}));
         this.addChildren([
             this.createComponent(TopMenu, 'div#top-menu'),
-            this.createComponent(MapView, 'section#map-view'),
+            this.createComponent(MapView, 'section#map-view', {rerenderOnDataMismatch: true}),
             ...this.barViews,
-            this.createComponent(WaffleView, 'section#waffle-view')
+            this.createComponent(WaffleView, 'section#waffle-view', {rerenderOnDataMismatch: true})
         ]);
         if ( this.prerendered && !this.rerender) {
             return view; // if prerendered and no need to render (no data mismatch)
