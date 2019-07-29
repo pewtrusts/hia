@@ -91,6 +91,10 @@ module.exports = env => { // module.exports is function now to pass in env varia
             }, {
                 from: 'assets/**/*.*',
                 context: 'src',
+            }, {
+                from: 'data/localHIAData.csv',
+                context: 'src',
+                to: 'data'
             }
             ]),
             new webpack.HotModuleReplacementPlugin(),

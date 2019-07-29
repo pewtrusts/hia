@@ -38,8 +38,15 @@ module.exports = env => {
                     } else  {
                         return content.toString().replace(/url\("\/([^/])/g, 'url("/' + repoName + '/$1').replace(/\/pew\//g,'/Pew/'); // this modifies the content of the files being copied; here making sure url('/...') is changed
                     }
-                }
-            }]),
+                },
+
+            },
+            {
+                from: 'data/localHIAData.csv',
+                context: 'src',
+                to: 'data'
+            }
+            ]),
             new PrerenderSPAPlugin({
                 // Required - The path to the webpack-outputted app to prerender.
                 staticDir: path.join(__dirname, folder),
