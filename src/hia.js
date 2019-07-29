@@ -1,4 +1,6 @@
 /* global process PUBLICPATH */
+import initRollbar from './rollbarInstance.js';
+
 //utils
 import Papa from 'papaparse';
 import * as d3 from 'd3-collection';
@@ -22,6 +24,8 @@ import MaskView from './views/mask-view/';
 
 // app prototype
 import PCTApp from '@App';
+
+initRollbar();
 
 const dataSource = 'https://www.pewtrusts.org/api/hipmapapi/getdownload?resourceTypes=HIA%20reports&sortBy=relevance&sortOrder=asc&loadAllPages=true&pageId={d9dc47f1-2c76-444a-b4e3-b60d29bb3237}';
 //const dataSource = '/data/localHIAData.csv';
