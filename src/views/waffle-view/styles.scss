@@ -22,6 +22,9 @@
     z-index: 1;
     background-image: linear-gradient(#fff, #fff 95%, rgba(255,255,255,0));
     padding: 20px 0 30px;
+    @media screen and (max-width: 1070px){
+        top: 117px;
+    }
     @media screen and (max-width: 659px){
         padding: 10px 0 0;
         top: 0;
@@ -92,6 +95,7 @@
     li {
         margin: 0 !important;
         padding: 12px;
+        font-size: 12px;
         &:hover {
         background-color: $very_light_blue;
         text-decoration: underline;
@@ -166,7 +170,7 @@
 :global(#pew-app) .showLegendButton {
     position: fixed;
     top: 0;
-    right: 65px;
+    right: 51px;
     padding: 8px 10px;
     background-color: $medium_blue;
     color: #fff;
